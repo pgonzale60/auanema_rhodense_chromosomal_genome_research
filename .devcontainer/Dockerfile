@@ -32,6 +32,9 @@ RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org
 # Install R language server for VSCode integration (before renv::restore())
 RUN R -e "install.packages('languageserver', repos = c(CRAN = 'https://cloud.r-project.org'))"
 
+# Configure R to prefer binary packages globally
+RUN echo 'options(pkgType = "binary")' >> /usr/local/lib/R/etc/Rprofile.site
+
 # Set working directory
 WORKDIR /workspace
 
@@ -43,8 +46,8 @@ COPY renv/.gitignore renv/.gitignore
 COPY renv/settings.json renv/settings.json
 
 # Restore all R packages from renv.lock during build
-# This caches packages in the Docker image layer
-RUN R -e "renv::restore()"
+# Use binary packages to speed up installation and avoid compilation issues
+RUN R -e "options(pkgType = 'binary'); renv::restore()"
 
 # Change ownership to rstudio user
 RUN chown -R rstudio:rstudio /workspace
