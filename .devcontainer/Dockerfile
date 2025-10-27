@@ -29,19 +29,25 @@ RUN echo "rstudio ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Install renv
 RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"
 
+# Install R language server for VSCode integration (before renv::restore())
+RUN R -e "install.packages('languageserver', repos = c(CRAN = 'https://cloud.r-project.org'))"
+
 # Set working directory
 WORKDIR /workspace
 
 # Copy renv configuration files
-# Note: renv::restore() will be run manually or via postCreateCommand
 COPY renv.lock renv.lock
 COPY .Rprofile .Rprofile
 COPY renv/activate.R renv/activate.R
 COPY renv/.gitignore renv/.gitignore
 COPY renv/settings.json renv/settings.json
 
-# Install R language server for VSCode integration
-RUN R -e "install.packages('languageserver', repos = c(CRAN = 'https://cloud.r-project.org'))"
+# Restore all R packages from renv.lock during build
+# This caches packages in the Docker image layer
+RUN R -e "renv::restore()"
+
+# Change ownership to rstudio user
+RUN chown -R rstudio:rstudio /workspace
 
 # Default command (RStudio server for web interface)
 CMD ["/init"]

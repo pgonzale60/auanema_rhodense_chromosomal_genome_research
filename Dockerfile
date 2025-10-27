@@ -15,13 +15,38 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     libpng-dev \
     libtiff-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-dev \
     gfortran \
     git \
     zlib1g-dev \
     libbz2-dev \
     liblzma-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Install corporate SSL certificate if present (for corporate network)
+COPY zscaler.crt /usr/local/share/ca-certificates/zscaler.crt
+RUN update-ca-certificates && \
+    echo "=== Certificate installed ===" && \
+    ls -lh /etc/ssl/certs/ca-certificates.crt
+
+# Set SSL environment variables for R to use system certificates
+ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+ENV R_LIBCURL_SSL_REVOKE_BEST_EFFORT=TRUE
+
+# Configure R to use system certificates via Renviron.site
+# These settings ensure renv uses the correct certificate bundle
+RUN echo "CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt" > /usr/local/lib/R/etc/Renviron.site && \
+    echo "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> /usr/local/lib/R/etc/Renviron.site && \
+    echo "R_LIBCURL_SSL_REVOKE_BEST_EFFORT=TRUE" >> /usr/local/lib/R/etc/Renviron.site && \
+    echo "=== R environment configuration ===" && \
+    cat /usr/local/lib/R/etc/Renviron.site
+
+# Verify R can see the SSL settings before attempting package installation
+RUN echo "=== Testing R SSL configuration ===" && \
+    R --vanilla --quiet -e "cat('CURL_CA_BUNDLE:', Sys.getenv('CURL_CA_BUNDLE'), '\n')" && \
+    R --vanilla --quiet -e "cat('SSL_CERT_FILE:', Sys.getenv('SSL_CERT_FILE'), '\n')" && \
+    R --vanilla --quiet -e "cat('R_LIBCURL_SSL_REVOKE_BEST_EFFORT:', Sys.getenv('R_LIBCURL_SSL_REVOKE_BEST_EFFORT'), '\n')"
 
 # Set working directory
 WORKDIR /workspace

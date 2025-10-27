@@ -25,13 +25,10 @@ The environment will automatically set up with:
 - R 4.4.2
 - RStudio Server (accessible via browser)
 - All system dependencies
+- All R packages pre-installed from `renv.lock`
 - VSCode R extensions
 
-After the container starts:
-```r
-# In the R terminal
-renv::restore()  # Install all R packages from renv.lock
-```
+**No additional setup needed** - all packages are ready to use!
 
 ### Option 2: Local VSCode Dev Container
 
@@ -42,7 +39,7 @@ If you have Docker and VSCode installed locally:
 3. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
 4. Select "Dev Containers: Reopen in Container"
 
-After the container builds, open an R terminal and run `renv::restore()`.
+All packages will be pre-installed during the container build (first build takes ~15 minutes, then cached).
 
 ### Option 3: Docker Compose (Local)
 
@@ -166,14 +163,27 @@ If you prefer to run locally:
 
 ## Citation
 
-If you use this code or data, please cite:
+If you use this code or data in your research, please cite this repository:
 
-[Your publication details here]
+```
+Gonzalez de la Rosa, P. (2025). Auanema rhodense Genome Analysis.
+GitHub repository: https://github.com/pgonzale60/auanema_rhodense_chromosomal_genome_research
+```
+
+A peer-reviewed publication is in preparation.
 
 ## Contact
 
-[Your contact information]
+For questions or collaboration inquiries:
+- **Pablo Gonzalez de la Rosa**: pgonzale60@gmail.com | [@pgonzale60](https://github.com/pgonzale60)
+- **Mark Blaxter**: mb35@sanger.ac.uk
 
 ## License
 
-[Add license here]
+This project is dual-licensed following Wellcome Sanger Institute practices:
+- **Code** (R scripts): AGPL-3.0
+- **Data** (genome annotations, results): CC BY 4.0
+
+See the [LICENSE](LICENSE) file for full details.
+
+Copyright (c) 2025 Genome Research Ltd. (Wellcome Sanger Institute)

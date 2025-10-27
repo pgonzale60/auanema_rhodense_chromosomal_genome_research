@@ -1,0 +1,61 @@
+Auanema rhodense Genome Analysis
+Copyright (c) 2025 Genome Research Ltd. (Wellcome Sanger Institute)
+
+This project contains both code and data, licensed under different terms:
+
+================================================================================
+CODE LICENSE (R scripts and analysis code)
+================================================================================
+
+GNU Affero General Public License v3.0 (AGPL-3.0)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
+DATA LICENSE (genome annotations, analysis results, documentation)
+================================================================================
+
+Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+You are free to:
+- Share: copy and redistribute the material in any medium or format
+- Adapt: remix, transform, and build upon the material for any purpose,
+  even commercially
+
+Under the following terms:
+- Attribution: You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made. You may do so in any
+  reasonable manner, but not in any way that suggests the licensor
+  endorses you or your use.
+
+Full license: https://creativecommons.org/licenses/by/4.0/
+
+================================================================================
+ATTRIBUTION
+================================================================================
+
+This work was conducted at the Wellcome Sanger Institute.
+
+When using this code or data, please cite:
+Gonzalez de la Rosa, P. (2025). Auanema rhodense Genome Analysis.
+Wellcome Sanger Institute.
+GitHub: https://github.com/pgonzale60/auanema_rhodense_chromosomal_genome_research
+
+================================================================================
+CONTACT
+================================================================================
+
+For questions about licensing or collaboration:
+- Pablo Gonzalez de la Rosa: pgonzale60@gmail.com
+- Mark Blaxter: mb35@sanger.ac.uk

@@ -46,6 +46,10 @@ renv/staging/
 # Docker volumes
 .docker-volumes/
 
+# Corporate SSL certificates (local only, do not commit)
+zscaler.crt
+*.crt
+
 # Python (if any notebooks use Python)
 __pycache__/
 *.py[cod]

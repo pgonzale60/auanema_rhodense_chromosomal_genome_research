@@ -17,7 +17,7 @@
       ]
     }
   },
-  "postCreateCommand": "echo 'Dev container ready! Run renv::restore() in R to install packages.'",
+  "postCreateCommand": "echo 'Dev container ready! All R packages are already installed.'",
   "remoteUser": "rstudio",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
