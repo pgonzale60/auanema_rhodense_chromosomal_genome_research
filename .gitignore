@@ -1,0 +1,63 @@
+# R and RStudio files
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# renv - keep lock file and activate script, but not library
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/sandbox/
+renv/staging/
+
+# Session Data files
+.RData
+.RDataTmp
+
+# Temporary files
+*~
+*.swp
+*.swo
+*#
+.#*
+
+# Output files
+*.log
+*.out
+
+# Large data files (document in data/README.md how to obtain these)
+# Uncomment specific patterns as needed
+# *.bam
+# *.bam.bai
+# *.fastq.gz
+# *.fq.gz
+
+# Keep smaller compressed annotation files (< 10MB)
+# but consider Git LFS for anything larger
+
+# Docker volumes
+.docker-volumes/
+
+# Python (if any notebooks use Python)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+Thumbs.db
+Desktop.ini
