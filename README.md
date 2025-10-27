@@ -11,7 +11,40 @@ This repository contains R scripts and data for analyzing the *Auanema rhodense*
 - Transposon-related genes
 - Genome-wide features
 
-## Quick Start with Docker
+## Quick Start Options
+
+### Option 1: GitHub Codespaces (Recommended)
+
+The easiest way to get started is using GitHub Codespaces, which provides a cloud-based development environment:
+
+1. Click the green "Code" button on the GitHub repository
+2. Select "Codespaces" tab
+3. Click "Create codespace on main"
+
+The environment will automatically set up with:
+- R 4.4.2
+- RStudio Server (accessible via browser)
+- All system dependencies
+- VSCode R extensions
+
+After the container starts:
+```r
+# In the R terminal
+renv::restore()  # Install all R packages from renv.lock
+```
+
+### Option 2: Local VSCode Dev Container
+
+If you have Docker and VSCode installed locally:
+
+1. Install the "Dev Containers" extension in VSCode
+2. Open the repository folder in VSCode
+3. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
+4. Select "Dev Containers: Reopen in Container"
+
+After the container builds, open an R terminal and run `renv::restore()`.
+
+### Option 3: Docker Compose (Local)
 
 ### Prerequisites
 - [Docker](https://www.docker.com/get-started) installed on your system
