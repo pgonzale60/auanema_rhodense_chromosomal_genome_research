@@ -24,11 +24,19 @@ The easiest way to get started is using GitHub Codespaces, which provides a clou
 The environment will automatically set up with:
 - R 4.4.2
 - RStudio Server (accessible via browser)
-- All system dependencies
-- All R packages pre-installed from `renv.lock`
+- All system dependencies (gfortran, GSL, etc.)
+- renv for package management
 - VSCode R extensions
 
-**No additional setup needed** - all packages are ready to use!
+After the container starts (2-3 minutes), install R packages as needed:
+```r
+# Install all packages from renv.lock (takes ~15-20 minutes first time)
+renv::restore()
+
+# Or install specific packages only
+renv::install("tidyverse")
+renv::install("DESeq2")
+```
 
 ### Option 2: Local VSCode Dev Container
 
@@ -39,7 +47,7 @@ If you have Docker and VSCode installed locally:
 3. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
 4. Select "Dev Containers: Reopen in Container"
 
-All packages will be pre-installed during the container build (first build takes ~15 minutes, then cached).
+Container builds in 2-3 minutes. Then run `renv::restore()` in R to install packages.
 
 ### Option 3: Docker Compose (Local)
 
