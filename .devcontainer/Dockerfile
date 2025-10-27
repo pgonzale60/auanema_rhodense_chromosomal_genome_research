@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     libbz2-dev \
     liblzma-dev \
+    libgsl-dev \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
