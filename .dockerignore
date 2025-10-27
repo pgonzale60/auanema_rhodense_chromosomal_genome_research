@@ -1,0 +1,30 @@
+# Git
+.git/
+.gitignore
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# macOS
+.DS_Store
+
+# renv library (will be rebuilt in container)
+renv/library/
+renv/local/
+renv/staging/
+
+# Output files
+*.png
+*.pdf
+*.log
+
+# Large analysis results (if any)
+report/
+test/
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml

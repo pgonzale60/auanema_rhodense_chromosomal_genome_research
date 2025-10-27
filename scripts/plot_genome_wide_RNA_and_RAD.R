@@ -122,7 +122,7 @@ select(rad, CHROM, POS)  %>%
   ylab("Chromosome") + 
   theme_classic()
 
-ggsave("report/figures/Auanema_rhodensis_RAD-dots.jpg",
+ggsave("report/figures/Auanema_rhodense_RAD-dots.jpg",
        width = 7, height = 6)
 
 rad_gr <- mutate(rad, chrom=CHROM,

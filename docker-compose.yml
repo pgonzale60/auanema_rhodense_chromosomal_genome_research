@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  r-analysis:
+    build: .
+    container_name: auanema-analysis
+    volumes:
+      # Mount current directory to /workspace
+      - .:/workspace
+    working_dir: /workspace
+    # Keep container running for interactive use
+    stdin_open: true
+    tty: true
+    # Optional: Uncomment to use RStudio Server
+    # image: rocker/rstudio:4.4.2
+    # ports:
+    #   - "8787:8787"
+    # environment:
+    #   - PASSWORD=yourpassword

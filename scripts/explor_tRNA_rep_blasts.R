@@ -373,7 +373,7 @@ library(patchwork)
 library(tidyverse)
 assm_sp <- read_tsv("raw/assembly_species.tsv",
                     col_names = c("ID", "species")) %>%
-  bind_rows(tibble(ID = "nxAuaRhod1_1", species = "Auanema_rhodensis"))
+  bind_rows(tibble(ID = "nxAuaRhod1_1", species = "Auanema_rhodense"))
 
 # tRNA files
 t_files <- list.files("analyses/genome_features/repeats/tRNAscan/nematodes/",
@@ -428,7 +428,7 @@ hc_atrna_rs %>%
 
 atrna_df_dist <- filter(hc_atrna_df, species %in%
                           c("Allodiplogaster_sudhausi",
-                            "Auanema_rhodensis",
+                            "Auanema_rhodense",
                             "Caenorhabditis_elegans",
                             "Oscheius_tipulae"),
                         note == "high confidence set") %>% # , is.na(note)
@@ -477,7 +477,7 @@ ggsave("~/Downloads/tmp.pdf",
 
 t_sp_conf_counts <- filter(hc_atrna_df, species %in%
                              c("Allodiplogaster_sudhausi",
-                               "Auanema_rhodensis",
+                               "Auanema_rhodense",
                                "Caenorhabditis_elegans",
                                "Oscheius_tipulae")) %>%
   mutate(high_conf = ifelse(note == "high confidence set",
@@ -501,9 +501,9 @@ t_sp_conf_counts <- filter(hc_atrna_df, species %in%
   filter(rowSums(select(., starts_with("tot_ori")) > 10) > 0) #%>% # remove small types
 
 plot_perc_conf <- pivot_longer(t_sp_conf_counts,
-                               cols = perc_hc_A_rhodensis:tot_ori_O_tipulae,
+                               cols = perc_hc_A_rhodense:tot_ori_O_tipulae,
                                names_to = c(".value", "assembly"),
-                               names_pattern = "(perc_hc|tot_ori)_(A_rhodensis|A_sudhausi|C_elegans|O_tipulae)") %>%  
+                               names_pattern = "(perc_hc|tot_ori)_(A_rhodense|A_sudhausi|C_elegans|O_tipulae)") %>%  
   mutate(assembly = sub("_", ". ", assembly)) %>%
   ggplot(aes(x = tot_ori, y = perc_hc, color = assembly)) +
   geom_point(alpha = 0.5) +
