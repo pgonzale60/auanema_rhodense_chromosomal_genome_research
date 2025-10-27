@@ -5,7 +5,7 @@ FROM rocker/r-ver:4.4.2
 
 # Install system dependencies for R packages
 # These are needed for: Matrix, tidyverse, Bioconductor packages, XML parsing, etc.
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
@@ -14,10 +14,9 @@ RUN apt-get update && apt-get install -y \
     libfribidi-dev \
     libfreetype6-dev \
     libpng-dev \
-    libtiff5-dev \
-    libjpeg-dev \
+    libtiff-dev \
+    libjpeg62-turbo-dev \
     gfortran \
-    libgfortran5 \
     git \
     zlib1g-dev \
     libbz2-dev \
