@@ -156,7 +156,7 @@ miscrna_df <- map_df(miscrnafiles, read_tsv,
   filter(!grepl("MT|scaf|unloc", Sequence))
 
 nrow(miscrna_df)
-count(miscrna_df, type) %>% arrange(desc(n)) %>% View()
+count(miscrna_df, type) %>% arrange(desc(n)) # %>% View()
 nrow(rrna_df) + nrow(utrna_df) + nrow(miscrna_df)
 filter(utrna_df, grepl("pseudo", ID)) %>% nrow
 
