@@ -175,7 +175,8 @@ names(GRS_files) <- make.names(sub(".+//(.+).GRS.bed", "\\1", GRS_files))
 GRS <- map_df(GRS_files, read_tsv,
               col_names = c("Sequence", "start", "end", "has_GRS"),
               col_types = c("ciic"),
-              .id = "assembly")
+              .id = "assembly") %>%
+  select(-has_GRS)
 
 
 elim_seqs <- filter(seq_sizes, grepl("loc|scaffold", Sequence)) %>%
