@@ -19,7 +19,7 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/git@1.0.0": {},
+    "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {},
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   },
