@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
-# Ensure rstudio user exists (Codespaces base images may omit it)
-RUN id -u rstudio >/dev/null 2>&1 || useradd -ms /bin/bash rstudio
-
 # Give rstudio user sudo access for installing additional packages
 RUN echo "rstudio ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 

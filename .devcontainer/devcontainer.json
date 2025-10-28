@@ -20,6 +20,7 @@
   "postCreateCommand": "echo 'Dev container ready! All R packages are already installed.'",
   "remoteUser": "rstudio",
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/rocker-org/devcontainer-features/rstudio:1": {}
   }
 }
