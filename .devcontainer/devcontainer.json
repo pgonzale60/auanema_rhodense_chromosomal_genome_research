@@ -18,7 +18,8 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
-      "rVersion": "4.4"
-    }
+      "version": "4.4.2"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   }
 }
