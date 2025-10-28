@@ -1,14 +1,19 @@
 {
   "name": "Auanema rhodense R Analysis",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
-        "r.rterm.linux": "/usr/bin/R",
-        "r.lsp.debug": true,
+        "r.rterm.linux": "/usr/local/bin/R",
         "r.sessionWatcher.enabled": true,
-        "r.rterm.option": ["--no-save", "--no-restore"]
+        "r.rterm.option": [
+          "--no-save",
+          "--no-restore"
+        ]
       },
       "extensions": [
         "REditorSupport.r",
@@ -19,35 +24,10 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
-      "version": "4.4.2"
-    },
-    "ghcr.io/devcontainers/features/apt-packages:1": {
-      "packages": [
-        "zlib1g-dev",
-        "libbz2-dev",
-        "liblzma-dev",
-        "libcurl4-openssl-dev",
-        "libssl-dev",
-        "libxml2-dev",
-        "libfontconfig1-dev",
-        "libharfbuzz-dev",
-        "libfribidi-dev",
-        "libfreetype6-dev",
-        "libpng-dev",
-        "libtiff-dev",
-        "libjpeg-dev",
-        "gfortran",
-        "libgit2-dev",
-        "pkg-config",
-        "make"
-      ]
-    },
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   },
   "containerEnv": {
     "RENV_PATHS_CACHE": "/tmp/renv-cache"
   },
-  "postCreateCommand": "R -e \"if (!requireNamespace('languageserver')) install.packages('languageserver')\""
+  "postCreateCommand": "R -e \"if (!requireNamespace('languageserver', quietly = TRUE)) install.packages('languageserver')\""
 }

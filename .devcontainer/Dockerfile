@@ -1,9 +1,11 @@
-# Auanema rhodense genome analysis - Dev Container
-# Based on Rocker project: https://rocker-project.org/
+# Minimal dev container for Auanema rhodense analysis
+# Uses rocker/r-ver (no RStudio) and leaves renv::restore() to run manually.
 
-FROM rocker/rstudio:4.4.2
+FROM rocker/r-ver:4.4.2
 
-# Install system dependencies for R packages
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies commonly needed by Bioconductor / tidyverse packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -15,39 +17,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libtiff-dev \
     libjpeg-dev \
-    gfortran \
-    git \
     zlib1g-dev \
     libbz2-dev \
     liblzma-dev \
     libgsl-dev \
-    sudo \
+    gfortran \
+    git \
+    make \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
-# Give rstudio user sudo access for installing additional packages
-RUN echo "rstudio ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Install renv and the language server for editor integration.
+RUN R -e "install.packages(c('renv', 'languageserver'), repos = c(CRAN = 'https://cloud.r-project.org'))"
 
-# Install renv
-RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"
-
-# Install R language server for VSCode integration (before renv::restore())
-RUN R -e "install.packages('languageserver', repos = c(CRAN = 'https://cloud.r-project.org'))"
-
-# Set working directory
+# Provide a consistent workdir for VS Code / Codespaces volumes
 WORKDIR /workspace
-
-# Copy renv configuration files
-COPY renv.lock renv.lock
-COPY .Rprofile .Rprofile
-COPY renv/activate.R renv/activate.R
-COPY renv/.gitignore renv/.gitignore
-COPY renv/settings.json renv/settings.json
-
-# Restore all R packages from renv.lock during build
-RUN R -e "renv::restore()"
-
-# Change ownership to rstudio user
-RUN chown -R rstudio:rstudio /workspace
-
-# Default command (RStudio server for web interface)
-CMD ["/init"]
