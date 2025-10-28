@@ -1,25 +1,30 @@
 {
   "name": "Auanema rhodense R Analysis",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "rocker/r-ver:4.4.2",
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
         "r.rterm.linux": "/usr/bin/R",
-        "r.lsp.debug": true
+        "r.lsp.debug": true,
+        "r.sessionWatcher.enabled": true,
+        "r.rterm.option": ["--no-save", "--no-restore"]
       },
       "extensions": [
         "REditorSupport.r",
-        "REditorSupport.r-lsp"
+        "REditorSupport.r-lsp",
+        "Ikuyadeu.r",
+        "REditorSupport.r-debugger"
       ]
     }
   },
-  "postCreateCommand": "echo 'Dev container ready! Run renv::restore() in R to install project packages.'",
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
-      "version": "4.4.2"
-    },
+    "ghcr.io/devcontainers/features/git@1.0.0": {},
+    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {},
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   }
+  "containerEnv": {
+    "RENV_PATHS_CACHE": "/tmp/renv-cache"
+  },
+  "postCreateCommand": "R -e \"if (!requireNamespace('languageserver')) install.packages('languageserver')\""
 }
