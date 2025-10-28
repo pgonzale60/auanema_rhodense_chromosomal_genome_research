@@ -26,9 +26,5 @@
   "remoteUser": "vscode",
   "features": {
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
-  },
-  "containerEnv": {
-    "RENV_PATHS_CACHE": "/tmp/renv-cache"
-  },
-  "postCreateCommand": "R -e \"if (!requireNamespace('languageserver', quietly = TRUE)) install.packages('languageserver')\""
+  }
 }

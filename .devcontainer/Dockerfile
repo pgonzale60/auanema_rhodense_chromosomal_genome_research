@@ -41,6 +41,10 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && usermod -aG sudo ${USERNAME} \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+# Prepare cache directories for renv to avoid permission issues
+ENV RENV_PATHS_CACHE=/home/${USERNAME}/.cache/renv
+RUN mkdir -p ${RENV_PATHS_CACHE} && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.cache
+
 # Provide a consistent workdir for VS Code / Codespaces volumes
 WORKDIR /workspace
 RUN chown ${USERNAME}:${USERNAME} /workspace
