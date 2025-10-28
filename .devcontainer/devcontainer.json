@@ -1,14 +1,11 @@
 {
   "name": "Auanema rhodense R Analysis",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
-        "r.rterm.linux": "/usr/local/bin/R",
+        "r.rterm.linux": "/usr/bin/R",
         "r.lsp.debug": true
       },
       "extensions": [
@@ -17,10 +14,11 @@
       ]
     }
   },
-  "postCreateCommand": "echo 'Dev container ready! All R packages are already installed.'",
-  "remoteUser": "rstudio",
+  "postCreateCommand": "echo 'Dev container ready! Run renv::restore() in R to install project packages.'",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/rocker-org/devcontainer-features/rstudio:1": {}
+    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
+      "rVersion": "4.4"
+    }
   }
 }
