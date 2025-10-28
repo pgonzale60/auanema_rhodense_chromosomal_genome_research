@@ -1,4 +1,7 @@
 library(tidyverse)
+library(GenomicRanges)
+library(IRanges)
+library(S4Vectors)
 
 aua_ipr <- read_tsv("analyses/genes/annotation/nxAuaRhod1_1.iprscan.guoying.tsv.gz",
                     comment = "#",
