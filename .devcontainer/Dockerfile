@@ -46,9 +46,9 @@ COPY renv/activate.R renv/activate.R
 COPY renv/.gitignore renv/.gitignore
 COPY renv/settings.json renv/settings.json
 
-# Note: renv::restore() is NOT run during build to keep image lean
-# Run manually after container starts: renv::restore()
-# Or install specific packages as needed: renv::install("packagename")
+# Restore all R packages from renv.lock during build
+# Use binary packages to speed up installation and avoid compilation issues
+RUN R -e "options(pkgType = 'binary'); renv::restore()"
 
 # Change ownership to rstudio user
 RUN chown -R rstudio:rstudio /workspace
