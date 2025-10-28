@@ -11,93 +11,32 @@ This repository contains R scripts and data for analyzing the *Auanema rhodense*
 - Transposon-related genes
 - Genome-wide features
 
-## Quick Start Options
+## Quick Start
 
-### Option 1: GitHub Codespaces (Recommended)
+### GitHub Codespaces / VS Code Dev Container (Recommended)
 
-The easiest way to get started is using GitHub Codespaces, which provides a cloud-based development environment:
+The repository ships with a `.devcontainer` that provisions:
+- R 4.4.2 (rocker/r-ver)
+- System libraries required by Bioconductor and tidyverse
+- `renv` + cache support (packages installed on demand)
+- VS Code R tooling (languageserver, debugger, session watcher)
 
-1. Click the green "Code" button on the GitHub repository
-2. Select "Codespaces" tab
-3. Click "Create codespace on main"
+**Codespaces**
+1. Click the green “Code” button on GitHub → Codespaces tab.
+2. Create a new Codespace on `main`.
+3. Wait ~3–4 minutes for the container image to build.
 
-The environment will automatically set up with:
-- R 4.4.2
-- RStudio Server (accessible via browser)
-- All system dependencies (gfortran, GSL, etc.)
-- renv for package management
-- VSCode R extensions
+**Local VS Code**
+1. Install Docker Desktop and the “Dev Containers” extension.
+2. Open the repo in VS Code.
+3. Run “Dev Containers: Reopen in Container” from the command palette.
 
-After the container starts (2-3 minutes), install R packages as needed:
+Once inside the container (cloud or local), open R and hydrate packages when needed:
 ```r
-# Install all packages from renv.lock (takes ~15-20 minutes first time)
 renv::restore()
-
-# Or install specific packages only
-renv::install("tidyverse")
-renv::install("DESeq2")
 ```
 
-### Option 2: Local VSCode Dev Container
-
-If you have Docker and VSCode installed locally:
-
-1. Install the "Dev Containers" extension in VSCode
-2. Open the repository folder in VSCode
-3. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
-4. Select "Dev Containers: Reopen in Container"
-
-Container builds in 2-3 minutes. Then run `renv::restore()` in R to install packages.
-
-### Option 3: Docker Compose (Local)
-
-### Prerequisites
-- [Docker](https://www.docker.com/get-started) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
-- 4GB+ RAM available for Docker
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/pgonzale60/auanema_rhodense_chromosomal_genome_research.git
-cd auanema_rhodense_chromosomal_genome_research
-```
-
-### 2. Build the Docker Image
-```bash
-docker-compose build
-```
-
-This will:
-- Create an R 4.4.2 environment
-- Install all system dependencies (including gfortran for Matrix package)
-- Restore all R packages from `renv.lock` (Bioconductor 3.20 + tidyverse)
-- Takes ~10-15 minutes on first build
-
-### 3. Run R in the Container
-```bash
-docker-compose run --rm r-analysis R
-```
-
-You're now in an R session with all packages installed!
-
-### 4. Run an Analysis Script
-```bash
-docker-compose run --rm r-analysis Rscript scripts/summarize_gene_annotation.R
-```
-
-## Alternative: Interactive R Session
-
-Start a bash shell in the container:
-```bash
-docker-compose run --rm r-analysis bash
-```
-
-Then run R or any scripts:
-```bash
-R
-# or
-Rscript scripts/summarize_gene_annotation.R
-```
+The first restore compiles numerous Bioconductor packages; subsequent runs are faster thanks to the shared cache.
 
 ## Repository Structure
 
@@ -115,8 +54,7 @@ Rscript scripts/summarize_gene_annotation.R
 ├── raw/                              # Reference data files
 ├── renv.lock                         # R package versions (DO NOT MODIFY)
 ├── .Rprofile                         # Activates renv
-├── Dockerfile                        # Docker build instructions
-└── docker-compose.yml                # Docker orchestration
+├── .devcontainer/                    # Dev container definition (Dockerfile + settings)
 ```
 
 ## Data Files
@@ -128,21 +66,6 @@ Key data files:
 - `analyses/genes/annotation/nxAuaRhod1_1.eggnog_mapper.tsv.gz` - EggNOG-mapper annotations
 - `analyses/genes/orthofinder/Orthogroups/Orthogroups.tsv.gz` - Orthogroup assignments
 - `analyses/genes/star_stringtie/arhod_star_stringtie_gene_expression.tsv.gz` - Gene expression
-
-## Known Issues
-
-### Missing `metadata` Object
-
-**Issue:** The `summarize_gene_annotation.R` script references a `metadata` object on line 29 that is not defined in the script.
-
-```r
-left_join(select(metadata, sample, name), by = c("SRA" = "sample"))
-```
-
-**Workaround:** You'll need to either:
-1. Load the metadata from an external file (if available)
-2. Comment out line 29 if gene expression metadata is not needed for your analysis
-3. Create a minimal metadata object with the required columns
 
 ## Reproducibility
 

@@ -3,6 +3,7 @@
 .RData
 .Rproj.user/
 .Ruserdata
+*.RData
 
 # macOS files
 .DS_Store
