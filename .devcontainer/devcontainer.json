@@ -1,6 +1,6 @@
 {
   "name": "Auanema rhodense R Analysis",
-  "image": "rocker/r-ver:4.4.2",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "customizations": {
     "vscode": {
       "settings": {
@@ -20,7 +20,30 @@
   },
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {},
+    "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
+      "version": "4.4.2"
+    },
+    "ghcr.io/devcontainers/features/apt-packages:1": {
+      "packages": [
+        "zlib1g-dev",
+        "libbz2-dev",
+        "liblzma-dev",
+        "libcurl4-openssl-dev",
+        "libssl-dev",
+        "libxml2-dev",
+        "libfontconfig1-dev",
+        "libharfbuzz-dev",
+        "libfribidi-dev",
+        "libfreetype6-dev",
+        "libpng-dev",
+        "libtiff-dev",
+        "libjpeg-dev",
+        "gfortran",
+        "libgit2-dev",
+        "pkg-config",
+        "make"
+      ]
+    },
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   },
   "containerEnv": {
