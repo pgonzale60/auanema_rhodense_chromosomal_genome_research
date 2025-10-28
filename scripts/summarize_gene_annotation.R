@@ -93,6 +93,17 @@ allAuaGenes <- tibble(gene_id = gexp_max$ID[grepl("file", gexp_max$ID)]) %>%
 
 colSums(select(allAuaGenes, -gene_id))
 
+# Sequence sizes
+fai_files <- list.files("analyses/genome_features/sequence_sizes/",
+                        full.names = T, pattern = ".primary.fa.gz.fai")
+names(fai_files) <- make.names(sub(".+//(.+).primary.fa.gz.fai", "\\1", fai_files))
+seq_sizes <- map_df(fai_files, read_tsv,
+                    col_names = c("Sequence", "size", "L1", "L2", "L3"),
+                    col_types = c("ciiii"),
+                    .id = "assembly") %>%
+  select(assembly, Sequence, size) %>%
+  filter(!grepl("MT", Sequence))
+
 
 # Size of chromosomal sequences
 filter(seq_sizes, grepl("SUPER", Sequence)) %>%
@@ -153,17 +164,6 @@ cov <- read_tsv(covFile,
                               "end", "median_cov"))%>%
   filter(!grepl("MT", seqnames)) %>%
   mutate(start = start +1)
-
-# Sequence sizes
-fai_files <- list.files("analyses/genome_features/sequence_sizes/",
-                        full.names = T, pattern = ".primary.fa.gz.fai")
-names(fai_files) <- make.names(sub(".+//(.+).primary.fa.gz.fai", "\\1", fai_files))
-seq_sizes <- map_df(fai_files, read_tsv,
-                    col_names = c("Sequence", "size", "L1", "L2", "L3"),
-                    col_types = c("ciiii"),
-                    .id = "assembly") %>%
-  select(assembly, Sequence, size) %>%
-  filter(!grepl("MT", Sequence))
 
 # GRS files
 GRS_files <- list.files("analyses/genome_features/elim_coords/",
