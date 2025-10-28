@@ -23,6 +23,7 @@
       ]
     }
   },
+  "remoteUser": "vscode",
   "features": {
     "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {}
   },

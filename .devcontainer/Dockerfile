@@ -25,10 +25,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     make \
     pkg-config \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Install renv and the language server for editor integration.
 RUN R -e "install.packages(c('renv', 'languageserver'), repos = c(CRAN = 'https://cloud.r-project.org'))"
 
+# Create a non-root user that matches Codespaces expectations
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
+    && usermod -aG sudo ${USERNAME} \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Provide a consistent workdir for VS Code / Codespaces volumes
 WORKDIR /workspace
+RUN chown ${USERNAME}:${USERNAME} /workspace
