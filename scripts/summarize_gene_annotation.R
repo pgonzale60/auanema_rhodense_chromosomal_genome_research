@@ -20,6 +20,15 @@ transp_doms <- read_tsv("raw/intreproscan_transposon_related_domains.tsv.gz")
 
 
 # Gene expression
+metadata <- read_csv("analyses/genes/DEseq2/samplesheet.csv") %>%
+  mutate(condition = sub("APS4_(.+)_[1-3]", "\\1", sample_title),
+         LifeStage = ifelse(grepl("L2", condition), "L2",
+                            ifelse(grepl("MA", condition), "adult",
+                                   "mixed")),
+         Sex = sub("L2_(.+)", "\\1", condition),
+         simpleSex = sub("DA_(.+)", "\\1", Sex),
+         name = sub("APS4_", "", sample_title))
+
 gexp <- read_tsv("analyses/genes/star_stringtie/arhod_star_stringtie_gene_expression.tsv.gz",
                  col_names = c("ID", "Name", "Reference", "Strand", "Start",
                                "End", "Coverage", "FPKM", "TPM", "SRA"))
@@ -205,4 +214,3 @@ cov_gr[!cov_gr %over% GRS_gr] %>%
 cov_gr[cov_gr %over% GRS_gr] %>%
   as_tibble() %>% filter(seqnames == "SUPER_X") %>%
   summary()
-
