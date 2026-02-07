@@ -45,9 +45,6 @@ _Team301*.txt
 *.bam.bai
 *.bam.csi
 
-# Large data files
-*.mcool
-
 # R default plot output
 Rplots.pdf
 
