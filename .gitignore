@@ -34,15 +34,35 @@ renv/staging/
 *.log
 *.out
 
-# Large data files (document in data/README.md how to obtain these)
-# Uncomment specific patterns as needed
-# *.bam
-# *.bam.bai
-# *.fastq.gz
-# *.fq.gz
+# Genome assembly (obtain from NCBI/ENA - see README)
+nxAuaRhod1_1.primary.fa.gz*
 
-# Keep smaller compressed annotation files (< 10MB)
-# but consider Git LFS for anything larger
+# Paper draft (lives in Google Docs/shared drive)
+_Team301*.txt
+
+# BAM files
+*.bam
+*.bam.bai
+*.bam.csi
+
+# Large data files
+*.mcool
+
+# R default plot output
+Rplots.pdf
+
+# Temp/scratch files
+temp_*
+P351.fasta
+
+# Intermediate analysis outputs
+analyses/genome_features/repeats/modDotPlot/
+analyses/genome_features/repeats/TRF/test_output/
+analyses/genome_features/repeats/TRF/test_*.tsv.gz
+
+# Generated figure outputs at top level (canonical outputs go in report/figures/)
+diminution_motif_figure.pdf
+gc_distribution_SUPER_X_10_13Mb.png
 
 # Docker volumes
 .docker-volumes/
