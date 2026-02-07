@@ -422,12 +422,12 @@ combined_plot <- ggarrange(hic_panels, genomic_panels,
 # Display and save
 print(combined_plot)
 
-ggsave("report/figures/nxAuaRhod1_1_combined_figure.pdf",
+ggsave("report/figures/fig_2_hiC_and_genomic_features.pdf",
        combined_plot, width = 16, height = 18, units = "in")
 
-ggsave("report/figures/nxAuaRhod1_1_combined_figure.png",
+ggsave("report/figures/fig_2_hiC_and_genomic_features.png",
        combined_plot, width = 16, height = 18, units = "in", dpi = 300)
 
-cat("\nCombined figure saved to:\n")
-cat("  report/figures/nxAuaRhod1_1_combined_figure.pdf\n")
-cat("  report/figures/nxAuaRhod1_1_combined_figure.png\n")
+cat("\nFigure 2 saved to:\n")
+cat("  report/figures/fig_2_hiC_and_genomic_features.pdf\n")
+cat("  report/figures/fig_2_hiC_and_genomic_features.png\n")

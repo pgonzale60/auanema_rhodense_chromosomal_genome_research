@@ -231,4 +231,4 @@ final_plot <- (panel_a / panel_b / panel_c) +
     plot_annotation(tag_levels = "A") &
     theme(plot.tag = element_text(face = "bold", size = 16))
 
-ggsave("report/figures/diminution_motif_figure.pdf", final_plot, width = 8, height = 12)
+ggsave("report/figures/fig_4_motif_analysis.pdf", final_plot, width = 8, height = 12)

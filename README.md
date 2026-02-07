@@ -16,82 +16,29 @@ The following scripts generate the main paper figures:
 
 | Script | Output | Purpose |
 |--------|--------|---------|
-| `scripts/create_diminution_figure.R` | `report/figures/diminution_motif_figure.pdf` | Motif analysis visualization |
-| `scripts/plot_trf_families_chromosomes.R` | `report/figures/trf_families_grs_winners.pdf` | Repeat family chromosomal distribution |
-| `scripts/plot_hic_and_genomic_features.R` | `report/figures/fig_2_hiC_and_genomic_features.pdf` | Hi-C + integrated genomic features |
+| `scripts/fig_2_hiC_and_genomic_features.R` | `report/figures/fig_2_hiC_and_genomic_features.pdf` | Figure 2: Hi-C + integrated genomic features |
+| `scripts/fig_3_tandem_repeats.R` | `report/figures/fig_3_tandem_repeats.pdf` | Figure 3: Tandem repeat family distribution |
+| `scripts/fig_4_motif_analysis.R` | `report/figures/fig_4_motif_analysis.pdf` | Figure 4: Motif analysis visualization |
 | `scripts/summarize_gene_annotation.R` | Console output / summary tables | Gene annotation statistics |
 
 ## Data Dependencies
 
 ### Genome Assembly
-The primary genome assembly is **not included** in this repository (obtain from NCBI/ENA):
-- NCBI BioProject: PRJNA###
-- Download: `nxAuaRhod1_1.primary.fa.gz`
-- Add to root directory (will be ignored by `.gitignore`)
+The primary genome assembly is **not included** in this repository.
+- **NCBI BioProject:** PRJEB75808
+- Download `nxAuaRhod1_1.primary.fa.gz` and place in repository root (gitignored)
 
 ### Hi-C Data
-- Cool file (.mcool): Not tracked; regenerate from raw sequencing data or obtain from the authors
-- Reference: See Hi-C processing scripts in `analyses/`
+- **File:** `analyses/hi-C/cooltools/nxAuaRhod1_1.mcool` (53MB, tracked in repository)
+- Multi-resolution contact matrix for chromatin organization analysis
 
 ### Annotation Data
-All compressed annotation files (<10MB) are tracked in `analyses/`:
+All compressed annotation files are tracked in `analyses/`:
 - Gene models: `analyses/genes/GTFs/nxAuaRhod1_1.gff.gz`
 - Orthology data: `analyses/genes/orthofinder/`
 - Functional annotations: `analyses/genes/annotation/`
-
-## Repository Structure
-
-```
-.
-├── scripts/                                    # Analysis and figure scripts
-│   ├── create_diminution_figure.R              # Motif visualization
-│   ├── plot_trf_families_chromosomes.R         # Repeat family figures
-│   ├── plot_hic_and_genomic_features.R         # Integrated Hi-C figures
-│   ├── summarize_gene_annotation.R             # Annotation statistics
-│   ├── summarize_eliminated_genes.R            # Eliminated region analysis
-│   ├── summarize_repeats.R                     # Repeat summary
-│   ├── telomere_addition_positions.R           # Telomere analysis
-│   ├── orthologs.R                             # Orthology analysis
-│   ├── annotate_trf_families.py                # TRF family annotation pipeline
-│   └── filter_trf_by_rna.py                    # TRF filtering utility
-│
-├── analyses/
-│   ├── genes/
-│   │   ├── GTFs/                               # Gene models
-│   │   ├── annotation/                         # Functional annotations
-│   │   ├── orthofinder/                        # Orthology results
-│   │   └── star_stringtie/                     # Expression data
-│   │
-│   ├── genome_features/
-│   │   ├── repeats/
-│   │   │   ├── TRF/                            # Tandem repeat family data
-│   │   │   ├── structural_rna*.bed             # RNA region annotations
-│   │   │   └── modDotPlot/                     # (gitignored - intermediate)
-│   │   ├── nemaChromQC/                        # QC analyses (BUSCO, GC, RED, telomeres)
-│   │   └── elim_coords/                        # Eliminated regions
-│   │
-│   ├── diminution/                             # Motif analysis
-│   │   ├── fimo_out/                           # FIMO results
-│   │   ├── meme/                               # MEME motif outputs
-│   │   ├── grs_visualization/                  # Visualization coordinates
-│   │   ├── nxAuaRhod1_1.GRS.bed                # Region coordinates
-│   │   └── nxAuaRhod1_1.core.bed               # Core region
-│   │
-│   └── curated_GRS_coords/                     # Curated region coordinates
-│
-├── report/
-│   └── figures/                                # Final figure outputs
-│       ├── fig_2_hiC_and_genomic_features.pdf
-│       ├── trf_families_grs_winners.pdf
-│       ├── diminution_motif_figure.pdf
-│       ├── figure_2_legend.md
-│       └── figure_trf_families_grs_winners_legend.md
-│
-├── renv.lock                                   # R package versions (locked)
-├── .Rprofile                                   # renv activation
-├── .devcontainer/                              # Docker dev environment
-└── README.md                                   # This file
-```
+- Repeat analysis: `analyses/genome_features/repeats/TRF/`
+- Motif analysis: `analyses/diminution/`
 
 ## Quick Start
 
@@ -144,17 +91,6 @@ This project uses [renv](https://rstudio.github.io/renv/) to ensure reproducible
 - All package versions locked in `renv.lock`
 
 The Docker setup ensures system-level reproducibility (gfortran, system libraries, etc.).
-
-## File Notes
-
-**Data files are compressed** (gzip) to reduce repository size. R's `read_tsv()` automatically handles `.gz` files.
-
-**Key untracked files** (document in `.gitignore` / data README how to obtain):
-- Genome assembly: `nxAuaRhod1_1.primary.fa.gz*`
-- Hi-C data: `.mcool` files
-
-**Gitignored directories** (intermediate outputs):
-- `analyses/genome_features/repeats/modDotPlot/` — intermediate dot plot data
 
 ## Citation
 
