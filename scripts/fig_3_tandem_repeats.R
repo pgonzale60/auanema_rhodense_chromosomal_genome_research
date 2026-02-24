@@ -1,6 +1,7 @@
 library(tidyverse)
 library(GenomicRanges)
 library(patchwork)
+library(ggnewscale)
 
 # Paths
 FAI_FILE <- "analyses/genome_features/sequence_sizes/nxAuaRhod1.1.primary.fa.gz.fai"
@@ -47,10 +48,10 @@ irna_raw <- read_tsv(INFERNAL_GFF, comment = "#", col_names = c("Chrom", "src", 
     grepl("rRNA", type, ignore.case = T) ~ "rRNA",
     grepl("tRNA", type, ignore.case = T) ~ "tRNA",
     grepl("U[12456]|snRNA|spliceosomal", type, ignore.case = T) ~ "snRNA",
-    TRUE ~ "Other RNA"
+    TRUE ~ "Other ncRNAs"
   ))
 
-# Resolve overlaps based on priority: rRNA > tRNA > snRNA > Other RNA
+# Resolve overlaps based on priority: rRNA > tRNA > snRNA > Other ncRNAs
 message("Resolving RNA overlaps...")
 make_rna_gr <- function(df, t) {
   df_f <- df %>% filter(type == t, Chrom %in% seq_sizes$Sequence)
@@ -64,7 +65,7 @@ make_rna_gr <- function(df, t) {
 r_gr <- GenomicRanges::reduce(make_rna_gr(bind_rows(rrna_raw, irna_raw), "rRNA"))
 t_gr <- GenomicRanges::reduce(make_rna_gr(bind_rows(trna_raw, irna_raw), "tRNA"))
 s_gr <- GenomicRanges::reduce(make_rna_gr(irna_raw, "snRNA"))
-o_gr <- GenomicRanges::reduce(make_rna_gr(irna_raw, "Other RNA"))
+o_gr <- GenomicRanges::reduce(make_rna_gr(irna_raw, "Other ncRNAs"))
 
 # Priority-based subtraction (cumulative union)
 mask <- r_gr
@@ -79,13 +80,13 @@ rna_list <- list()
 if (length(r_gr) > 0) rna_list$rRNA <- as_tibble(r_gr) %>% mutate(type = "rRNA")
 if (length(t_gr) > 0) rna_list$tRNA <- as_tibble(t_gr) %>% mutate(type = "tRNA")
 if (length(s_gr) > 0) rna_list$snRNA <- as_tibble(s_gr) %>% mutate(type = "snRNA")
-if (length(o_gr) > 0) rna_list$Other_RNA <- as_tibble(o_gr) %>% mutate(type = "Other RNA")
+if (length(o_gr) > 0) rna_list$Other_RNA <- as_tibble(o_gr) %>% mutate(type = "Other ncRNAs")
 
 rna_all <- bind_rows(rna_list) %>%
   dplyr::rename(Chrom = seqnames, Start = start, End = end) %>%
   mutate(
     chr = sub("SUPER_", "Chr ", as.character(Chrom)),
-    type = factor(type, levels = c("rRNA", "tRNA", "snRNA", "Other RNA"))
+    type = factor(type, levels = c("rRNA", "tRNA", "snRNA", "Other ncRNAs"))
   )
 
 # 3. TR Selection (Relaxed Winners)
@@ -156,7 +157,7 @@ priority_families <- c(anchors, setdiff(intercalated, anchors))
 all_priority <- priority_info %>%
   pull(Family_ID) %>%
   unique()
-priority_families <- c(priority_families, setdiff(all_priority, priority_families))
+priority_families <- unique(c(priority_families, all_priority, "P348_F003", "P291_F001"))
 
 total_cov <- GenomicRanges::coverage(makeGRangesFromDataFrame(members, seqnames.field = "Chrom", start.field = "Start", end.field = "End", seqinfo = gnm_gr))
 total_binned <- binnedAverage(genome_windows, total_cov, "fraction") %>%
@@ -173,7 +174,11 @@ for (fam_id in priority_families) {
     mutate(Family_ID = fam_id)
   tr_plot_data <- bind_rows(tr_plot_data, binned)
 }
-tr_plot_data <- tr_plot_data %>% mutate(chr = sub("SUPER_", "Chr ", seqnames), Family_ID = factor(Family_ID, levels = priority_families))
+tr_plot_data <- tr_plot_data %>%
+  mutate(
+    chr = sub("SUPER_", "Chr ", seqnames),
+    Family_ID = factor(Family_ID, levels = priority_families)
+  )
 
 # GRS layers
 chr_rects <- seq_sizes %>% mutate(chr = sub("SUPER_", "Chr ", Sequence))
@@ -191,7 +196,7 @@ RNA_WINDOW_SIZE <- 10000
 rna_windows <- tileGenome(gnm_gr, tilewidth = RNA_WINDOW_SIZE, cut.last.tile.in.chrom = TRUE)
 
 rna_plot_data <- tibble()
-rna_types <- c("rRNA", "tRNA", "snRNA", "Other RNA")
+rna_types <- c("rRNA", "tRNA", "snRNA", "Other ncRNAs")
 
 for (rna_type in rna_types) {
   rna_subset <- rna_all %>% filter(type == rna_type)
@@ -201,14 +206,14 @@ for (rna_type in rna_types) {
   rna_cov <- GenomicRanges::coverage(GenomicRanges::reduce(rna_gr_type))
   binned <- binnedAverage(rna_windows, rna_cov, "fraction") %>%
     as_tibble() %>%
-    mutate(RNA_Type = rna_type, fraction = pmax(fraction, 1e-4))
+    mutate(RNA_Type = rna_type, fraction = pmax(fraction, 0.001))
   rna_plot_data <- bind_rows(rna_plot_data, binned)
 }
 
 rna_plot_data <- rna_plot_data %>%
   mutate(
     chr = sub("SUPER_", "Chr ", seqnames),
-    RNA_Type = factor(RNA_Type, levels = c("rRNA", "tRNA", "snRNA", "Other RNA")),
+    RNA_Type = factor(RNA_Type, levels = c("rRNA", "tRNA", "snRNA", "Other ncRNAs")),
     fraction = pmin(fraction, 1.0)
   )
 
@@ -242,70 +247,156 @@ tr_plot_data_filtered <- tr_plot_data %>%
 
 message("TR windows filtered (rRNA overlap): ", nrow(tr_plot_data) - nrow(tr_plot_data_filtered), " excluded")
 
-# 4. Plots
+# 4. TR naming scheme
+tr_name_map <- c(
+  # Autosomal terminal repeats (conserved across all autosomes)
+  "P351_F001" = "TR1",
+  "P176_F001" = "TR2",
+  # Autosomal central repeats (chromosome-specific)
+  "P348_F001" = "AR-I",
+  "P399_F001" = "AR-II",
+  "P167_F002" = "AR-III",
+  "P332_F002" = "AR-IV",
+  "P231_F004" = "AR-V",
+  "P412_F002" = "AR-VI",
+  # X chromosome repeats
+  "P347_F001" = "TR25",
+  "P342_F001" = "TR26",
+  "P248_F001" = "XR-central",
+  "P348_F003" = "TR30",
+  "P291_F001" = "TR30b"
+)
+
+tr_recode_map <- setNames(names(tr_name_map), unname(tr_name_map))
+tr_plot_data_filtered <- tr_plot_data_filtered %>%
+  mutate(Family_ID = forcats::fct_recode(Family_ID, !!!tr_recode_map))
+
+# Reorder factor levels: named families in biological order, unnamed last
+elim_named_order <- c(
+  "TR1", "TR2",
+  "AR-I", "AR-II", "AR-III", "AR-IV", "AR-V", "AR-VI",
+  "TR25", "TR26", "XR-central"
+)
+soma_names <- c("TR30", "TR30b")
+all_levels <- levels(tr_plot_data_filtered$Family_ID)
+unnamed <- setdiff(all_levels, c(elim_named_order, soma_names))
+tr_plot_data_filtered <- tr_plot_data_filtered %>%
+  mutate(Family_ID = factor(Family_ID,
+    levels = c(intersect(elim_named_order, all_levels), unnamed, soma_names)
+  ))
+
+# 5. Plots
+# Custom colors for Chr X somatic families
+x_soma_colors <- c(
+  "TR30"  = "#1331F5",
+  "TR30b" = "#9E1F87"
+)
+
+# Split TR data for dual legends
+tr_soma <- tr_plot_data_filtered %>% filter(Family_ID %in% names(x_soma_colors))
+tr_elim <- tr_plot_data_filtered %>% filter(!(Family_ID %in% names(x_soma_colors)))
+
 theme_panel <- theme_bw() + theme(
   panel.grid = element_blank(),
   panel.border = element_blank(),
   strip.background = element_blank(),
-  strip.text.y = element_text(angle = 0, face = "bold"),
+  strip.text.y = element_text(angle = 0, face = "plain", size = 7),
+  axis.text.y = element_text(size = 7),
+  axis.title = element_text(size = 8),
   axis.title.x = element_blank(),
   axis.text.x = element_blank(),
   axis.ticks.x = element_blank(),
-  plot.margin = margin(b = 2, t = 4, l = 5, r = 5)
+  plot.margin = margin(b = 8, t = 4, l = 5, r = 5)
 )
 
 # Panel A: TRs
 pA <- ggplot() +
-  geom_area(data = total_binned, aes(x = start, y = fraction), fill = "grey90", alpha = 0.8) +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "wheat", alpha = 0.2) +
-  geom_bar(data = tr_plot_data_filtered, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
-  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dotted", color = "black", alpha = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 1, color = "black") +
+  geom_area(data = total_binned, aes(x = start, y = fraction), fill = "grey85", alpha = 0.8) +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
+  # Layer 1: Eliminated regions
+  geom_bar(data = tr_elim, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
+  scale_fill_hue() +
+  guides(fill = guide_legend(title = "Major TR families in eliminated regions", nrow = 2, order = 1, title.position = "top")) +
+  # Layer 2: Somatic-retained (Chr X)
+  new_scale_fill() +
+  geom_bar(data = tr_soma, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
+  scale_fill_manual(
+    values = x_soma_colors,
+    labels = c("TR30", "TR30b")
+  ) +
+  guides(fill = guide_legend(title = "Major somatic-retained\nTR families", nrow = 1, order = 2, title.position = "top")) +
+  # Annotations
+  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
   geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
   facet_grid(chr ~ .) +
-  scale_x_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M"), expand = c(0, 0)) +
+  scale_x_continuous(labels = scales::label_number(scale = 1e-6), expand = c(0, 0)) +
   scale_y_continuous(breaks = c(0, 1), limits = c(0, 1.1), expand = c(0, 0)) +
-  labs(y = "TR Fraction", x = "Position", fill = "Major TR Families") +
+  labs(y = "TR Fraction", x = "Position (Mb)") +
   theme_panel +
-  theme(legend.position = "top", legend.text = element_text(size = 7), legend.key.size = unit(0.3, "cm"), axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line()) +
-  guides(fill = guide_legend(nrow = 2))
+  theme(
+    legend.position = "top",
+    legend.title = element_text(size = 7),
+    legend.text = element_text(size = 7),
+    legend.key.size = unit(0.4, "cm"),
+    axis.title.x = element_text(),
+    axis.text.x = element_text(),
+    axis.ticks.x = element_line()
+  )
 
 # Panel B: Genes
 pB <- ggplot() +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "wheat", alpha = 0.2) +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
   geom_rect(data = genes, aes(xmin = Start, xmax = End, ymin = 0.1, ymax = 0.9), fill = "darkgreen") +
-  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dotted", color = "black", alpha = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 1, color = "black") +
+  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
   geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
   facet_grid(chr ~ .) +
-  scale_x_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M"), expand = c(0, 0)) +
+  scale_x_continuous(labels = function(x) ifelse(x == 0, "", scales::label_number(scale = 1e-6)(x)), expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 1.1), expand = c(0, 0), breaks = NULL) +
-  labs(y = "Genes", x = "Position") +
+  coord_cartesian(clip = "off") +
+  labs(y = "Protein-coding genes", x = "Position (Mb)") +
   theme_panel +
   theme(axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line())
 
 # Panel C: RNA fractions (per 10 Kb window, log scale)
 pC <- ggplot() +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 1e-4, ymax = 0.95), fill = "wheat", alpha = 0.2) +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0.001, ymax = 0.95), fill = "grey70", alpha = 0.3) +
   geom_line(data = rna_plot_data, aes(x = start, y = fraction, color = RNA_Type), linewidth = 0.5) +
-  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dotted", color = "black", alpha = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1), shape = 25, fill = "black", size = 1, color = "black") +
-  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 1e-4, ymax = 2), fill = NA, color = "black", linewidth = 0.5) +
+  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1), shape = 25, fill = "black", size = 2, color = "black") +
+  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0.001, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
   facet_grid(chr ~ .) +
-  scale_x_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M"), expand = c(0, 0)) +
-  scale_y_log10(labels = scales::label_number()) +
+  scale_x_continuous(labels = function(x) ifelse(x == 0, "", scales::label_number(scale = 1e-6)(x)), expand = c(0, 0)) +
+  scale_y_log10(
+    limits = c(0.001, 1),
+    breaks = c(0.001, 0.01, 0.1, 1),
+    labels = c("-3", "-2", "-1", "0")
+  ) +
+  coord_cartesian(clip = "off") +
   scale_color_brewer(palette = "Set1", drop = FALSE) +
-  labs(y = "RNA Fraction (log10)", x = "Position", color = "RNA Type") +
-  guides(color = guide_legend(override.aes = list(linewidth = 2))) +
+  labs(y = expression("Fraction" ~ (log[10])), x = "Position (Mb)", color = "RNA Type") +
+  guides(color = guide_legend(override.aes = list(linewidth = 2), nrow = 1, title.position = "top")) +
   theme_panel +
-  theme(legend.position = "bottom", axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line())
+  theme(
+    legend.position = "top",
+    legend.title = element_text(size = 7),
+    legend.text = element_text(size = 7),
+    legend.key.size = unit(0.4, "cm"),
+    legend.spacing.x = unit(0.2, "cm"),
+    plot.margin = margin(b = 0, t = 0, l = 0, r = 5),
+    axis.title.x = element_text(),
+    axis.text.x = element_text(),
+    axis.ticks.x = element_line()
+  )
 
 # Combine
 message("Combining panels...")
-combined <- (pA) / (pB | pC) +
-  plot_layout(heights = c(2, 1)) +
+bottom_row <- (pB | pC) + plot_layout(widths = c(1, 1.5))
+combined <- (pA) / bottom_row +
+  plot_layout(heights = c(1, 1)) +
   plot_annotation(tag_levels = "A") &
-  theme(plot.tag = element_text(face = "bold", size = 16))
+  theme(plot.tag = element_text(face = "bold", size = 10))
 
-ggsave(OUTPUT_PDF, combined, width = 16, height = 15)
+ggsave(OUTPUT_PDF, combined, width = 170, height = 230, units = "mm", dpi = 300, device = "pdf")
 message("Done!")
