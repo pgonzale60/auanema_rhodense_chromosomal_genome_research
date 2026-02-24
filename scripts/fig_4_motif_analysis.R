@@ -8,7 +8,7 @@ library(motifStack)
 # Paths
 MEME_OT <- "analyses/diminution/meme/meme_out/nxOscTipu1.1.meme.txt"
 MEME_AR <- "analyses/diminution/meme/meme_out/meme.txt"
-COV_BED <- "analyses/diminution/grs_visualization/SUPER_X_GRS_borders.bed"
+COV_BED <- "analyses/diminution/grs_visualization/SUPER_5_GRS_left_border.bed"
 TELO_TSV <- "analyses/genome_features/elim_coords/nxAuaRhod1.pb.miltel.telomeric.tsv.gz"
 FIMO_TSV <- "analyses/diminution/fimo_out/fimo.tsv.gz"
 GENOME_GRS <- "analyses/diminution/nxAuaRhod1_1.GRS.bed"
@@ -37,36 +37,15 @@ fimo_gr_all <- GRanges(
 
 #### PANEL B COORDINATE SELECTION (Fixed) ####
 
-# Pick the best hit at a SUPER_X GRS boundary FOR WHICH WE HAVE COVERAGE DATA
-# We know SUPER_X_GRS_borders.bed has data for 10706804 boundary
-# Let's find motif hits overlapping ANY break site on SUPER_X
-fimo_superx <- fimo_raw %>% filter(sequence_name == "SUPER_X")
-fimo_superx_gr <- GRanges(fimo_superx$sequence_name, IRanges(fimo_superx$start, fimo_superx$stop))
-
-# We specifically want a hit at a boundary that exists in our coverage file.
-# The user wants "the left end of the GRS".
-# 10706804 is a left end.
-target_boundary <- 10706804
-target_break_gr <- GRanges("SUPER_X", IRanges(target_boundary, target_boundary + 1))
-
-hits_idx <- which(fimo_superx_gr %over% target_break_gr)
-
-if (length(hits_idx) == 0) {
-    # If no exact overlap, find the closest high scoring hit within 100bp
-    hits_idx <- which(fimo_superx_gr %over% (target_break_gr + 100))
-}
-
-if (length(hits_idx) == 0) {
-    stop("Could not find a motif hit near the specified GRS boundary on SUPER_X")
-}
-
-target_hits <- fimo_superx[hits_idx, ] %>% arrange(desc(score))
-best_hit <- target_hits[1, ]
-
-x_start <- 10706780
-x_end <- 10706830
-motif_hit_start <- best_hit$start
-motif_hit_end <- best_hit$stop
+# Best motif hit at the SUPER_5 left GRS boundary (score 39.4, highest genome-wide)
+# Somatic (high coverage) is LEFT of boundary; eliminated (low coverage) is RIGHT.
+# GRS boundary: 16502174; motif hit: 16502162-16502190
+target_chrom <- "SUPER_5"
+target_boundary <- 16502174
+motif_hit_start <- 16502162
+motif_hit_end <- 16502190
+x_start <- 16502153
+x_end <- 16502197
 
 #### PANEL A: ALIGNED MOTIF COMPARISON ####
 
@@ -97,20 +76,25 @@ cs1 <- make_col_scheme(
 )
 
 panel_a <- ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1) +
+    scale_x_continuous(breaks = seq(5, 30, by = 5)) +
     theme_bw() +
     theme(
-        strip.text = element_text(face = "italic", size = 12),
+        strip.text = element_text(face = "italic", size = 11),
         strip.background = element_blank(),
         panel.border = element_blank(),
         panel.grid = element_blank(),
-        axis.line.y = element_line(color = "black")
+        axis.line.y = element_line(color = "black"),
+        axis.line.x = element_line(color = "black"),
+        axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9),
+        axis.title.y = element_text(size = 10)
     )
 
 #### PANEL B: BREAKSITE PRECISION ####
 
 # Load coverage - EXACT window
 df_cov <- read.table(COV_BED, col.names = c("chr", "start", "stop", "cov")) %>%
-    filter(chr == "SUPER_X" & stop >= x_start & start <= x_end)
+    filter(chr == target_chrom & stop >= x_start & start <= x_end)
 
 # Load telomeres from TSV - breakage_score > 0.1
 df_telo <- read_tsv(TELO_TSV,
@@ -120,7 +104,7 @@ df_telo <- read_tsv(TELO_TSV,
     ),
     show_col_types = FALSE
 ) %>%
-    filter(chr == "SUPER_X" & start >= x_start & start <= x_end) %>%
+    filter(chr == target_chrom & start >= x_start & start <= x_end) %>%
     filter(score > 0.1) %>%
     mutate(
         count = as.integer(sub("[-\\+]\\*", "", senses)),
@@ -130,14 +114,14 @@ df_telo <- read_tsv(TELO_TSV,
 
 # Motif hit coordinates
 df_motif_hit <- data.frame(
-    chr = "SUPER_X",
+    chr = target_chrom,
     start = motif_hit_start,
     stop = motif_hit_end,
     label = "Motif"
 )
 
 # Fetch nucleotide sequence using samtools
-seq_cmd <- paste0("samtools faidx ", GENOME_FA, " SUPER_X:", x_start, "-", x_end)
+seq_cmd <- paste0("samtools faidx ", GENOME_FA, " ", target_chrom, ":", x_start, "-", x_end)
 fasta_lines <- system(seq_cmd, intern = TRUE)
 raw_seq <- paste(fasta_lines[-1], collapse = "")
 seq_chars <- strsplit(raw_seq, "")[[1]]
@@ -148,34 +132,34 @@ df_seq <- data.frame(
 
 # Legend and Scales
 panel_b <- ggplot() +
-    # Motif hit highlight (background)
-    geom_rect(data = df_motif_hit, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = -Inf, ymax = Inf, fill = "Motif"), alpha = 0.3) +
+    # Motif hit highlight (sequence row only)
+    geom_rect(data = df_motif_hit, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = -25, ymax = -5, fill = "Motif"), alpha = 0.5) +
     # Background coverage
     geom_rect(data = df_cov, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = 0, ymax = cov, fill = "All reads")) +
     # Telomere bars
-    geom_rect(data = df_telo, aes(xmin = start - 0.5, xmax = start + 0.5, ymin = 0, ymax = count, fill = "Reads with softclipped\ntelomeric repeat")) +
+    geom_rect(data = df_telo, aes(xmin = start - 0.5, xmax = start + 0.5, ymin = 0, ymax = count, fill = "Reads with\nsoftclipped\ntelomeric\nrepeat")) +
     # Nucleotide sequence
-    geom_text(data = df_seq, aes(x = pos, y = -15, label = base, color = base), size = 3, fontface = "bold") +
-    # "Eliminated DNA" annotation (to the right for left boundary)
-    annotate("text", x = 10706815, y = 140, label = "Eliminated DNA", color = "grey40", fontface = "italic", size = 4) +
-    annotate("segment", x = 10706805, xend = 10706830, y = 125, yend = 125, color = "grey40", arrow = arrow(ends = "both", length = unit(0.2, "cm"))) +
+    geom_text(data = df_seq, aes(x = pos, y = -15, label = base, color = base), size = 2, fontface = "bold") +
+    # "Eliminated DNA" annotation (right of boundary = eliminated region)
+    annotate("text", x = target_boundary + 13, y = 70, label = "Eliminated DNA", color = "grey40", fontface = "italic", size = 3) +
+    annotate("segment", x = target_boundary, xend = x_end, y = 50, yend = 50, color = "grey40", arrow = arrow(ends = "both", length = unit(0.2, "cm"))) +
     # Legend and Scales
     scale_fill_manual(values = c(
         "All reads" = "grey85",
         "Motif" = "#166eb7",
-        "Reads with softclipped\ntelomeric repeat" = "#E31A1C"
-    ), breaks = c("All reads", "Reads with softclipped\ntelomeric repeat", "Motif")) +
+        "Reads with\nsoftclipped\ntelomeric\nrepeat" = "#E31A1C"
+    ), breaks = c("All reads", "Reads with\nsoftclipped\ntelomeric\nrepeat", "Motif")) +
     scale_color_manual(values = c(
         "A" = "#009E73", "C" = "#0072B2", "G" = "#E69F00", "T" = "#D55E00"
     ), guide = "none") +
-    scale_x_continuous(expand = c(0, 0)) +
+    scale_x_continuous(expand = c(0, 0), breaks = c(target_boundary - 14, target_boundary, target_boundary + 14)) +
     scale_y_continuous(expand = c(0, 0), limits = c(-30, 320)) +
     coord_cartesian(xlim = c(x_start, x_end)) +
-    labs(x = "Position on chr X (bp)", y = "Count / Coverage", fill = "") +
+    labs(x = "Position on Chr 5 (bp)", y = "Count / Coverage", fill = "") +
     theme_bw() +
     theme(
-        legend.position = c(0.75, 0.75),
-        legend.background = element_rect(fill = "white", color = "black"),
+        legend.position = c(0.75, 0.68),
+        legend.background = element_rect(fill = "white", color = "black", linewidth = 0.5),
         legend.title = element_blank(),
         panel.grid = element_blank()
     )
@@ -207,10 +191,10 @@ fimo_gr_final <- GRanges(
 
 fimo_gr_final$location <- "Retained"
 fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated"
-fimo_gr_final$location[fimo_gr_final %over% breaks_all_gr] <- "Telomere addition site"
+fimo_gr_final$location[fimo_gr_final %over% breaks_all_gr] <- "Telomere\naddition site"
 
 df_spec <- as.data.frame(fimo_gr_final) %>%
-    mutate(location = factor(location, levels = c("Telomere addition site", "Eliminated", "Retained")))
+    mutate(location = factor(location, levels = c("Telomere\naddition site", "Eliminated", "Retained")))
 
 loc_counts <- df_spec %>%
     group_by(location) %>%
@@ -221,7 +205,10 @@ panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
     geom_text(data = loc_counts, aes(x = location, y = 45, label = paste0("n=", n)), size = 3) +
     labs(x = "Location", y = "Motif match score", color = "") +
     theme_bw() +
-    theme(legend.position = "none", panel.grid = element_blank())
+    theme(
+        legend.position = "none", panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+    )
 
 
 #### COMBINE AND SAVE ####
@@ -229,6 +216,8 @@ panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
 final_plot <- (panel_a / panel_b / panel_c) +
     plot_layout(heights = c(1, 1, 1)) +
     plot_annotation(tag_levels = "A") &
-    theme(plot.tag = element_text(face = "bold", size = 16))
+    theme(plot.tag = element_text(face = "bold", size = 10))
 
-ggsave("report/figures/fig_4_motif_analysis.pdf", final_plot, width = 8, height = 12)
+ggsave("report/figures/fig_4_motif_analysis.pdf", final_plot,
+    width = 85, height = 210, units = "mm", dpi = 300, device = "pdf"
+)
