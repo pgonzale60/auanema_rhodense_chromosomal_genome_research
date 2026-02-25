@@ -112,7 +112,7 @@ panel_b <- plotMatrix(hic_chr5,
     labels = sprintf("%.2f", chr5_break_sites$coordinate / 1e6),
     guide = guide_axis(check.overlap = TRUE)
   ) +
-  labs(x = NULL, y = NULL, title = NULL) +
+  labs(x = "Position (Mb)", y = NULL, title = NULL) +
   theme_journal() +
   theme(
     legend.position = "none",
@@ -416,7 +416,7 @@ plTelo <- mutate(mappedTelo, chr = factor(chr, levels = mixedsort(unique(chr))))
   ) +
   facet_grid(. ~ chr) +
   theme_bw() +
-  scale_y_continuous("Telomeric reads", position = "left", expand = c(0, 0.1)) +
+  scale_y_continuous("Telomeric\nreads", position = "left", expand = c(0, 0.1)) +
   scale_x_continuous(
     "Position (Mb)",
     breaks = seq(0, 25e6, 10e6),
