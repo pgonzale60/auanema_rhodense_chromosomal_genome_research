@@ -69,6 +69,26 @@ for (i in 1:length(pfmsAligned)) {
 }
 motifs_aligned <- motifs_aligned[spnames]
 
+# Compute break position within aligned motif for panel A annotation
+ar_orig_mat   <- as.matrix(as.data.frame(motif_ar_stack[[1]]))
+ar_trim_mat   <- as.matrix(as.data.frame(ord_motifs[[1]]))        # A. rhodense trimmed
+ar_aligned_mat <- motifs_aligned[["A. rhodense"]]
+
+left_trim_ar <- (which(sapply(
+    seq_len(ncol(ar_orig_mat) - ncol(ar_trim_mat) + 1),
+    function(ci) all(abs(ar_orig_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
+))[1]) - 1
+if (is.na(left_trim_ar)) left_trim_ar <- 0
+
+align_pad_ar <- (which(sapply(
+    seq_len(ncol(ar_aligned_mat) - ncol(ar_trim_mat) + 1),
+    function(ci) all(abs(ar_aligned_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
+))[1]) - 1
+if (is.na(align_pad_ar)) align_pad_ar <- 0
+
+# Break is at genomic position target_boundary; motif starts at motif_hit_start
+break_pos_in_logo <- (target_boundary - motif_hit_start + 1) - left_trim_ar + align_pad_ar
+
 # Color scheme for nucleotides
 cs1 <- make_col_scheme(
     chars = c("A", "C", "G", "T"),
@@ -77,6 +97,10 @@ cs1 <- make_col_scheme(
 
 panel_a <- ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1) +
     scale_x_continuous(breaks = seq(5, 30, by = 5)) +
+    geom_vline(xintercept = break_pos_in_logo, linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
+    annotate("point", x = break_pos_in_logo, y = 2.1, shape = 25, fill = "black", size = 2, color = "black") +
+    coord_cartesian(clip = "off") +
+    labs(x = "Position (bp)") +
     theme_bw() +
     theme(
         strip.text = element_text(face = "italic", size = 11),
@@ -87,6 +111,7 @@ panel_a <- ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1) +
         axis.line.x = element_line(color = "black"),
         axis.text.x = element_text(size = 9),
         axis.text.y = element_text(size = 9),
+        axis.title.x = element_text(size = 10),
         axis.title.y = element_text(size = 10)
     )
 
@@ -137,7 +162,7 @@ panel_b <- ggplot() +
     # Background coverage
     geom_rect(data = df_cov, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = 0, ymax = cov, fill = "All reads")) +
     # Telomere bars
-    geom_rect(data = df_telo, aes(xmin = start - 0.5, xmax = start + 0.5, ymin = 0, ymax = count, fill = "Reads with\nsoftclipped\ntelomeric\nrepeat")) +
+    geom_rect(data = df_telo, aes(xmin = start - 0.5, xmax = start + 0.5, ymin = 0, ymax = count, fill = "Reads with\nsoft-clipped\ntelomeric\nrepeat")) +
     # Nucleotide sequence
     geom_text(data = df_seq, aes(x = pos, y = -15, label = base, color = base), size = 2, fontface = "bold") +
     # "Eliminated DNA" annotation (right of boundary = eliminated region)
@@ -147,15 +172,15 @@ panel_b <- ggplot() +
     scale_fill_manual(values = c(
         "All reads" = "grey85",
         "Motif" = "#166eb7",
-        "Reads with\nsoftclipped\ntelomeric\nrepeat" = "#E31A1C"
-    ), breaks = c("All reads", "Reads with\nsoftclipped\ntelomeric\nrepeat", "Motif")) +
+        "Reads with\nsoft-clipped\ntelomeric\nrepeat" = "#E31A1C"
+    ), breaks = c("All reads", "Reads with\nsoft-clipped\ntelomeric\nrepeat", "Motif")) +
     scale_color_manual(values = c(
         "A" = "#009E73", "C" = "#0072B2", "G" = "#E69F00", "T" = "#D55E00"
     ), guide = "none") +
     scale_x_continuous(expand = c(0, 0), breaks = c(target_boundary - 14, target_boundary, target_boundary + 14)) +
     scale_y_continuous(expand = c(0, 0), limits = c(-30, 320)) +
     coord_cartesian(xlim = c(x_start, x_end)) +
-    labs(x = "Position on Chr 5 (bp)", y = "Count / Coverage", fill = "") +
+    labs(x = "Position on Chr 5 (bp)", y = "Coverage", fill = "") +
     theme_bw() +
     theme(
         legend.position = c(0.75, 0.68),
@@ -219,5 +244,5 @@ final_plot <- (panel_a / panel_b / panel_c) +
     theme(plot.tag = element_text(face = "bold", size = 10))
 
 ggsave("report/figures/fig_4_motif_analysis.pdf", final_plot,
-    width = 85, height = 210, units = "mm", dpi = 300, device = "pdf"
+    width = 85, height = 160, units = "mm", dpi = 300, device = "pdf"
 )
