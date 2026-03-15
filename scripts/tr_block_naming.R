@@ -12,61 +12,73 @@
 #
 # Output: TSV with top TR families per block, with systematic names applied.
 #
+# Systematic names:
+#   AT-1/AT-2:  Autosomal Terminal (dominant/minor)
+#   AC-I to VI: Autosomal Central (chromosomes 1-6)
+#   XT-1/XT-2:  X Terminal (eliminated)
+#   XC:         X Central (eliminated)
+#   XR-1/XR-2:  X Retained (somatic)
+#
 # Usage (from project root):
 #   Rscript scripts/tr_block_naming.R
 
 library(tidyverse)
 
 # ── Parameters ─────────────────────────────────────────────────────────────────
-FAI_FILE     <- "analyses/genome_features/sequence_sizes/nxAuaRhod1.1.primary.fa.gz.fai"
-GRS_FILE     <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.GRS.bed"
+FAI_FILE <- "analyses/genome_features/sequence_sizes/nxAuaRhod1.1.primary.fa.gz.fai"
+GRS_FILE <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.GRS.bed"
 MEMBERS_FILE <- "analyses/genome_features/repeats/TRF/trf_family_members.tsv"
-OUTPUT_TSV   <- "analyses/genome_features/repeats/TRF/tr_block_naming.tsv"
-TOP_N        <- 3   # number of top families to report per block
+OUTPUT_TSV <- "analyses/genome_features/repeats/TRF/tr_block_naming.tsv"
+TOP_N <- 3 # number of top families to report per block
 
 # ── TR naming scheme ───────────────────────────────────────────────────────────
 # Maps internal family IDs to systematic names.
-# Autosomal terminal repeats: TR1 (dominant), TR2 (paired companion)
-# Autosomal central repeats:  AR-I to AR-VI (chromosome-specific, ordered by
+# Autosomal terminal repeats: AT-1 (dominant), AT-2 (minor)
+# Autosomal central repeats:  AC-I to AC-VI (chromosome-specific, ordered by
 #                             chromosome number)
-# X chromosome eliminated:    TR25 (X-left terminal), TR26 (X-right terminal),
-#                             XR-central (X central GRS, minor)
-# X chromosome somatic:       TR30 (left somatic domain), TR30b (right somatic
+# X chromosome eliminated:    XT-1 (X-left terminal), XT-2 (X-right terminal),
+#                             XC (X central GRS, minor)
+# X chromosome somatic:       XR-1 (left somatic domain), XR-2 (right somatic
 #                             domain)
 TR_NAME_MAP <- c(
   # Autosomal terminal
-  "P351_F001" = "TR1",
-  "P176_F001" = "TR2",
+  "P351_F001" = "AT-1",
+  "P176_F001" = "AT-2",
   # Autosomal central (one dominant family per autosome)
-  "P348_F001" = "AR-I",    # Chr 1
-  "P399_F001" = "AR-II",   # Chr 2
-  "P167_F002" = "AR-III",  # Chr 3
-  "P332_F002" = "AR-IV",   # Chr 4
-  "P231_F004" = "AR-V",    # Chr 5
-  "P412_F002" = "AR-VI",   # Chr 6
+  "P348_F001" = "AC-I", # Chr 1
+  "P399_F001" = "AC-II", # Chr 2
+  "P167_F002" = "AC-III", # Chr 3
+  "P332_F002" = "AC-IV", # Chr 4
+  "P231_F004" = "AC-V", # Chr 5
+  "P412_F002" = "AC-VI", # Chr 6
   # X chromosome
-  "P347_F001" = "TR25",       # X left terminal (eliminated)
-  "P342_F001" = "TR26",       # X right terminal (eliminated)
-  "P248_F001" = "XR-central", # X central GRS (minor, eliminated)
-  "P348_F003" = "TR30",       # X left somatic domain (retained)
-  "P291_F001" = "TR30b"       # X right somatic domain (retained)
+  "P347_F001" = "XT-1", # X left terminal (eliminated)
+  "P342_F001" = "XT-2", # X right terminal (eliminated)
+  "P248_F001" = "XC", # X central GRS (minor, eliminated)
+  "P348_F003" = "XR-1", # X left somatic domain (retained)
+  "P291_F001" = "XR-2" # X right somatic domain (retained)
 )
 
 # ── Load data ──────────────────────────────────────────────────────────────────
 message("Loading genome info...")
 seq_sizes <- read_tsv(FAI_FILE,
-    col_names = c("Chrom", "size", "L1", "L2", "L3"), col_types = "ciiii") %>%
+  col_names = c("Chrom", "size", "L1", "L2", "L3"), col_types = "ciiii"
+) %>%
   select(Chrom, size) %>%
   filter(!grepl("MT|unloc|scaffold", Chrom))
 
 message("Loading GRS regions...")
-grs <- read_tsv(GRS_FILE, col_names = c("Chrom", "Start", "End"),
-                col_types = "cii") %>%
+grs <- read_tsv(GRS_FILE,
+  col_names = c("Chrom", "Start", "End"),
+  col_types = "cii"
+) %>%
   filter(Chrom %in% seq_sizes$Chrom)
 
 message("Loading TR family members...")
-members <- read_tsv(MEMBERS_FILE, col_types = cols(.default = "c",
-    Start = "i", End = "i", Length = "i")) %>%
+members <- read_tsv(MEMBERS_FILE, col_types = cols(
+  .default = "c",
+  Start = "i", End = "i", Length = "i"
+)) %>%
   filter(Chrom %in% seq_sizes$Chrom) %>%
   select(Family_ID, Chrom, Start, End)
 
@@ -80,9 +92,18 @@ grs_split <- grs %>%
   mutate(grs_idx = row_number()) %>%
   ungroup()
 
-grs1 <- grs_split %>% filter(grs_idx == 1) %>% rename(g1s = Start, g1e = End) %>% select(-grs_idx)
-grs2 <- grs_split %>% filter(grs_idx == 2) %>% rename(g2s = Start, g2e = End) %>% select(-grs_idx)
-grs3 <- grs_split %>% filter(grs_idx == 3) %>% rename(g3s = Start, g3e = End) %>% select(-grs_idx)
+grs1 <- grs_split %>%
+  filter(grs_idx == 1) %>%
+  rename(g1s = Start, g1e = End) %>%
+  select(-grs_idx)
+grs2 <- grs_split %>%
+  filter(grs_idx == 2) %>%
+  rename(g2s = Start, g2e = End) %>%
+  select(-grs_idx)
+grs3 <- grs_split %>%
+  filter(grs_idx == 3) %>%
+  rename(g3s = Start, g3e = End) %>%
+  select(-grs_idx)
 
 grs_wide <- grs1 %>%
   left_join(grs2, by = "Chrom") %>%
@@ -90,9 +111,9 @@ grs_wide <- grs1 %>%
 
 blocks <- bind_rows(
   grs_wide %>% transmute(Chrom, Block = 1L, Block_Type = "eliminated", Block_Start = g1s, Block_End = g1e),
-  grs_wide %>% transmute(Chrom, Block = 2L, Block_Type = "somatic",    Block_Start = g1e + 1L, Block_End = g2s - 1L),
+  grs_wide %>% transmute(Chrom, Block = 2L, Block_Type = "somatic", Block_Start = g1e + 1L, Block_End = g2s - 1L),
   grs_wide %>% transmute(Chrom, Block = 3L, Block_Type = "eliminated", Block_Start = g2s, Block_End = g2e),
-  grs_wide %>% transmute(Chrom, Block = 4L, Block_Type = "somatic",    Block_Start = g2e + 1L, Block_End = g3s - 1L),
+  grs_wide %>% transmute(Chrom, Block = 4L, Block_Type = "somatic", Block_Start = g2e + 1L, Block_End = g3s - 1L),
   grs_wide %>% transmute(Chrom, Block = 5L, Block_Type = "eliminated", Block_Start = g3s, Block_End = g3e)
 ) %>%
   mutate(Block_Size = Block_End - Block_Start + 1L) %>%
@@ -102,8 +123,10 @@ blocks <- bind_rows(
 message("Computing TR coverage per block (may take a moment)...")
 
 # Cross-join blocks with members, then filter to overlapping pairs
-block_coverage <- inner_join(blocks, members, by = "Chrom",
-                             relationship = "many-to-many") %>%
+block_coverage <- inner_join(blocks, members,
+  by = "Chrom",
+  relationship = "many-to-many"
+) %>%
   filter(Start < Block_End, End > Block_Start) %>%
   mutate(Overlap = pmin(End, Block_End) - pmax(Start, Block_Start)) %>%
   group_by(Chrom, Block, Block_Type, Block_Start, Block_End, Block_Size, Family_ID) %>%
@@ -122,8 +145,10 @@ top_families <- block_coverage %>%
     Chr_Name = sub("SUPER_", "Chr ", Chrom),
     TR_Name  = dplyr::recode(Family_ID, !!!TR_NAME_MAP, .default = Family_ID)
   ) %>%
-  select(Chrom, Chr_Name, Block, Block_Type, Block_Start, Block_End,
-         Block_Size, Rank, Family_ID, TR_Name, Coverage, Coverage_Fraction) %>%
+  select(
+    Chrom, Chr_Name, Block, Block_Type, Block_Start, Block_End,
+    Block_Size, Rank, Family_ID, TR_Name, Coverage, Coverage_Fraction
+  ) %>%
   arrange(Chrom, Block, Rank)
 
 # ── Write output ───────────────────────────────────────────────────────────────

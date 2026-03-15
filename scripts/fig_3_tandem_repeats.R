@@ -250,21 +250,21 @@ message("TR windows filtered (rRNA overlap): ", nrow(tr_plot_data) - nrow(tr_plo
 # 4. TR naming scheme
 tr_name_map <- c(
   # Autosomal terminal repeats (conserved across all autosomes)
-  "P351_F001" = "TR1",
-  "P176_F001" = "TR2",
+  "P351_F001" = "AT-1",
+  "P176_F001" = "AT-2",
   # Autosomal central repeats (chromosome-specific)
-  "P348_F001" = "AR-I",
-  "P399_F001" = "AR-II",
-  "P167_F002" = "AR-III",
-  "P332_F002" = "AR-IV",
-  "P231_F004" = "AR-V",
-  "P412_F002" = "AR-VI",
+  "P348_F001" = "AC-I",
+  "P399_F001" = "AC-II",
+  "P167_F002" = "AC-III",
+  "P332_F002" = "AC-IV",
+  "P231_F004" = "AC-V",
+  "P412_F002" = "AC-VI",
   # X chromosome repeats
-  "P347_F001" = "TR25",
-  "P342_F001" = "TR26",
-  "P248_F001" = "XR-central",
-  "P348_F003" = "TR30",
-  "P291_F001" = "TR30b"
+  "P347_F001" = "XT-1",
+  "P342_F001" = "XT-2",
+  "P248_F001" = "XC",
+  "P348_F003" = "XR-1",
+  "P291_F001" = "XR-2"
 )
 
 tr_recode_map <- setNames(names(tr_name_map), unname(tr_name_map))
@@ -273,11 +273,11 @@ tr_plot_data_filtered <- tr_plot_data_filtered %>%
 
 # Reorder factor levels: named families in biological order, unnamed last
 elim_named_order <- c(
-  "TR1", "TR2",
-  "AR-I", "AR-II", "AR-III", "AR-IV", "AR-V", "AR-VI",
-  "TR25", "TR26", "XR-central"
+  "AT-1", "AT-2",
+  "AC-I", "AC-II", "AC-III", "AC-IV", "AC-V", "AC-VI",
+  "XT-1", "XT-2", "XC"
 )
-soma_names <- c("TR30", "TR30b")
+soma_names <- c("XR-1", "XR-2")
 all_levels <- levels(tr_plot_data_filtered$Family_ID)
 unnamed <- setdiff(all_levels, c(elim_named_order, soma_names))
 tr_plot_data_filtered <- tr_plot_data_filtered %>%
@@ -288,8 +288,8 @@ tr_plot_data_filtered <- tr_plot_data_filtered %>%
 # 5. Plots
 # Custom colors for Chr X somatic families
 x_soma_colors <- c(
-  "TR30"  = "#1331F5",
-  "TR30b" = "#9E1F87"
+  "XR-1" = "#1331F5",
+  "XR-2" = "#9E1F87"
 )
 
 # Split TR data for dual legends
@@ -322,7 +322,7 @@ pA <- ggplot() +
   geom_bar(data = tr_soma, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
   scale_fill_manual(
     values = x_soma_colors,
-    labels = c("TR30", "TR30b")
+    labels = c("XR-1", "XR-2")
   ) +
   guides(fill = guide_legend(title = "Major somatic-retained\nTR families", nrow = 1, order = 2, title.position = "top")) +
   # Annotations
@@ -375,7 +375,7 @@ pC <- ggplot() +
   ) +
   coord_cartesian(clip = "off") +
   scale_color_brewer(palette = "Set1", drop = FALSE) +
-  labs(y = expression("Fraction" ~ (log[10])), x = "Position (Mb)", color = "RNA Type") +
+  labs(y = expression("Genomic occupancy" ~ (log[10])), x = "Position (Mb)", color = "RNA Type") +
   guides(color = guide_legend(override.aes = list(linewidth = 2), nrow = 1, title.position = "top")) +
   theme_panel +
   theme(
