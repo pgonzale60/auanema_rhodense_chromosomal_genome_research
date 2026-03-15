@@ -70,8 +70,8 @@ for (i in 1:length(pfmsAligned)) {
 motifs_aligned <- motifs_aligned[spnames]
 
 # Compute break position within aligned motif for panel A annotation
-ar_orig_mat   <- as.matrix(as.data.frame(motif_ar_stack[[1]]))
-ar_trim_mat   <- as.matrix(as.data.frame(ord_motifs[[1]]))        # A. rhodense trimmed
+ar_orig_mat <- as.matrix(as.data.frame(motif_ar_stack[[1]]))
+ar_trim_mat <- as.matrix(as.data.frame(ord_motifs[[1]])) # A. rhodense trimmed
 ar_aligned_mat <- motifs_aligned[["A. rhodense"]]
 
 left_trim_ar <- (which(sapply(
@@ -95,9 +95,16 @@ cs1 <- make_col_scheme(
     cols = c("#009E73", "#0072B2", "#E69F00", "#D55E00")
 )
 
-panel_a <- ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1) +
+panel_a <- suppressWarnings(ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1))
+
+# Move the vline to the first layer (behind the letters)
+panel_a$layers <- c(
+    geom_vline(xintercept = break_pos_in_logo, linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5),
+    panel_a$layers
+)
+
+panel_a <- panel_a +
     scale_x_continuous(breaks = seq(5, 30, by = 5)) +
-    geom_vline(xintercept = break_pos_in_logo, linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
     annotate("point", x = break_pos_in_logo, y = 2.1, shape = 25, fill = "black", size = 2, color = "black") +
     coord_cartesian(clip = "off") +
     labs(x = "Position (bp)") +
@@ -111,8 +118,8 @@ panel_a <- ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1) +
         axis.line.x = element_line(color = "black"),
         axis.text.x = element_text(size = 9),
         axis.text.y = element_text(size = 9),
-        axis.title.x = element_text(size = 10),
-        axis.title.y = element_text(size = 10)
+        axis.title.x = element_text(size = 10, face = "plain"),
+        axis.title.y = element_text(size = 10, face = "plain")
     )
 
 #### PANEL B: BREAKSITE PRECISION ####
@@ -166,8 +173,8 @@ panel_b <- ggplot() +
     # Nucleotide sequence
     geom_text(data = df_seq, aes(x = pos, y = -15, label = base, color = base), size = 2, fontface = "bold") +
     # "Eliminated DNA" annotation (right of boundary = eliminated region)
-    annotate("text", x = target_boundary + 13, y = 70, label = "Eliminated DNA", color = "grey40", fontface = "italic", size = 3) +
-    annotate("segment", x = target_boundary, xend = x_end, y = 50, yend = 50, color = "grey40", arrow = arrow(ends = "both", length = unit(0.2, "cm"))) +
+    annotate("text", x = target_boundary + 13, y = 110, label = "Eliminated DNA", color = "grey40", fontface = "italic", size = 3) +
+    annotate("segment", x = target_boundary, xend = x_end, y = 90, yend = 90, color = "grey40", arrow = arrow(ends = "both", length = unit(0.2, "cm"))) +
     # Legend and Scales
     scale_fill_manual(values = c(
         "All reads" = "grey85",
@@ -177,16 +184,22 @@ panel_b <- ggplot() +
     scale_color_manual(values = c(
         "A" = "#009E73", "C" = "#0072B2", "G" = "#E69F00", "T" = "#D55E00"
     ), guide = "none") +
-    scale_x_continuous(expand = c(0, 0), breaks = c(target_boundary - 14, target_boundary, target_boundary + 14)) +
-    scale_y_continuous(expand = c(0, 0), limits = c(-30, 320)) +
+    scale_x_continuous(expand = c(0, 0), breaks = target_boundary) +
+    scale_y_continuous(expand = c(0, 0), limits = c(-30, 300)) +
     coord_cartesian(xlim = c(x_start, x_end)) +
-    labs(x = "Position on Chr 5 (bp)", y = "Coverage", fill = "") +
+    labs(x = "Position (bp)", y = "Coverage", fill = "") +
     theme_bw() +
     theme(
-        legend.position = c(0.75, 0.68),
-        legend.background = element_rect(fill = "white", color = "black", linewidth = 0.5),
+        legend.position = c(0.75, 0.75),
+        legend.background = element_rect(fill = "white", color = "black", linewidth = 0.2),
+        legend.margin = margin(1, 1, 1, 1, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.spacing.y = unit(0, "pt"),
+        legend.key.size = unit(2.2, "mm"),
         legend.title = element_blank(),
-        panel.grid = element_blank()
+        legend.text = element_text(size = 7),
+        panel.grid = element_blank(),
+        axis.title = element_text(size = 10, face = "plain")
     )
 
 
@@ -227,22 +240,23 @@ loc_counts <- df_spec %>%
 
 panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
     geom_jitter(aes(color = location), width = 0.3, alpha = 0.6) +
-    geom_text(data = loc_counts, aes(x = location, y = 45, label = paste0("n=", n)), size = 3) +
+    geom_text(data = loc_counts, aes(x = location, y = 40, label = paste0("n=", n)), size = 3) +
     labs(x = "Location", y = "Motif match score", color = "") +
     theme_bw() +
     theme(
         legend.position = "none", panel.grid = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1)
+        axis.text.x = element_text(angle = 0, hjust = 0.5),
+        axis.title = element_text(size = 10, face = "plain")
     )
 
 
 #### COMBINE AND SAVE ####
 
 final_plot <- (panel_a / panel_b / panel_c) +
-    plot_layout(heights = c(1, 1, 1)) +
+    plot_layout(heights = c(1, 1.3, 1)) +
     plot_annotation(tag_levels = "A") &
     theme(plot.tag = element_text(face = "bold", size = 10))
 
 ggsave("report/figures/fig_4_motif_analysis.pdf", final_plot,
-    width = 85, height = 160, units = "mm", dpi = 300, device = "pdf"
+    width = 85, height = 175, units = "mm", dpi = 300, device = "pdf"
 )
