@@ -37,8 +37,19 @@ renv/staging/
 # Genome assembly (obtain from NCBI/ENA - see README)
 nxAuaRhod1_1.primary.fa.gz*
 
-# Paper draft (lives in Google Docs/shared drive)
+# Paper draft text files
 _Team301*.txt
+
+# Manuscript Word documents — canonical version lives in Google Docs
+# Local copies kept for reference only; binary files not suitable for git
+report/manuscript/
+
+# Claude workspace metadata
+.claude/worktrees/
+.claude/projects/
+
+# LibreOffice/Word lock files
+.~lock.*
 
 # BAM files
 *.bam
@@ -56,6 +67,20 @@ P351.fasta
 analyses/genome_features/repeats/modDotPlot/
 analyses/genome_features/repeats/TRF/test_output/
 analyses/genome_features/repeats/TRF/test_*.tsv.gz
+
+# FIMO secondary outputs (HTML, GFF, XML) — the primary fimo.tsv.gz is tracked
+analyses/diminution/fimo_out/cisml.xml.gz
+analyses/diminution/fimo_out/fimo.gff.gz
+analyses/diminution/fimo_out/fimo.html.gz
+analyses/diminution/fimo_out/fimo.xml.gz
+
+# MEME intermediate run directory and generated logo images
+# (primary meme.txt output is tracked)
+analyses/diminution/meme/def_run/
+analyses/diminution/meme/meme_out/logo*.eps
+analyses/diminution/meme/meme_out/logo*.png
+analyses/diminution/meme/meme_out/meme.html
+analyses/diminution/meme/meme_out/meme.xml
 
 # Generated figure outputs at top level (canonical outputs go in report/figures/)
 diminution_motif_figure.pdf

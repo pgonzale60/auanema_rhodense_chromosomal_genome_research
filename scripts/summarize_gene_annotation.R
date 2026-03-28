@@ -2,6 +2,8 @@ library(tidyverse)
 library(GenomicRanges)
 library(IRanges)
 library(S4Vectors)
+library(rtracklayer)
+
 
 aua_ipr <- read_tsv("analyses/genes/annotation/nxAuaRhod1_1.iprscan.guoying.tsv.gz",
                     comment = "#",
@@ -21,6 +23,12 @@ aua_egg <- read_tsv("analyses/genes/annotation/nxAuaRhod1_1.eggnog_mapper.tsv.gz
 # ipro transposon domains
 transp_doms <- read_tsv("raw/intreproscan_transposon_related_domains.tsv.gz")
 
+# Earlgrey TE annotation
+te_gff <- "analyses/genome_features/repeats/earlgrey/Auanema_rhodensis.filteredRepeats.gff"
+te_gr <- import(te_gff)
+# Filter for actual TEs (avoiding simple satellites if desired, but here we keep all for completeness)
+# You can further classify them using the 'type' or 'ID' column if needed
+
 
 # Gene expression
 metadata <- read_csv("analyses/genes/DEseq2/samplesheet.csv") %>%
@@ -35,6 +43,13 @@ metadata <- read_csv("analyses/genes/DEseq2/samplesheet.csv") %>%
 gexp <- read_tsv("analyses/genes/star_stringtie/arhod_star_stringtie_gene_expression.tsv.gz",
                  col_names = c("ID", "Name", "Reference", "Strand", "Start",
                                "End", "Coverage", "FPKM", "TPM", "SRA"))
+
+# Load gene coordinates for TE intersection
+genes_gff <- "analyses/genes/GTFs/nxAuaRhod1_1.gff.gz"
+genes_gr_all <- import(genes_gff)
+genes_gr <- genes_gr_all[genes_gr_all$type == "gene"]
+# Normalize IDs (e.g., remove 'gene:' prefix if present or handle name mapping)
+genes_gr$gene_id <- sub("ID=", "", genes_gr$ID) # Adjust based on actual GFF format
 
 gexp_max <- group_by(gexp, ID) %>%
   slice_max(TPM, with_ties = F) %>% ungroup() %>%
@@ -93,6 +108,30 @@ allAuaGenes <- tibble(gene_id = gexp_max$ID[grepl("file", gexp_max$ID)]) %>%
          fullEv = withOrts & exprssed & withAnnot,
          transp_rel = gene_id %in% transp_gIDs,
          expTransp = transp_rel & exprssed)
+
+# Calculate TE overlap
+ov <- findOverlaps(genes_gr, te_gr)
+# Define a gene as TE-associated if >50% of its length is covered by TEs
+# or just if it overlaps. Given the previous findings, 50% might be a good threshold
+# to identify genes genuinely "embedded/contained" in TEs.
+p_ints <- pintersect(genes_gr[queryHits(ov)], te_gr[subjectHits(ov)])
+overlap_summary <- tibble(
+    gene_index = queryHits(ov),
+    overlap_width = width(p_ints)
+) %>%
+    group_by(gene_index) %>%
+    summarise(total_te_overlap = sum(overlap_width), .groups = "drop")
+
+genes_gr$te_overlap_perc <- 0
+genes_gr$te_overlap_perc[overlap_summary$gene_index] <- (overlap_summary$total_te_overlap / width(genes_gr[overlap_summary$gene_index])) * 100
+
+allAuaGenes <- allAuaGenes %>%
+    left_join(tibble(gene_id = genes_gr$gene_id, 
+                     te_contained = genes_gr$te_overlap_perc > 50,
+                     te_overlap_perc = genes_gr$te_overlap_perc), 
+              by = "gene_id") %>%
+    mutate(te_contained = replace_na(te_contained, FALSE),
+           te_overlap_perc = replace_na(te_overlap_perc, 0))
 
 colSums(select(allAuaGenes, -gene_id))
 
