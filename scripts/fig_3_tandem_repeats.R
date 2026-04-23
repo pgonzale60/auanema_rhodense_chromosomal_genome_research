@@ -206,7 +206,7 @@ for (rna_type in rna_types) {
   rna_cov <- GenomicRanges::coverage(GenomicRanges::reduce(rna_gr_type))
   binned <- binnedAverage(rna_windows, rna_cov, "fraction") %>%
     as_tibble() %>%
-    mutate(RNA_Type = rna_type, fraction = pmax(fraction, 0.001))
+    mutate(RNA_Type = rna_type)
   rna_plot_data <- bind_rows(rna_plot_data, binned)
 }
 
@@ -359,24 +359,20 @@ pB <- ggplot() +
   theme_panel +
   theme(axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line())
 
-# Panel C: RNA fractions (per 10 Kb window, log scale)
+# Panel C: RNA fractions (per 10 Kb window, stacked histogram)
 pC <- ggplot() +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0.001, ymax = 0.95), fill = "grey70", alpha = 0.3) +
-  geom_line(data = rna_plot_data, aes(x = start, y = fraction, color = RNA_Type), linewidth = 0.5) +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
+  geom_bar(data = rna_plot_data, aes(x = start, y = fraction, fill = RNA_Type), stat = "identity", position = "stack", width = RNA_WINDOW_SIZE) +
   geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1), shape = 25, fill = "black", size = 2, color = "black") +
-  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0.001, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
+  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
   facet_grid(chr ~ .) +
   scale_x_continuous(labels = function(x) ifelse(x == 0, "", scales::label_number(scale = 1e-6)(x)), expand = c(0, 0)) +
-  scale_y_log10(
-    limits = c(0.001, 1),
-    breaks = c(0.001, 0.01, 0.1, 1),
-    labels = c("-3", "-2", "-1", "0")
-  ) +
+  scale_y_continuous(breaks = c(0, 1), limits = c(0, 1.1), expand = c(0, 0)) +
   coord_cartesian(clip = "off") +
-  scale_color_brewer(palette = "Set1", drop = FALSE) +
-  labs(y = expression("Genomic occupancy" ~ (log[10])), x = "Position (Mb)", color = "RNA Type") +
-  guides(color = guide_legend(override.aes = list(linewidth = 2), nrow = 1, title.position = "top")) +
+  scale_fill_brewer(palette = "Set1", drop = FALSE) +
+  labs(y = "RNA Fraction", x = "Position (Mb)", fill = "RNA Type") +
+  guides(fill = guide_legend(nrow = 1, title.position = "top")) +
   theme_panel +
   theme(
     legend.position = "top",
@@ -384,7 +380,7 @@ pC <- ggplot() +
     legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "cm"),
     legend.spacing.x = unit(0.2, "cm"),
-    plot.margin = margin(b = 0, t = 0, l = 0, r = 5),
+    plot.margin = margin(b = 8, t = 4, l = 5, r = 5),
     axis.title.x = element_text(),
     axis.text.x = element_text(),
     axis.ticks.x = element_line()

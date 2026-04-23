@@ -87,7 +87,7 @@ align_pad_ar <- (which(sapply(
 if (is.na(align_pad_ar)) align_pad_ar <- 0
 
 # Break is at genomic position target_boundary; motif starts at motif_hit_start
-break_pos_in_logo <- (target_boundary - motif_hit_start + 1) - left_trim_ar + align_pad_ar
+break_pos_in_logo <- (target_boundary - motif_hit_start + 1.5) - left_trim_ar + align_pad_ar
 
 # Color scheme for nucleotides
 cs1 <- make_col_scheme(
@@ -105,7 +105,7 @@ panel_a$layers <- c(
 
 panel_a <- panel_a +
     scale_x_continuous(breaks = seq(5, 30, by = 5)) +
-    annotate("point", x = break_pos_in_logo, y = 2.1, shape = 25, fill = "black", size = 2, color = "black") +
+    annotate("point", x = break_pos_in_logo, y = 2.3, shape = 25, fill = "black", size = 2, color = "black") +
     coord_cartesian(clip = "off") +
     labs(x = "Position (bp)") +
     theme_bw() +
