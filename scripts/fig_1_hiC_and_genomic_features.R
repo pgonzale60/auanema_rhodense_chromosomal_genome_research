@@ -497,16 +497,16 @@ combined_plot <- plot_grid(
 
 # Display and save
 # Using cairo_pdf for better font embedding if needed, or standard pdf
-ggsave("report/figures/fig_2_hiC_and_genomic_features.pdf",
+ggsave("report/figures/Figure_1.pdf",
   combined_plot,
   width = 170, height = 225, units = "mm", device = "pdf"
 )
 
-ggsave("report/figures/fig_2_hiC_and_genomic_features.png",
+ggsave("report/figures/Figure_1.png",
   combined_plot,
   width = 170, height = 225, units = "mm", dpi = 300
 )
 
-cat("\nFigure 2 saved to:\n")
-cat("  report/figures/fig_2_hiC_and_genomic_features.pdf\n")
-cat("  report/figures/fig_2_hiC_and_genomic_features.png\n")
+cat("\nFigure 1 saved to:\n")
+cat("  report/figures/Figure_1.pdf\n")
+cat("  report/figures/Figure_1.png\n")

@@ -14,7 +14,7 @@ RNAMMER_GFF <- "analyses/genome_features/repeats/rnammer/nxAuaRhod1_1.rnammer.gf
 TRNASCAN_GFF <- "analyses/genome_features/repeats/tRNAscan/nxAuaRhod1_1.trnas.gff.gz"
 INFERNAL_GFF <- "analyses/genome_features/repeats/infernal/nxAuaRhod1_1.infernal.gff.gz"
 
-OUTPUT_PDF <- "report/figures/fig_3_tandem_repeats.pdf"
+OUTPUT_PDF <- "report/figures/Figure_2.pdf"
 WINDOW_SIZE <- 100000
 
 # 1. Load genome info
