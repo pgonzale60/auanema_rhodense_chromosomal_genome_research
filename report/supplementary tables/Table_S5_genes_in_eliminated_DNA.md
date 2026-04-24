@@ -1,0 +1,366 @@
+# Table S5. Genes present in eliminated DNA of Auanema rhodense
+
+This table lists the 360 gene models identified within the germline-restricted (eliminated) regions. Functional annotations, expression levels (TPM), and association with transposable elements (TEs) are provided.
+
+| gene_id | Preferred_name | Description | OG_id | celegans | TPM | te_contained | has_te_domains | is_legit_homolog | is_non_te_candidate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| file_1_file_1_g12 | NA | NA | OG0008072 | Y79H2A.1a.1 | 436.010986 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3605 | ACTB | Belongs to the actin family | OG0000028 | M03F4.2a.1, T04C12.4.3, T04C12.5.1, T04C12.6.1, T25C8.2.1 | 266.662994 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g826 | NA | NA | OG0031955 | NA | 79.35968 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g827 | NA | NA | OG0006666 | Y55B1AR.2b.1 | 42.780586 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g14 | MRE11A | Belongs to the MRE11 RAD32 family | OG0003033 | ZC302.1.2 | 25.645155 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g13 | AMDHD1 | imidazolonepropionase activity | OG0003466 | T12A2.1.1 | 22.166056 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9188 | - | Aldo/keto reductase family | OG0001657 | F53F1.2.1, F53F1.3.1 | 8.483492 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10846 | NA | NA | OG0008317 | NA | 3.052576 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9869 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 2.295379 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g7241 | NA | NA | OG0016977 | NA | 2.25656 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9871 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 2.15833 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9872 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 2.125232 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9870 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 2.080019 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9203 | NA | NA | OG0003429 | NA | 2.016797 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g7262 | NA | NA | OG0008317 | NA | 1.957915 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g7269 | NA | NA | OG0008317 | NA | 1.957915 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9873 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 1.740296 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10848 | NA | NA | OG0010278 | NA | 0.853308 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9874 | GIT2 | Spa2 homology domain (SHD) of GIT | OG0000817 | F14F3.2.1, T25C12.3.1 | 0.767259 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10849 | NA | NA | OG0010278 | NA | 0.764916 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g8291 | NA | NA | OG0006590 | B0545.4.1, C10A4.1.1, C53D6.6.2, K09A11.1.1 | 0.761879 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10867 | NA | NA | OG0031328 | NA | 0.522678 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3594 | - | Histone H4 | OG0010247 | NA | 0.396793 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9918 | NA | NA | OG0005446 | NA | 0.388054 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6337 | NA | NA | OG0008317 | NA | 0.364131 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9894 | NA | NA | OG0016943 | NA | 0.329531 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1667 | NA | NA | OG0016967 | NA | 0.319167 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9906 | NA | NA | OG0031080 | NA | 0.313937 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9880 | NA | NA | OG0001960 | NA | 0.313103 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9898 | NA | NA | OG0031078 | NA | 0.285648 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1666 | NA | NA | OG0003429 | NA | 0.281584 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g11939 | NA | NA | OG0009513 | NA | 0.274321 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1 | NA | NA | OG0009513 | NA | 0.232752 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3 | NA | NA | OG0009513 | NA | 0.232752 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g5 | NA | NA | OG0009513 | NA | 0.232752 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9921 | NA | NA | OG0009513 | NA | 0.232752 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10864 | SETMAR | SET domain and mariner transposase fusion gene | OG0000282 | F49E2.5l.2 | 0.22332 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9923 | SETMAR | SET domain and mariner transposase fusion gene | OG0000282 | F49E2.5l.2 | 0.22332 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g3585 | NA | NA | OG0000190 | K02E2.6.3 | 0.213862 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9193 | NA | NA | OG0009513 | NA | 0.211959 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9187 | NA | NA | OG0016967 | NA | 0.197186 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9903 | H3F3C | Histone H3 | OG0016946 | NA | 0.18797 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g5276 | NA | NA | OG0016955 | NA | 0.154241 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g5278 | NA | NA | OG0016955 | NA | 0.154241 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1665 | NA | NA | OG0016966 | NA | 0.152542 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11941 | NA | NA | OG0002781 | NA | 0.143772 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9908 | NA | NA | OG0005446 | NA | 0.131519 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9185 | NA | NA | OG0016966 | NA | 0.125311 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6327 | NA | NA | OG0000356 | Y20F4.8.1 | 0.119865 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9901 | NA | NA | OG0016942 | NA | 0.102518 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9904 | NA | NA | OG0031079 | NA | 0.101947 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3584 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.097699 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9899 | NA | NA | OG0008312 | NA | 0.095981 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g8289 | NA | NA | OG0008312 | NA | 0.088529 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3598 | - | Histone H4 | OG0010247 | NA | 0.085914 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g4368 | - | protein dimerization activity | OG0005446 | NA | 0.075205 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9 | NA | NA | OG0001138 | NA | 0.074216 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10859 | NA | NA | OG0016961 | NA | 0.073026 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11940 | NA | NA | OG0002781 | NA | 0.07116 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9893 | NA | NA | OG0002781 | NA | 0.055796 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9184 | NA | NA | OG0009513 | NA | 0.055322 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11933 | NA | NA | OG0002781 | NA | 0.054926 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10880 | NA | NA | OG0001138 | NA | 0.05465 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10881 | NA | NA | OG0001138 | NA | 0.05465 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10882 | NA | NA | OG0001138 | NA | 0.05465 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10883 | NA | NA | OG0001138 | NA | 0.05465 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9888 | NA | NA | OG0002781 | NA | 0.052265 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9933 | - | Integrase core domain | OG0001286 | NA | 0.048678 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9895 | NA | NA | OG0002781 | NA | 0.046732 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9896 | NA | NA | OG0002781 | NA | 0.046707 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9907 | NA | NA | OG0002781 | NA | 0.045103 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11937 | NA | NA | OG0005446 | NA | 0.043563 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g7259 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0.037146 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g7266 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0.037146 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g810 | NA | NA | OG0000254 | NA | 0.035465000000000003 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9934 | NA | NA | OG0001286 | NA | 0.033432 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10879 | NA | NA | OG0000254 | NA | 0.033323 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11925 | NA | NA | OG0031435 | NA | 0.032598 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10837 | NA | NA | OG0001138 | NA | 0.030156 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6326 | NA | NA | OG0000254 | NA | 0.027696 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1664 | NA | NA | OG0011069 | NA | 0.024816 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9909 | NA | NA | OG0008312 | NA | 0.02431 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10862 | NA | NA | OG0000254 | NA | 0.021648 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11936 | NA | NA | OG0005446 | NA | 0.020006 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11935 | NA | NA | OG0005446 | NA | 0.01956 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11934 | NA | NA | OG0005446 | NA | 0.017784 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2493 | NA | NA | OG0000254 | NA | 0.017373 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2494 | NA | NA | OG0000254 | NA | 0.017373 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2533 | NA | NA | OG0000356 | Y20F4.8.1 | 0.015877 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g11942 | NA | NA | OG0012327 | NA | 0.015173 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3591 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0.008336 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3599 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0.008336 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g2528 | NA | NA | OG0001286 | NA | 0.008085 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9189 | NA | NA | OG0012327 | NA | 0.00667 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10840 | - | oxidation-reduction process | OG0008245 | F54H12.2.1 | 0.006533 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g1663 | NA | NA | OG0012327 | NA | 0.006111 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10836 | NA | NA | OG0001138 | NA | 0.006036 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11932 | NA | NA | OG0012327 | NA | 0.005936 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2 | NA | NA | OG0003429 | NA | 0.004884 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g4 | NA | NA | OG0003429 | NA | 0.004884 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g6 | NA | NA | OG0003429 | NA | 0.004884 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9922 | NA | NA | OG0003429 | NA | 0.004884 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3592 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0.004168 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3595 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0.004168 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g2530 | - | - | OG0001006 | F23C8.3b.1 | 0.003849 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g2527 | - | Chromatin organization modifier domain | OG0001286 | NA | 0.003846 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9927 | NA | NA | OG0000356 | Y20F4.8.1 | 0.002484 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9877 | NA | NA | OG0000356 | Y20F4.8.1 | 0.001484 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g9938 | - | oxidation-reduction process | OG0008245 | F54H12.2.1 | 0.001228 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10842 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g10850 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g10851 | NA | NA | OG0010278 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10852 | NA | NA | OG0010278 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10853 | NA | NA | OG0010278 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10855 | NA | NA | OG0031327 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10857 | NA | NA | OG0016945 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10858 | NA | NA | OG0016949 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10861 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10863 | NA | NA | OG0001138 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10865 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10868 | NA | NA | OG0031329 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10869 | NA | NA | OG0001138 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10871 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10877 | NA | NA | OG0001138 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g10878 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g11929 | - | transposition | OG0002782 | NA | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g11930 | NA | NA | OG0002782 | NA | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g11931 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g11938 | NA | NA | OG0016947 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1669 | NA | NA | OG0013962 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g1670 | NA | NA | OG0013962 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2495 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2496 | NA | NA | OG0009530 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2500 | NA | NA | OG0009530 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2501 | NA | NA | OG0013947 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2502 | NA | NA | OG0016961 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2503 | NA | NA | OG0013947 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2504 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2505 | NA | NA | OG0016982 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2506 | NA | NA | OG0016982 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2521 | NA | NA | OG0031645 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g2523 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g2526 | - | Chromatin organization modifier domain | OG0001286 | NA | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g2529 | - | response to salt stress | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3589 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3590 | - | protein heterodimerization activity | OG0010247 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3593 | - | protein heterodimerization activity | OG0010247 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3596 | - | Histone H4 | OG0010247 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3597 | - | histone H3 | OG0031087 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3600 | - | Histone H4 | OG0010247 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g3601 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g3602 | - | histone H3 | OG0000012 | B0035.10.1, E03A3.3.1, E03A3.4.1, F07B7.5.1, F08G2.3.1, F17E9.10.1, F22B3.2.1, F45E1.6.1, F45F2.13.1, F54E12.1.1, F55G1.2.1, K03A1.1.1, K06C4.13.1, K06C4.5.1, T10C6.13.1, W05B10.1.1, W09H1.2.1, ZK131.2.1, ZK131.3.1, ZK131.7.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g4367 | NA | NA | OG0005394 | T26G10.4.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g5281 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g6320 | NA | NA | OG0008312 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6321 | NA | NA | OG0031514 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6322 | NA | NA | OG0031515 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6323 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6324 | NA | NA | OG0000356 | Y20F4.8.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g6325 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g6328 | - | oxidation-reduction process | OG0008245 | F54H12.2.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g6330 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g7242 | NA | NA | OG0012129 | R02D3.7.1 | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g7243 | NA | NA | OG0012129 | R02D3.7.1 | 0 | FALSE | TRUE | TRUE | TRUE |
+| file_1_file_1_g7257 | - | oxidation-reduction process | OG0008245 | F54H12.2.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g7264 | - | oxidation-reduction process | OG0008245 | F54H12.2.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g804 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g805 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g807 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g808 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g809 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g815 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g816 | NA | NA | OG0008312 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g8288 | NA | NA | OG0005446 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g8290 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9178 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9181 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9186 | NA | NA | OG0003429 | NA | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g9194 | NA | NA | OG0030979 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9195 | NA | NA | OG0030980 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9196 | NA | NA | OG0011069 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9197 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9198 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9199 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9200 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9201 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9202 | NA | NA | OG0010241 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9875 | NA | NA | OG0000254 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9882 | NA | NA | OG0002781 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9883 | NA | NA | OG0016941 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9884 | NA | NA | OG0031077 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9885 | NA | NA | OG0002781 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9886 | NA | NA | OG0008312 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9887 | NA | NA | OG0016942 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9889 | NA | NA | OG0005446 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9890 | NA | NA | OG0002781 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9891 | NA | NA | OG0002781 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9892 | NA | NA | OG0005446 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9900 | NA | NA | OG0016945 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9902 | NA | NA | OG0002781 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9905 | NA | NA | OG0008312 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9910 | NA | NA | OG0016947 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9911 | NA | NA | OG0016943 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9912 | NA | NA | OG0031081 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9913 | NA | NA | OG0031082 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9914 | NA | NA | OG0031083 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9915 | NA | NA | OG0031084 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9916 | NA | NA | OG0031085 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9917 | NA | NA | OG0031086 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9919 | NA | NA | OG0016946 | NA | 0 | FALSE | FALSE | FALSE | TRUE |
+| file_1_file_1_g9936 | - | - | OG0001947 | K09F6.9.1, Y57G11C.20.1 | 0 | FALSE | FALSE | TRUE | TRUE |
+| file_1_file_1_g11926 | NA | NA | OG0011069 | NA | 2.210915 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g2531 | NA | NA | OG0012045 | F40D4.13.1, T11F9.10.1 | 0.433529 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g9939 | - | - | OG0002750 | C25F9.1a.1, C25F9.2.1, E01G4.5.1, K09F6.10.3 | 0.238332 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g5282 | - | steroid hormone mediated signaling pathway | OG0000749 | Y113G7B.12.1 | 0.203979 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5280 | NA | NA | OG0002782 | NA | 0.189747 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5283 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.188805 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g823 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.164358 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g820 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.160508 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9881 | - | DDE superfamily endonuclease | OG0012332 | NA | 0.150755 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g10873 | NA | NA | OG0031330 | NA | 0.122933 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g10844 | NA | NA | OG0001286 | NA | 0.116361 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g9932 | NA | NA | OG0008317 | NA | 0.103452 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g6331 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.096041 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10839 | - | - | OG0002750 | C25F9.1a.1, C25F9.2.1, E01G4.5.1, K09F6.10.3 | 0.093934 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2492 | NA | NA | OG0000356 | Y20F4.8.1 | 0.087288 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g2525 | NA | NA | OG0008317 | NA | 0.084813 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g9931 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.083111 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5277 | NA | NA | OG0000356 | Y20F4.8.1 | 0.07295 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5279 | NA | NA | OG0000356 | Y20F4.8.1 | 0.07295 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g812 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.070708 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g806 | NA | NA | OG0001138 | NA | 0.05939 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g9929 | - | - | OG0001960 | NA | 0.059149 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g10 | NA | NA | OG0010246 | NA | 0.057288 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9930 | - | transposition, RNA-mediated | OG0001960 | NA | 0.055936 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9940 | - | ISXO2-like transposase domain | OG0000590 | NA | 0.055561 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9925 | NA | NA | OG0002782 | NA | 0.05027 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10875 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.050073 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g819 | NA | NA | OG0000190 | K02E2.6.3 | 0.050035 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2524 | NA | NA | OG0008316 | NA | 0.045081 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g9179 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.043168 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5275 | NA | NA | OG0001960 | NA | 0.043044 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g10876 | NA | NA | OG0000190 | K02E2.6.3 | 0.04221 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g10841 | NA | NA | OG0008316 | NA | 0.039797 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g9920 | NA | NA | OG0011069 | NA | 0.039011 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g5274 | NA | NA | OG0001960 | NA | 0.038983 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9937 | NA | NA | OG0008316 | NA | 0.036849 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g817 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.035823 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g11927 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0.030609 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g3586 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0.030609 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7246 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0.030609 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9182 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.030536 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9183 | NA | NA | OG0011069 | NA | 0.028902 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9926 | NA | NA | OG0002782 | NA | 0.026435 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9897 | NA | NA | OG0016944 | NA | 0.026173 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g818 | NA | NA | OG0000190 | K02E2.6.3 | 0.025461 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g11 | NA | NA | OG0000190 | K02E2.6.3 | 0.025245 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g5273 | NA | NA | OG0001960 | NA | 0.025151 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g7256 | - | - | OG0002750 | C25F9.1a.1, C25F9.2.1, E01G4.5.1, K09F6.10.3 | 0.024263 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g7263 | - | - | OG0002750 | C25F9.1a.1, C25F9.2.1, E01G4.5.1, K09F6.10.3 | 0.024263 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g825 | NA | NA | OG0000190 | K02E2.6.3 | 0.023313 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g822 | NA | NA | OG0000190 | K02E2.6.3 | 0.022747 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9876 | NA | NA | OG0010246 | NA | 0.022443 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g4378 | NA | NA | OG0000356 | Y20F4.8.1 | 0.021651 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9924 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0.021406 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9177 | - | retrotransposable element Tf2 155 kDa protein type 1-like | OG0002782 | NA | 0.019523 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g814 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.015026 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7258 | NA | NA | OG0008316 | NA | 0.013287 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g7265 | NA | NA | OG0008316 | NA | 0.013287 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g7248 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.012549 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g3587 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.012477 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7250 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.012357 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g11928 | - | proton channel activity | OG0000474 | F46F5.8.1 | 0.012282 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g9190 | - | proton channel activity | OG0000474 | F46F5.8.1 | 0.012282 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g9191 | - | proton channel activity | OG0000474 | F46F5.8.1 | 0.012282 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2516 | - | - | OG0001006 | F23C8.3b.1 | 0.011889 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2532 | NA | NA | OG0000356 | Y20F4.8.1 | 0.009298 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g9928 | NA | NA | OG0001960 | NA | 0.009085 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g8 | NA | NA | OG0002782 | NA | 0.008196 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g2519 | - | Belongs to the cytochrome P450 family | OG0012374 | NA | 0.007311 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7245 | NA | NA | OG0001960 | NA | 0.004681 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g11943 | NA | NA | OG0000749 | Y113G7B.12.1 | 0.004643 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g811 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.004556 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g2518 | - | - | OG0001006 | F23C8.3b.1 | 0.004225 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g813 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.003977 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g2498 | - | transposition, RNA-mediated | OG0000356 | Y20F4.8.1 | 0.003818 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g2497 | NA | NA | OG0010246 | NA | 0.003643 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g9180 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.003549 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7251 | NA | NA | OG0000749 | Y113G7B.12.1 | 0.003348 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10874 | NA | NA | OG0016962 | NA | 0.003236 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g9192 | - | Transposase (partial DDE domain) | OG0000282 | F49E2.5l.2 | 0.003133 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g6329 | NA | NA | OG0008316 | NA | 0.003114 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g1671 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.002633 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7261 | - | Integrase core domain | OG0001286 | NA | 0.002449 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7268 | - | Integrase core domain | OG0001286 | NA | 0.002449 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g3604 | NA | NA | OG0000356 | Y20F4.8.1 | 0.002352 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10870 | NA | NA | OG0001138 | NA | 0.002341 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g7255 | NA | NA | OG0001960 | NA | 0.002137 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g7252 | NA | NA | OG0000356 | Y20F4.8.1 | 0.001959 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g3603 | NA | NA | OG0000356 | Y20F4.8.1 | 0.001926 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7254 | NA | NA | OG0001960 | NA | 0.001826 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g7253 | NA | NA | OG0001960 | NA | 0.001321 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g6332 | - | K02A2.6-like | OG0000190 | K02E2.6.3 | 0.001302 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g6339 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0.001275 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10838 | - | - | OG0002750 | C25F9.1a.1, C25F9.2.1, E01G4.5.1, K09F6.10.3 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g10843 | - | - | OG0009518 | NA | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g10845 | - | Integrase core domain | OG0001286 | NA | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g10847 | NA | NA | OG0031326 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g10854 | NA | NA | OG0010278 | NA | 0 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g10856 | NA | NA | OG0008312 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g10860 | NA | NA | OG0013947 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g10866 | NA | NA | OG0001138 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g10872 | NA | NA | OG0001138 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g2488 | NA | NA | OG0009530 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g2489 | NA | NA | OG0009530 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g2490 | NA | NA | OG0009530 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g2491 | NA | NA | OG0009530 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g2499 | - | nucleic acid binding | OG0000356 | Y20F4.8.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2507 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2508 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2509 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2510 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2511 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2512 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2513 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2514 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2515 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2517 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2520 | - | - | OG0001006 | F23C8.3b.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g2522 | NA | NA | OG0000190 | K02E2.6.3 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g3588 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4369 | - | - | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4370 | - | - | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4371 | - | - | OG0005394 | T26G10.4.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g4372 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4373 | - | Ribonuclease H protein | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4374 | NA | NA | OG0031170 | NA | 0 | TRUE | FALSE | FALSE | FALSE |
+| file_1_file_1_g4375 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4376 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g4377 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0005394 | T26G10.4.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g5284 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g5285 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0000749 | Y113G7B.12.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g6319 | NA | NA | OG0016944 | NA | 0 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g6333 | NA | NA | OG0000190 | K02E2.6.3 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g6334 | NA | NA | OG0001286 | NA | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g6335 | - | Chromatin organization modifier domain | OG0001286 | NA | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g6336 | - | Integrase core domain | OG0001286 | NA | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g6338 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g7 | - | Reverse transcriptase (RNA-dependent DNA polymerase) | OG0000749 | Y113G7B.12.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7244 | NA | NA | OG0000190 | K02E2.6.3 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g7247 | - | Ribonuclease H protein | OG0000749 | Y113G7B.12.1 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g7249 | NA | NA | OG0000749 | Y113G7B.12.1 | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g7260 | - | - | OG0009518 | NA | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g7267 | - | - | OG0009518 | NA | 0 | TRUE | FALSE | TRUE | FALSE |
+| file_1_file_1_g821 | NA | NA | OG0000190 | K02E2.6.3 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g824 | NA | NA | OG0000190 | K02E2.6.3 | 0 | TRUE | TRUE | TRUE | FALSE |
+| file_1_file_1_g8287 | SETMAR | SET domain and mariner transposase fusion gene | OG0012332 | NA | 0 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9878 | NA | NA | OG0001960 | NA | 0 | TRUE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9879 | - | - | OG0001960 | NA | 0 | FALSE | TRUE | FALSE | FALSE |
+| file_1_file_1_g9935 | - | - | OG0009518 | NA | 0 | TRUE | FALSE | TRUE | FALSE |
