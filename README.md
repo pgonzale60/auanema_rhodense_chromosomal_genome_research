@@ -10,16 +10,31 @@ This repository contains the complete analysis workflow for a chromosomal genome
 - **Tandem repeats** (TRF family identification and classification)
 - **Gene annotation** (functional annotation, orthology)
 
-## Core Analysis Scripts
-
-The following scripts generate the main paper figures:
-
+## Manuscript Assets
+ 
+The following scripts in `scripts/manuscript/` generate the primary figures and supplementary tables as defined in the [authoritative index](report/manuscript/figures_and_tables.txt).
+ 
+### Main Figures
+ 
 | Script | Output | Purpose |
 |--------|--------|---------|
-| `scripts/fig_2_hiC_and_genomic_features.R` | `report/figures/fig_2_hiC_and_genomic_features.pdf` | Figure 2: Hi-C + integrated genomic features |
-| `scripts/fig_3_tandem_repeats.R` | `report/figures/fig_3_tandem_repeats.pdf` | Figure 3: Tandem repeat family distribution |
-| `scripts/fig_4_motif_analysis.R` | `report/figures/fig_4_motif_analysis.pdf` | Figure 4: Motif analysis visualization |
-| `scripts/summarize_gene_annotation.R` | Console output / summary tables | Gene annotation statistics |
+| `scripts/manuscript/fig_1_hiC_and_genomic_features.R` | `report/figures/Figure_1.pdf` | **Figure 1**: Hi-C + integrated genomic features |
+| `scripts/manuscript/fig_2_tandem_repeats.R` | `report/figures/Figure_2.pdf` | **Figure 2**: Tandem repeat family distribution |
+| `scripts/manuscript/fig_3_motif_analysis.R` | `report/figures/Figure_3.pdf` | **Figure 3**: Motif analysis and break site precision |
+ 
+### Supplementary Tables
+ 
+| Script | Output | Purpose |
+|--------|--------|---------|
+| `scripts/manuscript/generate_table_s2.py` | `report/supplementary tables/Table_S2_PDE_quantification.md` | **Table S2**: PDE statistics |
+| `scripts/manuscript/generate_table_s3.py` | `report/supplementary tables/Table_S3_TR_families_span.md` | **Table S3**: TR family span analysis |
+| `scripts/manuscript/generate_table_s4.py` | `report/supplementary tables/Table_S4_ncRNA_eliminated.md` | **Table S4**: ncRNA in eliminated DNA |
+| `scripts/manuscript/generate_table_s5.py` | `report/supplementary tables/Table_S5_genes_in_eliminated_DNA.md` | **Table S5**: Genes in eliminated DNA |
+| `scripts/manuscript/generate_table_s6.py` | `report/supplementary tables/Table_S6_SFE_coordinates.md` | **Table S6**: SFE motif coordinates |
+ 
+## Utility & Analysis Scripts
+ 
+Intermediate analysis and data processing scripts are located in `scripts/utils/`. These include orthogroup classification, TE identification, and telomere read filtering.
 
 ## Data Dependencies
 
