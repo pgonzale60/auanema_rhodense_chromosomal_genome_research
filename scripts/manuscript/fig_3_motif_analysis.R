@@ -191,8 +191,8 @@ panel_b <- ggplot() +
     theme_bw() +
     theme(
         legend.position = c(0.75, 0.75),
-        legend.background = element_rect(fill = "white", color = "black", linewidth = 0.2),
-        legend.margin = margin(1, 1, 1, 1, unit = "pt"),
+        legend.background = element_rect(fill = "transparent", color = NA),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.spacing.y = unit(0, "pt"),
         legend.key.size = unit(2.2, "mm"),
@@ -203,7 +203,7 @@ panel_b <- ggplot() +
     )
 
 
-#### PANEL C: MOTIF SPECIFICITY (FILTERED) ####
+#### PANEL C: SINGLE-STRAND MOTIF SPECIFICITY ####
 
 keep_idx <- c()
 if (length(fimo_gr_all) > 0) {
@@ -227,36 +227,145 @@ fimo_gr_final <- GRanges(
     score = fimo_filtered$score
 )
 
-fimo_gr_final$location <- "Retained"
-fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated"
-fimo_gr_final$location[fimo_gr_final %over% breaks_all_gr] <- "Telomere\naddition site"
+BREAK_SITES <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
+bps <- read.table(BREAK_SITES, header = TRUE)
+bps_gr <- GRanges(seqnames = bps$chrom, ranges = IRanges(start = bps$coordinate - 50, end = bps$coordinate + 50))
+
+fimo_gr_final$location <- "Retained Genome"
+fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated Region"
+fimo_gr_final$location[fimo_gr_final %over% bps_gr] <- "Break Site"
 
 df_spec <- as.data.frame(fimo_gr_final) %>%
-    mutate(location = factor(location, levels = c("Telomere\naddition site", "Eliminated", "Retained")))
+    mutate(location = factor(location, levels = c("Break Site", "Eliminated Region", "Retained Genome")))
 
 loc_counts <- df_spec %>%
     group_by(location) %>%
     summarise(n = n(), .groups = "drop")
 
+# Consistent color palette across compartments (clearly distinguishing all three)
+compartment_colors <- c(
+    "Break Site" = "#D9381E",        # Vivid red/vermillion
+    "Eliminated Region" = "#2171B5", # Medium royal blue
+    "Retained Genome" = "#238B45"    # Forest green
+)
+
+min_bp_single <- min(df_spec$score[df_spec$location == "Break Site"])
+
 panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
-    geom_jitter(aes(color = location), width = 0.3, alpha = 0.6) +
-    geom_text(data = loc_counts, aes(x = location, y = 40, label = paste0("n=", n)), size = 3) +
-    labs(x = "Location", y = "Motif match score", color = "") +
+    geom_jitter(aes(color = location), width = 0.28, alpha = 0.55, size = 1.4) +
+    geom_hline(yintercept = min_bp_single, linetype = "dotted", color = "black", linewidth = 0.6) +
+    geom_text(data = loc_counts, aes(x = location, y = 43, label = paste0("n=", n)), size = 2.8) +
+    scale_color_manual(values = compartment_colors) +
+    scale_x_discrete(labels = c(
+        "Break Site" = "Break\nSite",
+        "Eliminated Region" = "Eliminated\nRegion",
+        "Retained Genome" = "Retained\nGenome"
+    )) +
+    scale_y_continuous(limits = c(0, 46), breaks = seq(0, 40, by = 10)) +
+    labs(x = "Genomic Location", y = "Single-strand motif score (bits)", color = "") +
     theme_bw() +
     theme(
-        legend.position = "none", panel.grid = element_blank(),
-        axis.text.x = element_text(angle = 0, hjust = 0.5),
-        axis.title = element_text(size = 10, face = "plain")
+        legend.position = "none",
+        panel.grid = element_blank(),
+        axis.text.x = element_text(size = 8.5),
+        axis.text.y = element_text(size = 8.5),
+        axis.title = element_text(size = 9.5, face = "plain")
     )
 
 
-#### COMBINE AND SAVE ####
+#### PANEL D: DUAL-STRAND PALINDROMIC SPECIFICITY (plus vs minus strand) ####
 
-final_plot <- (panel_a / panel_b / panel_c) +
-    plot_layout(heights = c(1, 1.3, 1)) +
+chroms <- paste0("SUPER_", c(1:6, "X"))
+fimo_chr <- fimo_raw %>% filter(sequence_name %in% chroms)
+
+pos_hits <- fimo_chr %>% filter(strand == "+")
+neg_hits <- fimo_chr %>% filter(strand == "-")
+
+# Canonical palindromic pairs: opposite strand, exact 2 bp coordinate stagger
+pairs <- inner_join(pos_hits, neg_hits, by = "sequence_name", suffix = c("_plus", "_minus"), relationship = "many-to-many") %>%
+    mutate(offset = start_plus - start_minus) %>%
+    filter(offset == 2) %>%
+    mutate(
+        center = (start_plus + stop_plus + start_minus + stop_minus) / 4.0
+    )
+
+pairs_gr <- GRanges(pairs$sequence_name, IRanges(start = as.integer(pairs$center), width = 1))
+
+pairs$comp <- "Retained Genome"
+pairs$comp[pairs_gr %over% grs_gr] <- "Eliminated Region"
+pairs$comp[pairs_gr %over% bps_gr] <- "Break Site"
+pairs$comp <- factor(pairs$comp, levels = c("Break Site", "Eliminated Region", "Retained Genome"))
+
+pair_counts <- pairs %>%
+    group_by(comp) %>%
+    summarise(n = n(), .groups = "drop")
+
+poly_pass <- data.frame(
+    x = c(0, 37.5, 42, 42, 0),
+    y = c(37.5, 0, 0, 42, 42)
+)
+
+panel_d <- ggplot() +
+    # Shaded grey passing zone (dual strand sum: score_plus + score_minus >= 37.5 bits)
+    geom_polygon(data = poly_pass, aes(x = x, y = y), fill = "grey90", alpha = 0.7) +
+    # Diagonal threshold line (score_plus + score_minus = 37.5)
+    geom_abline(intercept = 37.5, slope = -1, linetype = "dotted", color = "grey40", linewidth = 0.5) +
+    # Data points (consistent size = 1.4, alpha = 0.55 across all compartments)
+    geom_point(
+        data = pairs %>% filter(comp == "Retained Genome"),
+        aes(x = score_plus, y = score_minus, color = comp),
+        alpha = 0.55, size = 1.4
+    ) +
+    geom_point(
+        data = pairs %>% filter(comp == "Eliminated Region"),
+        aes(x = score_plus, y = score_minus, color = comp),
+        alpha = 0.55, size = 1.4
+    ) +
+    geom_point(
+        data = pairs %>% filter(comp == "Break Site"),
+        aes(x = score_plus, y = score_minus, color = comp),
+        alpha = 0.55, size = 1.4
+    ) +
+    scale_color_manual(
+        values = compartment_colors,
+        labels = c(
+            "Break Site" = paste0("Break Sites (n=", pair_counts$n[pair_counts$comp == "Break Site"], ")"),
+            "Eliminated Region" = paste0("Eliminated Region (n=", pair_counts$n[pair_counts$comp == "Eliminated Region"], ")"),
+            "Retained Genome" = paste0("Retained Genome (n=", pair_counts$n[pair_counts$comp == "Retained Genome"], ")")
+        )
+    ) +
+    scale_x_continuous(limits = c(0, 42), breaks = seq(0, 40, by = 10)) +
+    scale_y_continuous(limits = c(0, 42), breaks = seq(0, 40, by = 10)) +
+    labs(
+        x = "Plus strand score (bits)",
+        y = "Minus strand score (bits)",
+        color = ""
+    ) +
+    theme_bw() +
+    theme(
+        legend.position = c(0.30, 0.90),
+        legend.background = element_rect(fill = "transparent", color = NA),
+        legend.box.background = element_rect(fill = "transparent", color = NA),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.key = element_rect(fill = "transparent", color = NA),
+        legend.key.size = unit(2.5, "mm"),
+        legend.text = element_text(size = 7.5),
+        panel.grid = element_blank(),
+        axis.text.x = element_text(size = 8.5),
+        axis.text.y = element_text(size = 8.5),
+        axis.title = element_text(size = 9.5, face = "plain")
+    )
+
+
+#### COMBINE AND SAVE (2x2) ####
+
+# Top row: coverage (panel_b) as A, motif alignment (panel_a) as B
+# Bottom row: single-strand (panel_c) as C, dual-strand (panel_d) as D
+final_plot <- ((panel_b | panel_a) / (panel_c | panel_d)) +
+    plot_layout(heights = c(1, 1.1)) +
     plot_annotation(tag_levels = "A") &
-    theme(plot.tag = element_text(face = "bold", size = 10))
+    theme(plot.tag = element_text(face = "bold", size = 11))
 
 ggsave("report/figures/Figure_3.pdf", final_plot,
-    width = 85, height = 175, units = "mm", dpi = 300, device = "pdf"
+    width = 175, height = 150, units = "mm", dpi = 300, device = "pdf"
 )
