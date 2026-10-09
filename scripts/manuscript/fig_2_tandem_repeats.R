@@ -309,30 +309,93 @@ theme_panel <- theme_bw() + theme(
   plot.margin = margin(b = 8, t = 4, l = 5, r = 5)
 )
 
-# Panel A: TRs
+# Sub-track parameters for Panel A
+track_gap <- 0.25
+top_base <- 1.0 + track_gap
+top_max <- top_base + 1.0
+
+# Prepare total TR dataset shifted to the top track (rRNA excluded)
+total_filtered <- total_binned %>%
+  rowwise() %>%
+  mutate(
+    overlaps_high_rrna = any(
+      high_rrna_windows$seqnames == seqnames &
+        high_rrna_windows$window_start < end &
+        high_rrna_windows$window_end > start
+    )
+  ) %>%
+  ungroup() %>%
+  filter(!overlaps_high_rrna)
+
+total_top <- total_filtered %>%
+  mutate(
+    ymin = top_base,
+    ymax = top_base + fraction,
+    xmin = start - 0.5,
+    xmax = end + 0.5
+  )
+
+# High-contrast GRS shading fill: clean, soft cool slate (#E2E8F0)
+# providing crisp contrast against pure white (#FFFFFF) somatic domains
+grs_fill <- "#E2E8F0"
+
+# Bounding boxes for each chromosome in Panel A:
+# Bottom track: [0, 1] (Families)
+# Top track: [top_base, top_max] (Total TR)
+chr_rects_bot <- chr_rects %>% mutate(ymin = 0, ymax = 1)
+chr_rects_top <- chr_rects %>% mutate(ymin = top_base, ymax = top_max)
+
+internal_boundaries_pA <- internal_grs_boundaries %>%
+  mutate(y_tri = top_max + 0.08)
+
+# Panel A: TRs (Parallel Tracks: Total TR on top, Classified Families on bottom)
 pA <- ggplot() +
-  geom_area(data = total_binned, aes(x = start, y = fraction), fill = "grey85", alpha = 0.8) +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
-  # Layer 1: Eliminated regions
-  geom_bar(data = tr_elim, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
+  # GRS shading spanning both sub-tracks
+  geom_rect(data = grs_regions_plot,
+            aes(xmin = Start, xmax = End, ymin = 0, ymax = top_max),
+            fill = grs_fill, inherit.aes = FALSE) +
+  # Top sub-track: Total TR coverage (crisp slate-grey fill)
+  geom_rect(data = total_top,
+            aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+            fill = "#475569", inherit.aes = FALSE) +
+  # Bottom sub-track Layer 1: Eliminated regions TR families
+  geom_bar(data = tr_elim,
+           aes(x = start, y = fraction, fill = Family_ID),
+           stat = "identity", position = "stack", width = WINDOW_SIZE) +
   scale_fill_hue() +
   guides(fill = guide_legend(title = "Major TR families in eliminated regions", nrow = 2, order = 1, title.position = "top")) +
-  # Layer 2: Somatic-retained (Chr X)
+  # Bottom sub-track Layer 2: Somatic-retained (Chr X)
   new_scale_fill() +
-  geom_bar(data = tr_soma, aes(x = start, y = fraction, fill = Family_ID), stat = "identity", position = "stack", width = WINDOW_SIZE) +
+  geom_bar(data = tr_soma,
+           aes(x = start, y = fraction, fill = Family_ID),
+           stat = "identity", position = "stack", width = WINDOW_SIZE) +
   scale_fill_manual(
     values = x_soma_colors,
     labels = c("XR-1", "XR-2")
   ) +
   guides(fill = guide_legend(title = "Major somatic-retained\nTR families", nrow = 1, order = 2, title.position = "top")) +
-  # Annotations
-  geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
-  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
+  # Internal GRS boundary markers (dashed line from 0 to top_max, inverted triangle above)
+  geom_vline(data = internal_grs_boundaries,
+             aes(xintercept = position),
+             linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
+  geom_point(data = internal_boundaries_pA,
+             aes(x = position, y = y_tri),
+             shape = 25, fill = "black", size = 1.8, color = "black") +
+  # Track bounding boxes
+  geom_rect(data = chr_rects_bot, aes(xmin = 0, xmax = size, ymin = ymin, ymax = ymax),
+            fill = NA, color = "black", linewidth = 0.45, inherit.aes = FALSE) +
+  geom_rect(data = chr_rects_top, aes(xmin = 0, xmax = size, ymin = ymin, ymax = ymax),
+            fill = NA, color = "black", linewidth = 0.45, inherit.aes = FALSE) +
   facet_grid(chr ~ .) +
   scale_x_continuous(labels = scales::label_number(scale = 1e-6), expand = c(0, 0)) +
-  scale_y_continuous(breaks = c(0, 1), limits = c(0, 1.1), expand = c(0, 0)) +
-  labs(y = "TR Fraction", x = "Position (Mb)") +
+  scale_y_continuous(
+    breaks = c(0.5, top_base + 0.5),
+    labels = c("Families", "Total TR"),
+    limits = c(0, top_max + 0.18),
+    expand = c(0, 0)
+  ) +
+  coord_cartesian(clip = "off") +
+  labs(y = NULL, x = "Position (Mb)") +
   theme_panel +
   theme(
     legend.position = "top",
@@ -341,16 +404,17 @@ pA <- ggplot() +
     legend.key.size = unit(0.4, "cm"),
     axis.title.x = element_text(),
     axis.text.x = element_text(),
-    axis.ticks.x = element_line()
+    axis.ticks.x = element_line(),
+    axis.text.y = element_text(size = 6.5, face = "bold", color = "#333333")
   )
 
-# Panel B: Genes
+# Panel B: Genes (with high-contrast GRS background shading)
 pB <- ggplot() +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
-  geom_rect(data = genes, aes(xmin = Start, xmax = End, ymin = 0.1, ymax = 0.9), fill = "darkgreen") +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = grs_fill) +
+  geom_rect(data = genes, aes(xmin = Start, xmax = End, ymin = 0.08, ymax = 0.92), fill = "#1b7837") +
   geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
-  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 1.8, color = "black") +
+  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.45) +
   facet_grid(chr ~ .) +
   scale_x_continuous(labels = function(x) ifelse(x == 0, "", scales::label_number(scale = 1e-6)(x)), expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 1.1), expand = c(0, 0), breaks = NULL) +
@@ -359,13 +423,13 @@ pB <- ggplot() +
   theme_panel +
   theme(axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line())
 
-# Panel C: RNA fractions (per 10 Kb window, stacked histogram)
+# Panel C: RNA fractions (per 10 Kb window, stacked histogram, with high-contrast GRS background shading)
 pC <- ggplot() +
-  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = "grey70", alpha = 0.3) +
+  geom_rect(data = grs_regions_plot, aes(xmin = Start, xmax = End, ymin = 0, ymax = 1), fill = grs_fill) +
   geom_bar(data = rna_plot_data, aes(x = start, y = fraction, fill = RNA_Type), stat = "identity", position = "stack", width = RNA_WINDOW_SIZE) +
   geom_vline(data = internal_grs_boundaries, aes(xintercept = position), linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5) +
-  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 2, color = "black") +
-  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.5) +
+  geom_point(data = internal_grs_boundaries, aes(x = position, y = 1.05), shape = 25, fill = "black", size = 1.8, color = "black") +
+  geom_rect(data = chr_rects, aes(xmin = 0, xmax = size, ymin = 0, ymax = 1), fill = NA, color = "black", linewidth = 0.45) +
   facet_grid(chr ~ .) +
   scale_x_continuous(labels = function(x) ifelse(x == 0, "", scales::label_number(scale = 1e-6)(x)), expand = c(0, 0)) +
   scale_y_continuous(breaks = c(0, 1), limits = c(0, 1.1), expand = c(0, 0)) +
@@ -390,9 +454,13 @@ pC <- ggplot() +
 message("Combining panels...")
 bottom_row <- (pB | pC) + plot_layout(widths = c(1, 1.5))
 combined <- (pA) / bottom_row +
-  plot_layout(heights = c(1, 1)) +
+  plot_layout(heights = c(1.3, 1)) +
   plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(face = "bold", size = 10))
 
-ggsave(OUTPUT_PDF, combined, width = 170, height = 230, units = "mm", dpi = 300, device = "pdf")
-message("Done!")
+ggsave(OUTPUT_PDF, combined, width = 175, height = 250, units = "mm", dpi = 300, device = "pdf")
+
+# Also save high-resolution PNG for direct preview
+output_png <- sub("\\.pdf$", ".png", OUTPUT_PDF)
+ggsave(output_png, combined, width = 175, height = 250, units = "mm", dpi = 300)
+message("Done! Saved PDF and PNG to report/figures/")

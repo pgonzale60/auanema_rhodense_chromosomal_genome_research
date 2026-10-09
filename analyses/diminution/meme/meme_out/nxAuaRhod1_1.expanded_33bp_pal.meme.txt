@@ -1,0 +1,348 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 5.5.9 (Release date: Fri Nov 21 15:33:51 2025 -0800)
+
+For further information on how to interpret these results please access https://meme-suite.org/meme.
+To get a copy of the MEME Suite software please access https://meme-suite.org.
+
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to
+discover motifs in biopolymers",
+Proceedings of the Second International Conference on Intelligent Systems
+for Molecular Biology, pp. 28-36, AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+PRIMARY SEQUENCES= expanded_42_break_sequences.fasta
+CONTROL SEQUENCES= --none--
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+SUPER_1:5566191-5566391| 1.0000    201  SUPER_1:10908536-1090873 1.0000    201  
+SUPER_1:13336092-1333629 1.0000    201  SUPER_1:18003569-1800376 1.0000    201  
+SUPER_2:4999259-4999459| 1.0000    201  SUPER_2:9391766-9391966| 1.0000    201  
+SUPER_2:13572273-1357247 1.0000    201  SUPER_2:19211178-1921137 1.0000    201  
+SUPER_3:6191631-6191831| 1.0000    201  SUPER_3:11420782-1142098 1.0000    201  
+SUPER_3:13159803-1316000 1.0000    201  SUPER_3:18366791-1836699 1.0000    201  
+SUPER_4:5339073-5339273| 1.0000    201  SUPER_4:10147941-1014814 1.0000    201  
+SUPER_4:11524706-1152490 1.0000    201  SUPER_4:17155067-1715526 1.0000    201  
+SUPER_5:3832638-3832838| 1.0000    201  SUPER_5:9393006-9393206| 1.0000    201  
+SUPER_5:10673060-1067326 1.0000    201  SUPER_5:16502074-1650227 1.0000    201  
+SUPER_6:4740848-4741048| 1.0000    201  SUPER_6:8996470-8996670| 1.0000    201  
+SUPER_6:11483027-1148322 1.0000    201  SUPER_6:16869156-1686935 1.0000    201  
+SUPER_X:5501192-5501392| 1.0000    201  SUPER_X:10706704-1070690 1.0000    201  
+SUPER_X:10913675-1091387 1.0000    201  SUPER_X:14217111-1421731 1.0000    201  
+SUPER_2:4998762-4998962| 1.0000    201  SUPER_1:5565530-5565730| 1.0000    201  
+SUPER_3:6191209-6191409| 1.0000    201  SUPER_1:18004241-1800444 1.0000    201  
+SUPER_6:4740252-4740452| 1.0000    201  SUPER_X:5500624-5500824| 1.0000    201  
+SUPER_X:14220607-1422080 1.0000    201  SUPER_X:14224102-1422430 1.0000    201  
+SUPER_X:14227597-1422779 1.0000    201  SUPER_X:14231092-1423129 1.0000    201  
+SUPER_X:14234587-1423478 1.0000    201  SUPER_3:18367861-1836806 1.0000    201  
+SUPER_X:12188867-1218906 1.0000    201  SUPER_5:19535393-1953559 1.0000    201  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme expanded_42_break_sequences.fasta -dna -pal -nmotifs 3 -evt 0.0001 -minw 20 -maxw 35 -oc meme_expanded_pal 
+
+model:  mod=         zoops    nmotifs=      1000    evt=        0.0001
+objective function:           em=       E-value of product of p-values
+                              starts=   E-value of product of p-values
+strands: +
+width:  minw=           20    maxw=           35
+nsites: minsites=        2    maxsites=       42    wnsites=       0.8
+theta:  spmap=         uni    spfuzz=        0.5
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+trim:   wg=             11    ws=              1    endgaps=       yes
+data:   n=            8442    N=              42
+sample: seed=            0    hsfrac=          0
+        searchsize=   8442    norand=         no    csites=       1000
+Letter frequencies in dataset:
+A 0.354 C 0.146 G 0.146 T 0.354 
+Background letter frequencies (from file dataset with add-one prior applied):
+A 0.354 C 0.146 G 0.146 T 0.354 
+Background model order: 0
+********************************************************************************
+
+
+********************************************************************************
+MOTIF WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1	width =  33  sites =  40  llr = 892  E-value = 7.1e-219
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 Description
+--------------------------------------------------------------------------------
+Simplified        A  5621213::218::::39:::147616788624
+pos.-specific     C  :1:::2::3141::a:2::aa:1:191:::211
+probability       G  1121::191111aa::2:a::1313::2:::1:
+matrix            T  426887616741:::93::::812::3121165
+
+         bits    2.8             * *   * *            
+                 2.5             ***   ***            
+                 2.2             ***   ***            
+                 1.9        *    ***   ***    *       
+Relative         1.7        *    ***   ***    *       
+Entropy          1.4        *    **** ****    *       
+(32.2 bits)      1.1        *    **** ****    *       
+                 0.8     ** *    **** ****    * **    
+                 0.6    *** **  ***** *****  ** ***   
+                 0.3 **************** ****************
+                 0.0 ---------------------------------
+
+Multilevel           AATTTTTGTTTAGGCTTAGCCTAAACAAAAATT
+consensus            TT  ACA C C     A     G G TGT  AA
+sequence                                              
+                                                      
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                          Site             
+-------------             ----- ---------            ---------------------------------
+SUPER_4:17155067-1715526     85  3.61e-13 AGTATAATAT AAGTTTTGCTAAGGCTGAGCCAAAGCAAAAAAA AATATGTTGT
+SUPER_4:11524706-1152490     83  3.61e-13 AGTTATTATT TAATTTAGCTCAGGCTTAGCCTAAGCCAAACCA TTACTTAGTG
+SUPER_X:14234587-1423478     84  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_X:14231092-1423129     84  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_X:14227597-1422779     84  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_X:14224102-1422430     84  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_X:14220607-1422080     84  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_X:14217111-1421731     85  7.20e-13 ATCGGATAGT TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
+SUPER_2:4998762-4998962|     84  1.39e-12 TTCGCTACAA TTTTTTTGCTTAGGCTCAGCCTATGCAAAAACG AAAACACTGT
+SUPER_5:16502074-1650227     85  1.39e-12 CCTTGCACCA ACGTTTAGTTCAGGCTCAGCCAAAACAGAAATC TTATGAAAAG
+SUPER_5:9393006-9393206|     85  1.39e-12 TTTACTAACA GTGTTTTGTACAGGCTCAGCCCGAGCTAAACTA CAGTTCTGCT
+SUPER_2:4999259-4999459|     83  1.39e-12 ACAGTGTTTT CGTTTTTGCATAGGCTGAGCCTAAGCAAAAAAA TTGTAGCGAA
+SUPER_1:5565530-5565730|     84  1.79e-12 ATACTATGGT AATTATAGTTTAGGCTGAGCCAAAACAATAATA TTATATATTA
+SUPER_1:5566191-5566391|     83  1.79e-12 ATACTATGGT AATTATAGTTTAGGCTGAGCCAAAACAATAATA TTATATATTA
+SUPER_5:10673060-1067326     83  2.60e-12 TCGGCATTTT TATTATTGCTTTGGCTTAGCCTAAGCAATAATC TATATAGTGA
+SUPER_2:19211178-1921137     82  2.60e-12 CATATGATAT ATTGTTTGCTCAGGCTTAGCCAAGGCAGAAATA TTAGAAAACT
+SUPER_X:5500624-5500824|     84  2.94e-12 AAAGTAATAC AATTTTCGTGCAGGCTCAGCCTTAGCAGTAATA AAACTTCTAT
+SUPER_X:5501192-5501392|     83  2.94e-12 AAAGTAATAC AATTTTCGTGCAGGCTCAGCCTTAGCAGTAATA AAACTTCTAT
+SUPER_5:3832638-3832838|     83  2.94e-12 TTGCGGCAAC AATTTTATGATAGGCTTAGCCTGAACAAAAATT TAATAGAAAA
+SUPER_4:5339073-5339273|     83  2.00e-11 ATTTTTTTTC AATTTTTTCGAAGGCTTAGCCTGAACAGAAGTA AAATGCAGGA
+SUPER_1:10908536-1090873     85  2.21e-11 TATCAGTTTC ATATTTTGTTCAGGCTAAGCCTAAAACAAAAGA AATCGTATAC
+SUPER_3:6191209-6191409|     84  3.68e-11 AACTTTTAAC TATTATTGTTTAGGCTTAGCCTTTGCAGTATTC TACAAGTTCC
+SUPER_3:6191631-6191831|     86  3.68e-11 GGAACTTGTA GAATACTGCAAAGGCTAAGCCTAAACAATAATA GTTAAAAGTT
+SUPER_X:10913675-1091387     89  4.49e-11 TTTCTTCAAC TTTTTCTGTTTAGCCTTAGCCTGAACAAATTTA TTAAATAAAA
+SUPER_2:9391766-9391966|     85  9.60e-11 GTATTAGAAT AAATTTAGCTGGGGCTAAGCCTGAAATGAATTT TTCGCATTGC
+SUPER_1:18004241-1800444     84  1.15e-10 ACATAGGACT AATTAATGATTAGGCTAAGCCTAAACCAAATTT TTTTTCACCA
+SUPER_1:18003569-1800376     82  1.15e-10 TGGTGAAAAA AAATTTGGTTTAGGCTTAGCCTAATCATTAATT AGTCCTATGT
+SUPER_3:18367861-1836806     84  1.51e-10 ATTATGATAT TATGAATGTTCCGGCCTAGCCTGAACAAAACCT AGAATATTAT
+SUPER_3:18366791-1836699     85  1.51e-10 ATAATATTCT AGGTTTTGTTCAGGCTAGGCCGGAACATTCATA ATATCATAAT
+SUPER_6:16869156-1686935     85  1.65e-10 TTATTAGAAG AAGTTTTGAATTGGCTCAGCCTTAACAAAGATT AAATATGACC
+SUPER_6:11483027-1148322     83  1.80e-10 TGAACCATAA AACTATATCACAGGCCTAGCCTAAACAAAAATA AATATATATA
+SUPER_1:13336092-1333629     83  2.14e-10 TTAAGTTAAA ATTATTTGTTATGGCTCAGCCTGAACCAATATG ATTCTGTAGA
+SUPER_6:4740252-4740452|     84  2.76e-10 AATTTGTTTT TATATCTGTTTAGGCTCAGCCGATAATAAAAAT GTTGTTCATC
+SUPER_6:4740848-4741048|     83  2.76e-10 GATGAACAAC ATTTTTATTATCGGCTGAGCCTAAACAGATATA AAAACAAATT
+SUPER_3:13159803-1316000     86  3.01e-10 AATCTTCTTT TCTAATGGCTTGGGCTAAGCCTGTACTAAAACT GCTCTATTTT
+SUPER_X:10706704-1070690     85  7.28e-10 AACACGAAAT TCCTTTGGTTCAGGCTCAGCCTTTGATAACATT GAATTTTTCA
+SUPER_3:11420782-1142098     85  1.23e-09 GTTATTTTTT ACTTTTTATTTAGGCTAAGCCGTAGCATAAAAT TATTTCATAA
+SUPER_2:13572273-1357247     89  1.77e-09 ATCTTAACAT TTTTTCATTTGAGCCTAAGCCTTAACTAAATTA AGCTATGATT
+SUPER_4:10147941-1014814     82  3.52e-09 ATTTATTTTA AAAATTAGTTCAGGCTTAGCCCGTATTAATCTT ATAAATTCTA
+SUPER_6:8996470-8996670|     84  5.20e-09 TTTGCAAAAT AAACTTTGTTTAGGCTTGGCCACCACAATGAAT ATATTTTTTG
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+SUPER_4:17155067-1715526          3.6e-13  84_[+1]_84
+SUPER_4:11524706-1152490          3.6e-13  82_[+1]_86
+SUPER_X:14234587-1423478          7.2e-13  83_[+1]_85
+SUPER_X:14231092-1423129          7.2e-13  83_[+1]_85
+SUPER_X:14227597-1422779          7.2e-13  83_[+1]_85
+SUPER_X:14224102-1422430          7.2e-13  83_[+1]_85
+SUPER_X:14220607-1422080          7.2e-13  83_[+1]_85
+SUPER_X:14217111-1421731          7.2e-13  84_[+1]_84
+SUPER_2:4998762-4998962|          1.4e-12  83_[+1]_85
+SUPER_5:16502074-1650227          1.4e-12  84_[+1]_84
+SUPER_5:9393006-9393206|          1.4e-12  84_[+1]_84
+SUPER_2:4999259-4999459|          1.4e-12  82_[+1]_86
+SUPER_1:5565530-5565730|          1.8e-12  83_[+1]_85
+SUPER_1:5566191-5566391|          1.8e-12  82_[+1]_86
+SUPER_5:10673060-1067326          2.6e-12  82_[+1]_86
+SUPER_2:19211178-1921137          2.6e-12  81_[+1]_87
+SUPER_X:5500624-5500824|          2.9e-12  83_[+1]_85
+SUPER_X:5501192-5501392|          2.9e-12  82_[+1]_86
+SUPER_5:3832638-3832838|          2.9e-12  82_[+1]_86
+SUPER_4:5339073-5339273|            2e-11  82_[+1]_86
+SUPER_1:10908536-1090873          2.2e-11  84_[+1]_84
+SUPER_3:6191209-6191409|          3.7e-11  83_[+1]_85
+SUPER_3:6191631-6191831|          3.7e-11  85_[+1]_83
+SUPER_X:10913675-1091387          4.5e-11  88_[+1]_80
+SUPER_2:9391766-9391966|          9.6e-11  84_[+1]_84
+SUPER_1:18004241-1800444          1.2e-10  83_[+1]_85
+SUPER_1:18003569-1800376          1.2e-10  81_[+1]_87
+SUPER_3:18367861-1836806          1.5e-10  83_[+1]_85
+SUPER_3:18366791-1836699          1.5e-10  84_[+1]_84
+SUPER_6:16869156-1686935          1.6e-10  84_[+1]_84
+SUPER_6:11483027-1148322          1.8e-10  82_[+1]_86
+SUPER_1:13336092-1333629          2.1e-10  82_[+1]_86
+SUPER_6:4740252-4740452|          2.8e-10  83_[+1]_85
+SUPER_6:4740848-4741048|          2.8e-10  82_[+1]_86
+SUPER_3:13159803-1316000            3e-10  85_[+1]_83
+SUPER_X:10706704-1070690          7.3e-10  84_[+1]_84
+SUPER_3:11420782-1142098          1.2e-09  84_[+1]_84
+SUPER_2:13572273-1357247          1.8e-09  88_[+1]_80
+SUPER_4:10147941-1014814          3.5e-09  81_[+1]_87
+SUPER_6:8996470-8996670|          5.2e-09  83_[+1]_85
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW width=33 seqs=40
+SUPER_4:17155067-1715526 (   85) AAGTTTTGCTAAGGCTGAGCCAAAGCAAAAAAA  1 
+SUPER_4:11524706-1152490 (   83) TAATTTAGCTCAGGCTTAGCCTAAGCCAAACCA  1 
+SUPER_X:14234587-1423478 (   84) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_X:14231092-1423129 (   84) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_X:14227597-1422779 (   84) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_X:14224102-1422430 (   84) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_X:14220607-1422080 (   84) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_X:14217111-1421731 (   85) TTGTTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
+SUPER_2:4998762-4998962| (   84) TTTTTTTGCTTAGGCTCAGCCTATGCAAAAACG  1 
+SUPER_5:16502074-1650227 (   85) ACGTTTAGTTCAGGCTCAGCCAAAACAGAAATC  1 
+SUPER_5:9393006-9393206| (   85) GTGTTTTGTACAGGCTCAGCCCGAGCTAAACTA  1 
+SUPER_2:4999259-4999459| (   83) CGTTTTTGCATAGGCTGAGCCTAAGCAAAAAAA  1 
+SUPER_1:5565530-5565730| (   84) AATTATAGTTTAGGCTGAGCCAAAACAATAATA  1 
+SUPER_1:5566191-5566391| (   83) AATTATAGTTTAGGCTGAGCCAAAACAATAATA  1 
+SUPER_5:10673060-1067326 (   83) TATTATTGCTTTGGCTTAGCCTAAGCAATAATC  1 
+SUPER_2:19211178-1921137 (   82) ATTGTTTGCTCAGGCTTAGCCAAGGCAGAAATA  1 
+SUPER_X:5500624-5500824| (   84) AATTTTCGTGCAGGCTCAGCCTTAGCAGTAATA  1 
+SUPER_X:5501192-5501392| (   83) AATTTTCGTGCAGGCTCAGCCTTAGCAGTAATA  1 
+SUPER_5:3832638-3832838| (   83) AATTTTATGATAGGCTTAGCCTGAACAAAAATT  1 
+SUPER_4:5339073-5339273| (   83) AATTTTTTCGAAGGCTTAGCCTGAACAGAAGTA  1 
+SUPER_1:10908536-1090873 (   85) ATATTTTGTTCAGGCTAAGCCTAAAACAAAAGA  1 
+SUPER_3:6191209-6191409| (   84) TATTATTGTTTAGGCTTAGCCTTTGCAGTATTC  1 
+SUPER_3:6191631-6191831| (   86) GAATACTGCAAAGGCTAAGCCTAAACAATAATA  1 
+SUPER_X:10913675-1091387 (   89) TTTTTCTGTTTAGCCTTAGCCTGAACAAATTTA  1 
+SUPER_2:9391766-9391966| (   85) AAATTTAGCTGGGGCTAAGCCTGAAATGAATTT  1 
+SUPER_1:18004241-1800444 (   84) AATTAATGATTAGGCTAAGCCTAAACCAAATTT  1 
+SUPER_1:18003569-1800376 (   82) AAATTTGGTTTAGGCTTAGCCTAATCATTAATT  1 
+SUPER_3:18367861-1836806 (   84) TATGAATGTTCCGGCCTAGCCTGAACAAAACCT  1 
+SUPER_3:18366791-1836699 (   85) AGGTTTTGTTCAGGCTAGGCCGGAACATTCATA  1 
+SUPER_6:16869156-1686935 (   85) AAGTTTTGAATTGGCTCAGCCTTAACAAAGATT  1 
+SUPER_6:11483027-1148322 (   83) AACTATATCACAGGCCTAGCCTAAACAAAAATA  1 
+SUPER_1:13336092-1333629 (   83) ATTATTTGTTATGGCTCAGCCTGAACCAATATG  1 
+SUPER_6:4740252-4740452| (   84) TATATCTGTTTAGGCTCAGCCGATAATAAAAAT  1 
+SUPER_6:4740848-4741048| (   83) ATTTTTATTATCGGCTGAGCCTAAACAGATATA  1 
+SUPER_3:13159803-1316000 (   86) TCTAATGGCTTGGGCTAAGCCTGTACTAAAACT  1 
+SUPER_X:10706704-1070690 (   85) TCCTTTGGTTCAGGCTCAGCCTTTGATAACATT  1 
+SUPER_3:11420782-1142098 (   85) ACTTTTTATTTAGGCTAAGCCGTAGCATAAAAT  1 
+SUPER_2:13572273-1357247 (   89) TTTTTCATTTGAGCCTAAGCCTTAACTAAATTA  1 
+SUPER_4:10147941-1014814 (   82) AAAATTAGTTCAGGCTTAGCCCGTATTAATCTT  1 
+SUPER_6:8996470-8996670| (   84) AAACTTTGTTTAGGCTTGGCCACCACAATGAAT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 33 n= 7098 bayes= 7.71596 E= 7.1e-219 
+    46   -196   -122     22 
+    82   -123    -96    -57 
+  -124   -196     36     82 
+  -182   -196   -155    120 
+   -57  -1197  -1196    111 
+  -250     62  -1196    101 
+   -30   -255    -74     76 
+  -382  -1197    256   -165 
+  -323     97    -74     73 
+  -112    -74   -155     98 
+  -136    126    -38     18 
+   113   -123   -155   -165 
+ -1197  -1197    278  -1197 
+ -1197   -255    274  -1197 
+ -1197    277  -1196  -1197 
+ -1199   -155  -1202    142 
+   -12     26     26    -12 
+   142  -1199   -155  -1197 
+ -1198  -1201    278  -1198 
+ -1198    273   -254  -1198 
+ -1198    277  -1200  -1198 
+  -165   -155   -122    113 
+    18    -38    126   -136 
+    98   -155    -74   -112 
+    73    -74     98   -323 
+  -165    256  -1200   -382 
+    76    -74   -254    -30 
+   101  -1201     62   -250 
+   111  -1201  -1200    -57 
+   120   -155   -196   -182 
+    82     36   -196   -124 
+   -57    -97   -122     82 
+    22   -123   -196     46 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 33 nsites= 40 E= 7.1e-219 
+ 0.487500  0.037500  0.062500  0.412500 
+ 0.625000  0.062500  0.075000  0.237500 
+ 0.150000  0.037500  0.187500  0.625000 
+ 0.100000  0.037500  0.050000  0.812500 
+ 0.237500  0.000000  0.000000  0.762500 
+ 0.062500  0.225000  0.000000  0.712500 
+ 0.287500  0.025000  0.087500  0.600000 
+ 0.025000  0.000000  0.862500  0.112500 
+ 0.037500  0.287500  0.087500  0.587500 
+ 0.162500  0.087500  0.050000  0.700000 
+ 0.137500  0.350000  0.112500  0.400000 
+ 0.775000  0.062500  0.050000  0.112500 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.025000  0.975000  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.000000  0.049999  0.000000  0.949998 
+ 0.324999  0.174998  0.174999  0.324999 
+ 0.949999  0.000000  0.050000  0.000000 
+ 0.000000  0.000000  0.999999  0.000000 
+ 0.000000  0.974999  0.024999  0.000000 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.112499  0.049999  0.062499  0.774999 
+ 0.399999  0.112499  0.349999  0.137499 
+ 0.699999  0.049999  0.087499  0.162499 
+ 0.587499  0.087499  0.287499  0.037499 
+ 0.112499  0.862499  0.000000  0.024999 
+ 0.599999  0.087499  0.024999  0.287499 
+ 0.712499  0.000000  0.224999  0.062499 
+ 0.762499  0.000000  0.000000  0.237499 
+ 0.812499  0.049999  0.037499  0.099999 
+ 0.624999  0.187499  0.037499  0.149999 
+ 0.237499  0.074999  0.062499  0.624999 
+ 0.412499  0.062499  0.037499  0.487499 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif WATTTTTGTTYAGGCTNAGCCTRAACAAAAATW MEME-1 regular expression
+--------------------------------------------------------------------------------
+[AT][AT]TT[TA][TC][TA]G[TC]T[TC]AGGCT[TA]AGCCT[AG]A[AG]C[AT][AG][AT]AA[TA][TA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  3.16 secs.
+
+********************************************************************************
+
+
+********************************************************************************

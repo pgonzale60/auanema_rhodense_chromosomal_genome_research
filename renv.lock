@@ -852,6 +852,11 @@
       ],
       "Hash": "fb3ef4427802dcf5591a7469b48ccbd9"
     },
+    "ape": {
+      "Package": "ape",
+      "Version": "5.8-1",
+      "Source": "Repository"
+    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.2.1",

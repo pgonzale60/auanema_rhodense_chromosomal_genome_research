@@ -4,17 +4,20 @@ library(patchwork)
 library(tidyverse)
 library(rtracklayer)
 library(motifStack)
+library(ape)
 
 # Paths
+TREE_NWK <- "phylogenetic_analysis/data/ordered_cladogram_13taxa.nwk"
 MEME_OT <- "analyses/diminution/meme/meme_out/nxOscTipu1.1.meme.txt"
-MEME_AR <- "analyses/diminution/meme/meme_out/meme.txt"
+MEME_AR <- "analyses/diminution/meme/meme_out/nxAuaRhod1_1.expanded_33bp_pal.meme.txt"
 COV_BED <- "analyses/diminution/grs_visualization/SUPER_5_GRS_left_border.bed"
 TELO_TSV <- "analyses/genome_features/elim_coords/nxAuaRhod1.pb.miltel.telomeric.tsv.gz"
-FIMO_TSV <- "analyses/diminution/fimo_out/fimo.tsv.gz"
+FIMO_TSV <- "analyses/diminution/fimo_out/nxAuaRhod1_1_expanded_33bp_pal_fimo.tsv.gz"
 GENOME_GRS <- "analyses/diminution/nxAuaRhod1_1.GRS.bed"
 GENOME_FA <- "nxAuaRhod1_1.primary.fa.gz"
+BREAK_SITES <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
 
-#### DATA PREPARATION ####
+#### DATA PREPARATION (PANELS B, C, D) ####
 
 # Load Regions
 grs <- read.table(GENOME_GRS, col.names = c("chr", "start", "end"))
@@ -24,9 +27,11 @@ breaks_left_gr <- GRanges(seqnames = grs$chr, ranges = IRanges(start = grs$start
 breaks_right_gr <- GRanges(seqnames = grs$chr, ranges = IRanges(start = grs$end - 1, end = grs$end))
 breaks_all_gr <- c(breaks_left_gr, breaks_right_gr)
 
-# Load FIMO hits
+# Load FIMO hits (expanded 33-bp palindromic motif)
+chroms <- paste0("SUPER_", c(1:6, "X"))
 fimo_raw <- read_tsv(FIMO_TSV, comment = "#", show_col_types = FALSE) %>%
     filter(!is.na(score)) %>%
+    filter(sequence_name %in% chroms) %>%
     arrange(desc(score))
 
 fimo_gr_all <- GRanges(
@@ -35,100 +40,170 @@ fimo_gr_all <- GRanges(
     score = fimo_raw$score
 )
 
-#### PANEL B COORDINATE SELECTION (Fixed) ####
 
-# Best motif hit at the SUPER_5 left GRS boundary (score 39.4, highest genome-wide)
-# Somatic (high coverage) is LEFT of boundary; eliminated (low coverage) is RIGHT.
-# GRS boundary: 16502174; motif hit: 16502162-16502190
-target_chrom <- "SUPER_5"
-target_boundary <- 16502174
-motif_hit_start <- 16502162
-motif_hit_end <- 16502190
-x_start <- 16502153
-x_end <- 16502197
+#### PANEL A: CLADOGRAM OF PROGRAMMED DNA ELIMINATION ####
 
-#### PANEL A: ALIGNED MOTIF COMPARISON ####
-
-motif_ot_stack <- motifStack::importMatrix(MEME_OT, format = "meme")
-motif_ar_stack <- motifStack::importMatrix(MEME_AR, format = "meme")
-
-spnames <- c("A. rhodense", "O. tipulae")
-m_list <- list(motif_ar_stack[[1]], motif_ot_stack[[1]])
-
-ord_motifs <- list()
-for (i in 1:length(m_list)) {
-    ord_motifs[[i]] <- motifStack::trimMotif(m_list[[i]], t = 0.4)
-    ord_motifs[[i]]$name <- spnames[i]
+if (file.exists(TREE_NWK)) {
+    tree <- read.tree(TREE_NWK)
+} else {
+    tree_text <- "(((((Auanema_rhodense:1,Oscheius_tipulae:1):1,((Caenorhabditis_auriculariae:1,Caenorhabditis_monodelphis:1):1,(Caenorhabditis_parvicauda:1,(Caenorhabditis_briggsae:1,Caenorhabditis_elegans:1):1):1):1):1,Mesorhabditis_belari:1):1,(Toxocara_canis:1,(Parascaris_univalens:1,(Ascaris_lumbricoides:1,Ascaris_suum:1):1):1):1):0.5,Trichinella_spiralis:0.5);"
+    tree <- read.tree(text = tree_text)
 }
 
-pfmsAligned <- motifStack::DNAmotifAlignment(ord_motifs, rcpostfix = "")
+n_tips <- length(tree$tip.label)
+tip_order <- tree$tip.label
 
-motifs_aligned <- list()
-for (i in 1:length(pfmsAligned)) {
-    motifs_aligned[[pfmsAligned[[i]]$name]] <- as.matrix(as.data.frame(pfmsAligned[[i]]))
+# Vertical spread between tips (step = 1.88 to align T. spiralis with Genomic Location)
+step_y <- 1.88
+y_vals <- seq(from = (n_tips - 1) * step_y, to = 0.0, by = -step_y)
+y_tip <- setNames(y_vals, tip_order)
+
+n_nodes <- tree$Nnode
+node_y <- numeric(n_tips + n_nodes)
+node_y[1:n_tips] <- y_tip[tree$tip.label]
+
+tree_post <- reorder(tree, "postorder")
+edge <- tree_post$edge
+
+for (i in 1:nrow(edge)) {
+    parent <- edge[i, 1]
+    children <- edge[edge[, 1] == parent, 2]
+    if (all(node_y[children] != 0)) {
+        node_y[parent] <- mean(node_y[children])
+    }
 }
-motifs_aligned <- motifs_aligned[spnames]
+for (i in 1:nrow(edge)) {
+    parent <- edge[i, 1]
+    children <- edge[edge[, 1] == parent, 2]
+    node_y[parent] <- mean(node_y[children])
+}
 
-# Compute break position within aligned motif for panel A annotation
-ar_orig_mat <- as.matrix(as.data.frame(motif_ar_stack[[1]]))
-ar_trim_mat <- as.matrix(as.data.frame(ord_motifs[[1]])) # A. rhodense trimmed
-ar_aligned_mat <- motifs_aligned[["A. rhodense"]]
+root_node <- n_tips + 1
+node_step <- numeric(n_tips + n_nodes)
 
-left_trim_ar <- (which(sapply(
-    seq_len(ncol(ar_orig_mat) - ncol(ar_trim_mat) + 1),
-    function(ci) all(abs(ar_orig_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
-))[1]) - 1
-if (is.na(left_trim_ar)) left_trim_ar <- 0
+get_depths <- function(node, cur_depth) {
+    node_step[node] <<- cur_depth
+    children <- tree$edge[tree$edge[, 1] == node, 2]
+    for (ch in children) {
+        get_depths(ch, cur_depth + 1)
+    }
+}
+get_depths(root_node, 0)
 
-align_pad_ar <- (which(sapply(
-    seq_len(ncol(ar_aligned_mat) - ncol(ar_trim_mat) + 1),
-    function(ci) all(abs(ar_aligned_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
-))[1]) - 1
-if (is.na(align_pad_ar)) align_pad_ar <- 0
+max_depth <- max(node_step)
+tip_x <- max_depth + 0.8
 
-# Break is at genomic position target_boundary; motif starts at motif_hit_start
-break_pos_in_logo <- (target_boundary - motif_hit_start + 1.5) - left_trim_ar + align_pad_ar
+horiz_segs <- data.frame()
+vert_segs <- data.frame()
 
-# Color scheme for nucleotides
-cs1 <- make_col_scheme(
-    chars = c("A", "C", "G", "T"),
-    cols = c("#009E73", "#0072B2", "#E69F00", "#D55E00")
+for (p in (n_tips + 1):(n_tips + n_nodes)) {
+    children <- tree$edge[tree$edge[, 1] == p, 2]
+    y_ch <- node_y[children]
+    vert_segs <- rbind(vert_segs, data.frame(
+        x = node_step[p],
+        xend = node_step[p],
+        y = min(y_ch),
+        yend = max(y_ch)
+    ))
+    for (ch in children) {
+        x_target <- if (ch <= n_tips) tip_x else node_step[ch]
+        horiz_segs <- rbind(horiz_segs, data.frame(
+            x = node_step[p],
+            xend = x_target,
+            y = node_y[ch],
+            yend = node_y[ch]
+        ))
+    }
+}
+
+label_map <- c(
+    "Trichinella_spiralis" = "T. spiralis",
+    "Parascaris_univalens" = "P. univalens",
+    "Toxocara_canis" = "T. canis",
+    "Ascaris_lumbricoides" = "A. lumbricoides",
+    "Ascaris_suum" = "A. suum",
+    "Mesorhabditis_belari" = "M. belari",
+    "Auanema_rhodense" = "Auanema rhodense",
+    "Oscheius_tipulae" = "O. tipulae",
+    "Caenorhabditis_auriculariae" = "C. auriculariae",
+    "Caenorhabditis_monodelphis" = "C. monodelphis",
+    "Caenorhabditis_parvicauda" = "C. parvicauda",
+    "Caenorhabditis_briggsae" = "C. briggsae",
+    "Caenorhabditis_elegans" = "C. elegans"
 )
 
-panel_a <- suppressWarnings(ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1))
-
-# Move the vline to the first layer (behind the letters)
-panel_a$layers <- c(
-    geom_vline(xintercept = break_pos_in_logo, linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5),
-    panel_a$layers
+tips_df <- data.frame(
+    id = 1:n_tips,
+    raw_name = tree$tip.label,
+    label = label_map[tree$tip.label],
+    x = tip_x,
+    y = node_y[1:n_tips],
+    is_focal = (tree$tip.label == "Auanema_rhodense"),
+    stringsAsFactors = FALSE
 )
 
-panel_a <- panel_a +
-    scale_x_continuous(breaks = seq(5, 30, by = 5)) +
-    annotate("point", x = break_pos_in_logo, y = 2.3, shape = 25, fill = "black", size = 2, color = "black") +
-    coord_cartesian(clip = "off") +
-    labs(x = "Position (bp)") +
-    theme_bw() +
+half_step <- step_y / 2
+shade_df <- data.frame(
+    xmin = -0.5,
+    xmax = tip_x + 6.6,
+    ymin = c(y_vals[5] - half_step, y_vals[7] - half_step, y_vals[8] - half_step, y_vals[12] - half_step),
+    ymax = c(y_vals[1] + half_step, y_vals[6] + half_step, y_vals[8] + half_step, y_vals[9] + half_step),
+    category = c("Precise PDE", "No PDE", "Precise PDE", "Imprecise PDE"),
+    stringsAsFactors = FALSE
+)
+
+bg_colors <- c(
+    "Precise PDE" = "#edf7ee",
+    "Imprecise PDE" = "#fdf2e9",
+    "No PDE" = "#f3f0f7"
+)
+
+panel_cladogram <- ggplot() +
+    geom_rect(data = shade_df,
+              aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = category),
+              alpha = 0.95, inherit.aes = FALSE) +
+    geom_segment(data = vert_segs, aes(x = x, xend = xend, y = y, yend = yend),
+                 color = "#2b2b2b", linewidth = 0.6) +
+    geom_segment(data = horiz_segs, aes(x = x, xend = xend, y = y, yend = yend),
+                 color = "#2b2b2b", linewidth = 0.6) +
+    geom_text(data = tips_df,
+              aes(x = x + 0.25, y = y, label = label),
+              fontface = "italic", hjust = 0, size = 3.05, color = "#222222") +
+    scale_fill_manual(name = NULL, values = bg_colors,
+                      breaks = c("Precise PDE", "Imprecise PDE", "No PDE"),
+                      guide = guide_legend(
+                          nrow = 1,
+                          byrow = TRUE,
+                          override.aes = list(fill = c("#c7e9c0", "#fdd0a2", "#dadaeb"))
+                      )) +
+    scale_x_continuous(limits = c(-0.5, tip_x + 6.6), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(-0.3, y_vals[1] + step_y * 0.95), expand = c(0, 0)) +
+    theme_void() +
     theme(
-        strip.text = element_text(face = "italic", size = 11),
-        strip.background = element_blank(),
-        panel.border = element_blank(),
-        panel.grid = element_blank(),
-        axis.line.y = element_line(color = "black"),
-        axis.line.x = element_line(color = "black"),
-        axis.text.x = element_text(size = 9),
-        axis.text.y = element_text(size = 9),
-        axis.title.x = element_text(size = 10, face = "plain"),
-        axis.title.y = element_text(size = 10, face = "plain")
+        legend.position = c(0.50, 0.98),
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 7.6, color = "#1a1a1a"),
+        legend.key.size = unit(3.0, "mm"),
+        legend.key = element_rect(color = "#bbbbbb", linewidth = 0.3),
+        legend.background = element_rect(fill = alpha("white", 0.95), color = "#cccccc", linewidth = 0.4),
+        legend.margin = margin(t = 2, r = 4, b = 2, l = 4),
+        plot.margin = margin(t = 1, r = 8, b = 0, l = 3)
     )
 
-#### PANEL B: BREAKSITE PRECISION ####
 
-# Load coverage - EXACT window
+#### PANEL B: BREAKSITE PRECISION (LONG-READ COVERAGE) ####
+
+target_chrom <- "SUPER_5"
+target_boundary <- 16502174
+motif_hit_start <- 16502159
+motif_hit_end <- 16502191
+x_start <- 16502150
+x_end <- 16502198
+
 df_cov <- read.table(COV_BED, col.names = c("chr", "start", "stop", "cov")) %>%
     filter(chr == target_chrom & stop >= x_start & start <= x_end)
 
-# Load telomeres from TSV - breakage_score > 0.1
 df_telo <- read_tsv(TELO_TSV,
     col_names = c(
         "chr", "start", "end", "score", "orientation",
@@ -142,9 +217,8 @@ df_telo <- read_tsv(TELO_TSV,
         count = as.integer(sub("[-\\+]\\*", "", senses)),
         start = start - 1,
         end = end - 1
-    ) # Minus 1 because this being 1-based whereas bed files being 0-indexed
+    )
 
-# Motif hit coordinates
 df_motif_hit <- data.frame(
     chr = target_chrom,
     start = motif_hit_start,
@@ -152,7 +226,6 @@ df_motif_hit <- data.frame(
     label = "Motif"
 )
 
-# Fetch nucleotide sequence using samtools
 seq_cmd <- paste0("samtools faidx ", GENOME_FA, " ", target_chrom, ":", x_start, "-", x_end)
 fasta_lines <- system(seq_cmd, intern = TRUE)
 raw_seq <- paste(fasta_lines[-1], collapse = "")
@@ -162,20 +235,13 @@ df_seq <- data.frame(
     base = seq_chars
 )
 
-# Legend and Scales
 panel_b <- ggplot() +
-    # Motif hit highlight (sequence row only)
     geom_rect(data = df_motif_hit, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = -25, ymax = -5, fill = "Motif"), alpha = 0.5) +
-    # Background coverage
     geom_rect(data = df_cov, aes(xmin = start - 0.5, xmax = stop + 0.5, ymin = 0, ymax = cov, fill = "All reads")) +
-    # Telomere bars
     geom_rect(data = df_telo, aes(xmin = start - 0.5, xmax = start + 0.5, ymin = 0, ymax = count, fill = "Reads with\nsoft-clipped\ntelomeric\nrepeat")) +
-    # Nucleotide sequence
     geom_text(data = df_seq, aes(x = pos, y = -15, label = base, color = base), size = 2, fontface = "bold") +
-    # "Eliminated DNA" annotation (right of boundary = eliminated region)
     annotate("text", x = target_boundary + 13, y = 110, label = "Eliminated DNA", color = "grey40", fontface = "italic", size = 3) +
     annotate("segment", x = target_boundary, xend = x_end, y = 90, yend = 90, color = "grey40", arrow = arrow(ends = "both", length = unit(0.2, "cm"))) +
-    # Legend and Scales
     scale_fill_manual(values = c(
         "All reads" = "grey85",
         "Motif" = "#166eb7",
@@ -199,27 +265,90 @@ panel_b <- ggplot() +
         legend.title = element_blank(),
         legend.text = element_text(size = 7),
         panel.grid = element_blank(),
-        axis.title = element_text(size = 10, face = "plain")
+        axis.title = element_text(size = 9.5, face = "plain")
     )
 
 
-#### PANEL C: SINGLE-STRAND MOTIF SPECIFICITY ####
+#### PANEL C: ALIGNED MOTIF COMPARISON ####
 
-keep_idx <- c()
-if (length(fimo_gr_all) > 0) {
-    rem_gr <- fimo_gr_all
-    while (length(rem_gr) > 0) {
-        best_hit_c <- rem_gr[1]
-        overlaps <- rem_gr %over% best_hit_c
-        match_idx <- which(fimo_raw$sequence_name == seqnames(best_hit_c) &
-            fimo_raw$start == start(best_hit_c) &
-            fimo_raw$stop == end(best_hit_c) &
-            fimo_raw$score == score(best_hit_c))[1]
-        keep_idx <- c(keep_idx, match_idx)
-        rem_gr <- rem_gr[!overlaps]
-    }
+motif_ot_stack <- motifStack::importMatrix(MEME_OT, format = "meme")
+motif_ar_stack <- motifStack::importMatrix(MEME_AR, format = "meme")
+
+spnames <- c("A. rhodense", "O. tipulae")
+m_list <- list(motif_ar_stack[[1]], motif_ot_stack[[1]])
+
+ord_motifs <- list()
+for (i in 1:length(m_list)) {
+    ord_motifs[[i]] <- motifStack::trimMotif(m_list[[i]], t = 0.4)
+    ord_motifs[[i]]$name <- spnames[i]
 }
-fimo_filtered <- fimo_raw[keep_idx, ]
+
+pfmsAligned <- motifStack::DNAmotifAlignment(ord_motifs, rcpostfix = "")
+
+motifs_aligned <- list()
+for (i in 1:length(pfmsAligned)) {
+    motifs_aligned[[pfmsAligned[[i]]$name]] <- as.matrix(as.data.frame(pfmsAligned[[i]]))
+}
+motifs_aligned <- motifs_aligned[spnames]
+
+ar_orig_mat <- as.matrix(as.data.frame(motif_ar_stack[[1]]))
+ar_trim_mat <- as.matrix(as.data.frame(ord_motifs[[1]]))
+ar_aligned_mat <- motifs_aligned[["A. rhodense"]]
+
+left_trim_ar <- (which(sapply(
+    seq_len(ncol(ar_orig_mat) - ncol(ar_trim_mat) + 1),
+    function(ci) all(abs(ar_orig_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
+))[1]) - 1
+if (is.na(left_trim_ar)) left_trim_ar <- 0
+
+align_pad_ar <- (which(sapply(
+    seq_len(ncol(ar_aligned_mat) - ncol(ar_trim_mat) + 1),
+    function(ci) all(abs(ar_aligned_mat[, ci] - ar_trim_mat[, 1]) < 0.001)
+))[1]) - 1
+if (is.na(align_pad_ar)) align_pad_ar <- 0
+
+break_pos_in_logo <- (target_boundary - motif_hit_start + 0.5) - left_trim_ar + align_pad_ar
+
+cs1 <- make_col_scheme(
+    chars = c("A", "C", "G", "T"),
+    cols = c("#009E73", "#0072B2", "#E69F00", "#D55E00")
+)
+
+panel_a <- suppressWarnings(ggseqlogo(motifs_aligned, ncol = 1, col_scheme = cs1))
+panel_a$layers <- c(
+    geom_vline(xintercept = break_pos_in_logo, linetype = "dashed", color = "black", alpha = 0.8, linewidth = 0.5),
+    panel_a$layers
+)
+panel_a <- panel_a +
+    scale_x_continuous(breaks = seq(5, 30, by = 5)) +
+    annotate("point", x = break_pos_in_logo, y = 2.3, shape = 25, fill = "black", size = 2, color = "black") +
+    coord_cartesian(clip = "off") +
+    labs(x = "Position (bp)") +
+    theme_bw() +
+    theme(
+        strip.text = element_text(face = "italic", size = 10),
+        strip.background = element_blank(),
+        panel.border = element_blank(),
+        panel.grid = element_blank(),
+        axis.line.y = element_line(color = "black"),
+        axis.line.x = element_line(color = "black"),
+        axis.text.x = element_text(size = 8.5),
+        axis.text.y = element_text(size = 8.5),
+        axis.title.x = element_text(size = 9.5, face = "plain"),
+        axis.title.y = element_text(size = 9.5, face = "plain")
+    )
+
+
+#### PANEL D: SINGLE-STRAND MOTIF SPECIFICITY ####
+
+if (length(fimo_gr_all) > 0) {
+    hits <- findOverlaps(fimo_gr_all, fimo_gr_all)
+    has_earlier_overlap <- split(subjectHits(hits) < queryHits(hits), queryHits(hits))
+    keep_hits <- !sapply(has_earlier_overlap, any)
+    fimo_filtered <- fimo_raw[keep_hits, ]
+} else {
+    fimo_filtered <- fimo_raw
+}
 
 fimo_gr_final <- GRanges(
     seqnames = fimo_filtered$sequence_name,
@@ -227,9 +356,8 @@ fimo_gr_final <- GRanges(
     score = fimo_filtered$score
 )
 
-BREAK_SITES <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
 bps <- read.table(BREAK_SITES, header = TRUE)
-bps_gr <- GRanges(seqnames = bps$chrom, ranges = IRanges(start = bps$coordinate - 50, end = bps$coordinate + 50))
+bps_gr <- GRanges(seqnames = bps$chrom, ranges = IRanges(start = bps$coordinate - 25, end = bps$coordinate + 25))
 
 fimo_gr_final$location <- "Retained Genome"
 fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated Region"
@@ -242,19 +370,18 @@ loc_counts <- df_spec %>%
     group_by(location) %>%
     summarise(n = n(), .groups = "drop")
 
-# Consistent color palette across compartments (clearly distinguishing all three)
 compartment_colors <- c(
-    "Break Site" = "#D9381E",        # Vivid red/vermillion
-    "Eliminated Region" = "#2171B5", # Medium royal blue
-    "Retained Genome" = "#238B45"    # Forest green
+    "Break Site" = "#D9381E",
+    "Eliminated Region" = "#2171B5",
+    "Retained Genome" = "#238B45"
 )
 
 min_bp_single <- min(df_spec$score[df_spec$location == "Break Site"])
 
 panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
-    geom_jitter(aes(color = location), width = 0.28, alpha = 0.55, size = 1.4) +
+    geom_jitter(aes(color = location), width = 0.28, alpha = 0.55, size = 1.3) +
     geom_hline(yintercept = min_bp_single, linetype = "dotted", color = "black", linewidth = 0.6) +
-    geom_text(data = loc_counts, aes(x = location, y = 43, label = paste0("n=", n)), size = 2.8) +
+    geom_text(data = loc_counts, aes(x = location, y = 43, label = paste0("n=", n)), size = 2.6) +
     scale_color_manual(values = compartment_colors) +
     scale_x_discrete(labels = c(
         "Break Site" = "Break\nSite",
@@ -262,110 +389,32 @@ panel_c <- ggplot(df_spec, aes(x = location, y = score)) +
         "Retained Genome" = "Retained\nGenome"
     )) +
     scale_y_continuous(limits = c(0, 46), breaks = seq(0, 40, by = 10)) +
-    labs(x = "Genomic Location", y = "Single-strand motif score (bits)", color = "") +
+    labs(x = "Genomic Location", y = "Motif score (bits)", color = "") +
     theme_bw() +
     theme(
         legend.position = "none",
         panel.grid = element_blank(),
-        axis.text.x = element_text(size = 8.5),
-        axis.text.y = element_text(size = 8.5),
-        axis.title = element_text(size = 9.5, face = "plain")
+        axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title = element_text(size = 9, face = "plain")
     )
 
 
-#### PANEL D: DUAL-STRAND PALINDROMIC SPECIFICITY (plus vs minus strand) ####
+#### COMBINE AND SAVE (FOUR PANELS: A, B, C, D) ####
 
-chroms <- paste0("SUPER_", c(1:6, "X"))
-fimo_chr <- fimo_raw %>% filter(sequence_name %in% chroms)
+right_stack <- (panel_b / panel_a / panel_c) +
+    plot_layout(heights = c(1, 1.05, 1.05))
 
-pos_hits <- fimo_chr %>% filter(strand == "+")
-neg_hits <- fimo_chr %>% filter(strand == "-")
-
-# Canonical palindromic pairs: opposite strand, exact 2 bp coordinate stagger
-pairs <- inner_join(pos_hits, neg_hits, by = "sequence_name", suffix = c("_plus", "_minus"), relationship = "many-to-many") %>%
-    mutate(offset = start_plus - start_minus) %>%
-    filter(offset == 2) %>%
-    mutate(
-        center = (start_plus + stop_plus + start_minus + stop_minus) / 4.0
-    )
-
-pairs_gr <- GRanges(pairs$sequence_name, IRanges(start = as.integer(pairs$center), width = 1))
-
-pairs$comp <- "Retained Genome"
-pairs$comp[pairs_gr %over% grs_gr] <- "Eliminated Region"
-pairs$comp[pairs_gr %over% bps_gr] <- "Break Site"
-pairs$comp <- factor(pairs$comp, levels = c("Break Site", "Eliminated Region", "Retained Genome"))
-
-pair_counts <- pairs %>%
-    group_by(comp) %>%
-    summarise(n = n(), .groups = "drop")
-
-poly_pass <- data.frame(
-    x = c(0, 37.5, 42, 42, 0),
-    y = c(37.5, 0, 0, 42, 42)
-)
-
-panel_d <- ggplot() +
-    # Shaded grey passing zone (dual strand sum: score_plus + score_minus >= 37.5 bits)
-    geom_polygon(data = poly_pass, aes(x = x, y = y), fill = "grey90", alpha = 0.7) +
-    # Diagonal threshold line (score_plus + score_minus = 37.5)
-    geom_abline(intercept = 37.5, slope = -1, linetype = "dotted", color = "grey40", linewidth = 0.5) +
-    # Data points (consistent size = 1.4, alpha = 0.55 across all compartments)
-    geom_point(
-        data = pairs %>% filter(comp == "Retained Genome"),
-        aes(x = score_plus, y = score_minus, color = comp),
-        alpha = 0.55, size = 1.4
-    ) +
-    geom_point(
-        data = pairs %>% filter(comp == "Eliminated Region"),
-        aes(x = score_plus, y = score_minus, color = comp),
-        alpha = 0.55, size = 1.4
-    ) +
-    geom_point(
-        data = pairs %>% filter(comp == "Break Site"),
-        aes(x = score_plus, y = score_minus, color = comp),
-        alpha = 0.55, size = 1.4
-    ) +
-    scale_color_manual(
-        values = compartment_colors,
-        labels = c(
-            "Break Site" = paste0("Break Sites (n=", pair_counts$n[pair_counts$comp == "Break Site"], ")"),
-            "Eliminated Region" = paste0("Eliminated Region (n=", pair_counts$n[pair_counts$comp == "Eliminated Region"], ")"),
-            "Retained Genome" = paste0("Retained Genome (n=", pair_counts$n[pair_counts$comp == "Retained Genome"], ")")
-        )
-    ) +
-    scale_x_continuous(limits = c(0, 42), breaks = seq(0, 40, by = 10)) +
-    scale_y_continuous(limits = c(0, 42), breaks = seq(0, 40, by = 10)) +
-    labs(
-        x = "Plus strand score (bits)",
-        y = "Minus strand score (bits)",
-        color = ""
-    ) +
-    theme_bw() +
-    theme(
-        legend.position = c(0.30, 0.90),
-        legend.background = element_rect(fill = "transparent", color = NA),
-        legend.box.background = element_rect(fill = "transparent", color = NA),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.key = element_rect(fill = "transparent", color = NA),
-        legend.key.size = unit(2.5, "mm"),
-        legend.text = element_text(size = 7.5),
-        panel.grid = element_blank(),
-        axis.text.x = element_text(size = 8.5),
-        axis.text.y = element_text(size = 8.5),
-        axis.title = element_text(size = 9.5, face = "plain")
-    )
-
-
-#### COMBINE AND SAVE (2x2) ####
-
-# Top row: coverage (panel_b) as A, motif alignment (panel_a) as B
-# Bottom row: single-strand (panel_c) as C, dual-strand (panel_d) as D
-final_plot <- ((panel_b | panel_a) / (panel_c | panel_d)) +
-    plot_layout(heights = c(1, 1.1)) +
+final_plot <- (panel_cladogram | right_stack) +
+    plot_layout(widths = c(0.95, 1.05)) +
     plot_annotation(tag_levels = "A") &
     theme(plot.tag = element_text(face = "bold", size = 11))
 
 ggsave("report/figures/Figure_3.pdf", final_plot,
-    width = 175, height = 150, units = "mm", dpi = 300, device = "pdf"
+    width = 185, height = 185, units = "mm", dpi = 300, device = "pdf"
 )
+ggsave("report/figures/Figure_3.png", final_plot,
+    width = 185, height = 185, units = "mm", dpi = 300
+)
+
+cat("Successfully generated complete Figure 3 with four panels (A, B, C, D)!\n")

@@ -20,7 +20,7 @@ The following scripts in `scripts/manuscript/` generate the primary figures and 
 |--------|--------|---------|
 | `scripts/manuscript/fig_1_hiC_and_genomic_features.R` | `report/figures/Figure_1.pdf` | **Figure 1**: Hi-C + integrated genomic features |
 | `scripts/manuscript/fig_2_tandem_repeats.R` | `report/figures/Figure_2.pdf` | **Figure 2**: Tandem repeat family distribution |
-| `scripts/manuscript/fig_3_motif_analysis.R` | `report/figures/Figure_3.pdf` | **Figure 3**: Motif analysis and break site precision |
+| `scripts/manuscript/fig_3_motif_analysis.R` | `report/figures/Figure_3.pdf` | **Figure 3**: PDE systematics, break site precision, and motif analysis |
  
 ### Supplementary Tables
  
