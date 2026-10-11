@@ -25,24 +25,18 @@ for Molecular Biology, pp. 28-36, AAAI Press, Menlo Park, California, 1994.
 ********************************************************************************
 TRAINING SET
 ********************************************************************************
-PRIMARY SEQUENCES= expanded_25sites.fasta
+PRIMARY SEQUENCES= iter_2_training_flanks.fasta
 CONTROL SEQUENCES= --none--
 ALPHABET= ACGT
 Sequence name            Weight Length  Sequence name            Weight Length  
 -------------            ------ ------  -------------            ------ ------  
-II:25080-25280           1.0000    201  I:27084-27284            1.0000    201  
-V:25667-25867            1.0000    201  I:8860782-8860982        1.0000    201  
-III:9596225-9596425      1.0000    201  IV:11179745-11179945     1.0000    201  
-III:16198-16398          1.0000    201  V:10783352-10783552      1.0000    201  
-V:30568-30768            1.0000    201  IV:39682-39882           1.0000    201  
-II:8999662-8999862       1.0000    201  II:9006092-9006292       1.0000    201  
-IV:26156-26356           1.0000    201  V:21138-21338            1.0000    201  
-V:26029-26229            1.0000    201  X:11175586-11175786      1.0000    201  
-I:20873-21073            1.0000    201  I:15031-15231            1.0000    201  
-X:51743-51943            1.0000    201  IV:32938-33138           1.0000    201  
-X:25022-25222            1.0000    201  X:46597-46797            1.0000    201  
-III:9617856-9618056      1.0000    201  V:10790324-10790524      1.0000    201  
-X:11282246-11282446      1.0000    201  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+GRS_I_20955_20975_+_scor 1.0000    150  
 ********************************************************************************
 
 ********************************************************************************
@@ -51,243 +45,235 @@ COMMAND LINE SUMMARY
 This information can also be useful in the event you wish to report a
 problem with the MEME software.
 
-command: meme expanded_25sites.fasta -dna -revcomp -minw 26 -maxw 34 -nmotifs 3 -oc meme_out_25sites 
+command: meme iter_2_training_flanks.fasta -oc iter_2_meme_out -dna -revcomp -mod anr -minw 15 -maxw 50 -nmotifs 1 -p 4 
 
-model:  mod=         zoops    nmotifs=         3    evt=           inf
+model:  mod=           anr    nmotifs=         1    evt=           inf
 objective function:           em=       E-value of product of p-values
                               starts=   E-value of product of p-values
 strands: + -
-width:  minw=           26    maxw=           34
-nsites: minsites=        2    maxsites=       25    wnsites=       0.8
+width:  minw=           15    maxw=           50
+nsites: minsites=        2    maxsites=       65    wnsites=       0.8
 theta:  spmap=         uni    spfuzz=        0.5
 em:     prior=   dirichlet    b=            0.01    maxiter=        50
         distance=    1e-05
 trim:   wg=             11    ws=              1    endgaps=       yes
-data:   n=            5025    N=              25
+data:   n=            3750    N=              13
 sample: seed=            0    hsfrac=          0
-        searchsize=   5025    norand=         no    csites=       1000
+        searchsize=   3750    norand=         no    csites=       1000
 Letter frequencies in dataset:
-A 0.278 C 0.222 G 0.222 T 0.278 
+A 0.287 C 0.213 G 0.213 T 0.287 
 Background letter frequencies (from file dataset with add-one prior applied):
-A 0.278 C 0.222 G 0.222 T 0.278 
+A 0.287 C 0.213 G 0.213 T 0.287 
 Background model order: 0
 ********************************************************************************
 
 
 ********************************************************************************
-MOTIF WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1	width =  32  sites =  25  llr = 664  E-value = 2.4e-155
+MOTIF TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1	width =  29  sites =  13  llr = 317  E-value = 8.9e-045
 ********************************************************************************
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 Description
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 Description
 --------------------------------------------------------------------------------
-Simplified        A  6:222:26::::::::::27:::3664:::7a
-pos.-specific     C  ::::::::::42::::a43::9a22::9a71:
-probability       G  13:1::21aa1:25aa:::3a1:32:61::::
-matrix            T  47878a63::5884:::65::::2:3:::22:
+Simplified        A  11:41212:21:::28::::385:::7a7
+pos.-specific     C  :1::::31:1::a311:6a71118a72::
+probability       G  1:32882::29a::32a4:26:52:1::1
+matrix            T  88741:58a5:::74::::1:1:::21:2
 
-         bits    2.2          *     **   * *     *   
-                 2.0         **    ***   * *     *  *
-                 1.7         **    ***   ***    **  *
-                 1.5      *  **    ***   ***    **  *
-Relative         1.3      *  **    ***   ***    **  *
-Entropy          1.1     **  ** ** **** ****   ***  *
-(38.3 bits)      0.9  ** **  ** ** **** ****   **** *
-                 0.7 ******* ** ******* ****   ******
-                 0.4 *********************** ********
-                 0.2 *********************** ********
-                 0.0 --------------------------------
+         bits    2.2            **   * *     *    
+                 2.0            **   * *     *    
+                 1.8         * ***   * *     *  * 
+                 1.6      *  * ***   * *    **  * 
+Relative         1.3     **  * ***   ***    **  * 
+Entropy          1.1 *** **  * ****  **** * **  * 
+(35.2 bits)      0.9 *** ** ** **** ******* *** * 
+                 0.7 *** ** ** **** **************
+                 0.4 ****** ** **** **************
+                 0.2 *****************************
+                 0.0 -----------------------------
 
-Multilevel           ATTTTTTAGGTTTGGGCTTAGCCGAAGCCCAA
-consensus            TGA A GT  C GT   CCG   AGTA  TT 
-sequence                                    C        
-                                            T        
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 sites sorted by position p-value
---------------------------------------------------------------------------------
-Sequence name            Strand  Start   P-value                          Site            
--------------            ------  ----- ---------            --------------------------------
-V:25667-25867                -     88  5.68e-17 CGCACGTACA ATTTTTGAGGTTTGGGCTCGGCCGAAGCCCAA CTACTATTGG
-I:15031-15231                -     88  4.03e-15 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAAAGCCCTA TTATTAACTA
-X:11282246-11282446          +     83  1.09e-14 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA TTATTAACTA
-V:10790324-10790524          +     83  1.09e-14 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA TTATTAACTA
-III:9617856-9618056          +     83  1.09e-14 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA TTATTAACTA
-X:46597-46797                -     88  1.09e-14 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA TTATTAACTA
-X:25022-25222                -     88  1.09e-14 CGTGTATGCG AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA TTATTAACTA
-V:26029-26229                +     83  3.06e-14 ATATAACAAC ATATTTATGGTCTGGGCTTAGCCGAAACCCAA TAGAAAACAA
-V:21138-21338                +     83  3.06e-14 ATATAACAAC ATATTTATGGTCTGGGCTTAGCCGAAACCCAA TAGAAAACAA
-IV:26156-26356               +     83  3.06e-14 CAACACCACC ATATTTATGGTCTGGGCTTAGCCGAAACCCAA TAGAAAACAA
-I:8860782-8860982            +     83  3.90e-14 AAAAAGCACA GTTTTTGGGGTTTGGGCCCGGCCAAAGCCCAA AGTCCCCAAA
-I:27084-27284                -     88  4.40e-14 AGTTGACACA TTTTTTTAGGTTTGGGCTCGGCCGCAGCCAAA ATCAAAACAC
-V:10783352-10783552          +     83  1.84e-13 GAGAGCCATA TTTTTTTAGGTTTGGGCTTAGGCCGTAGCCAA AATCAAAACA
-I:20873-21073                -     88  6.42e-13 ATCATGCGTG TTATTTGTGGCTTAGGCCAAGCCGGAGCCCAA ACTCTCTTCT
-II:9006092-9006292           -     88  7.03e-13 CTGAAACAAA TTTAATTAGGTTTGGGCTCGGCCTCTGCCTAA CTTTCTAGAA
-V:30568-30768                -     88  8.39e-13 CGCACGTACA ATTTTTGAGGTTTGGGCTTAGGCCGAAGCCCA ACTACTATTG
-III:9596225-9596425          +     83  8.39e-13 ACAATTCCAT TTTTTTGAGGCTTGGGCTTAGGCCAAAGCCCA AAGTCCGCCT
-IV:32938-33138               +     83  1.65e-12 CTGAAACAAA TTTAATTAGGTTTGGGCTCGGCCTTAGCCTAA CTCTTCTAGA
-II:8999662-8999862           -     88  1.94e-12 CCTAAAACAA AGTTATTTGGTTTGGGCTCGGCCTCGGCCTAA CTTTATCATA
-IV:11179745-11179945         -     88  3.59e-12 CTAAGCCTAG TTTGTTTGGGCTTTGGCTAGGCCCGCACCCAA TTATATCCTG
-IV:39682-39882               -     88  4.80e-12 AAAAGGCCAT ATATATAAGGGTTGGGCTAAGCCTATACCTAA ACTTTATTTT
-II:25080-25280               +     83  5.54e-12 ATTACAACAC AATATTTTGGTTTCGGCTTAGCCCAAGCCGAA AGTCCAAAGT
-III:16198-16398              -     88  8.95e-12 TTGCTGCATT TTTGTTGTGGTATTGGCTGAGCCGCAGCCTAA TGAGGGGCAC
-X:11175586-11175786          -     88  1.77e-10 AGTGTGAGGT TTGGACTTGGATTTGGCTCAGCCTGAACCTAA GTAAACGTTT
-X:51743-51943                -     88  2.41e-10 AATTATGCGT GTTATTTGTGGCTTAGCCAAGCCGGAGCCCAA ACTTTTTTCT
+Multilevel           TTTAGGTTTTGGCTTAGCCCGAACCCAAA
+consensus              GT  C  A   CG  G GA GG TC T
+sequence                G     G    A              
+                                                  
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 block diagrams
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                        Site           
+-------------            ------  ----- ---------            -----------------------------
+GRS_I_20955_20975_+_scor     -     69  5.58e-14 TGCGTGTTAT TTGTGGCTTAGGCCAAGCCGGAGCCCAAA CTCTCTTCTG
+Type:S2G;breakpoint_wind     +    131  6.37e-14 CGTACAATTT TTGAGGTTTGGGCTTAGGCCGAAGCCCAA CTACTATTGG
+Type:S2G;breakpoint_wind     -    138  1.53e-13 CTTTGGGGAC TTTGGGCTTTGGCCGGGCCCAAACCCCAA AAACTGTGCT
+Type:S2G;breakpoint_wind     -    142  1.94e-13 AAAATTTGTG TTTTGATTTTGGCTGCGGCCGAGCCCAAA CCTAAAAAAA
+Type:S2G;breakpoint_wind     -    136  2.44e-13 CAACACAATA TTTTGGTTTCGGCTTAGCCCAAGCCGAAA GTCCAAAGTT
+Type:S2G;breakpoint_wind     +    132  3.06e-13 GCCATATTTT TTTAGGTTTGGGCTTAGGCCGTAGCCAAA ATCAAAACAC
+Type:S2G;breakpoint_wind     +    132  3.06e-13 TTCCATTTTT TTGAGGCTTGGGCTTAGGCCAAAGCCCAA AGTCCGCCTG
+Type:S2G;breakpoint_wind     -    134  8.93e-13 GCCTAGTTTG TTTGGGCTTTGGCTAGGCCCGCACCCAAT TATATCCTGC
+Type:S2G;breakpoint_wind     +    136  7.97e-12 TGCATTTTTG TTGTGGTATTGGCTGAGCCGCAGCCTAAT GAGGGGCACA
+Type:S2G;breakpoint_wind     -    136  4.11e-11 AAAAATAAAG TTTAGGTATAGGCTTAGCCCAACCCTTAT ATATATGGCC
+Type:S2G;breakpoint_wind     +    138  8.92e-11 ATGCGTGTTA TTTGTGGCTTAGCCAAGCCGGAGCCCAAA CTTTTTTCTG
+Type:S2G;breakpoint_wind     +    132  1.70e-10 TTTTGAGTAT GATAAAGTTAGGCCGAGGCCGAGCCCAAA CCAAATAACT
+Type:S2G;breakpoint_wind     -    137  5.58e-10 TGAGGTTTGG ACTTGGATTTGGCTCAGCCTGAACCTAAG TAAACGTTTT
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 block diagrams
 --------------------------------------------------------------------------------
 SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-V:25667-25867                     5.7e-17  87_[-1]_82
-I:15031-15231                       4e-15  87_[-1]_82
-X:11282246-11282446               1.1e-14  82_[+1]_87
-V:10790324-10790524               1.1e-14  82_[+1]_87
-III:9617856-9618056               1.1e-14  82_[+1]_87
-X:46597-46797                     1.1e-14  87_[-1]_82
-X:25022-25222                     1.1e-14  87_[-1]_82
-V:26029-26229                     3.1e-14  82_[+1]_87
-V:21138-21338                     3.1e-14  82_[+1]_87
-IV:26156-26356                    3.1e-14  82_[+1]_87
-I:8860782-8860982                 3.9e-14  82_[+1]_87
-I:27084-27284                     4.4e-14  87_[-1]_82
-V:10783352-10783552               1.8e-13  82_[+1]_87
-I:20873-21073                     6.4e-13  87_[-1]_82
-II:9006092-9006292                  7e-13  87_[-1]_82
-V:30568-30768                     8.4e-13  87_[-1]_82
-III:9596225-9596425               8.4e-13  82_[+1]_87
-IV:32938-33138                    1.6e-12  82_[+1]_87
-II:8999662-8999862                1.9e-12  87_[-1]_82
-IV:11179745-11179945              3.6e-12  87_[-1]_82
-IV:39682-39882                    4.8e-12  87_[-1]_82
-II:25080-25280                    5.5e-12  82_[+1]_87
-III:16198-16398                   8.9e-12  87_[-1]_82
-X:11175586-11175786               1.8e-10  87_[-1]_82
-X:51743-51943                     2.4e-10  87_[-1]_82
+GRS_I_20955_20975_+_scor          5.6e-14  68_[-1]_53
+Type:S2G;breakpoint_wind          6.4e-14  130_[+1]_141
+Type:S2G;breakpoint_wind          1.5e-13  137_[-1]_134
+Type:S2G;breakpoint_wind          1.9e-13  141_[-1]_130
+Type:S2G;breakpoint_wind          2.4e-13  135_[-1]_136
+Type:S2G;breakpoint_wind          3.1e-13  131_[+1]_140
+Type:S2G;breakpoint_wind          3.1e-13  131_[+1]_140
+Type:S2G;breakpoint_wind          8.9e-13  133_[-1]_138
+Type:S2G;breakpoint_wind            8e-12  135_[+1]_136
+Type:S2G;breakpoint_wind          4.1e-11  135_[-1]_136
+Type:S2G;breakpoint_wind          8.9e-11  137_[+1]_134
+Type:S2G;breakpoint_wind          1.7e-10  131_[+1]_140
+Type:S2G;breakpoint_wind          5.6e-10  136_[-1]_135
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 in BLOCKS format
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 in BLOCKS format
 --------------------------------------------------------------------------------
-BL   MOTIF WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA width=32 seqs=25
-V:25667-25867            (   88) ATTTTTGAGGTTTGGGCTCGGCCGAAGCCCAA  1 
-I:15031-15231            (   88) AGTTTTTAGGCTGTGGCCTAGCCAAAGCCCTA  1 
-X:11282246-11282446      (   83) AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA  1 
-V:10790324-10790524      (   83) AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA  1 
-III:9617856-9618056      (   83) AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA  1 
-X:46597-46797            (   88) AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA  1 
-X:25022-25222            (   88) AGTTTTTAGGCTGTGGCCTAGCCAATGCCCTA  1 
-V:26029-26229            (   83) ATATTTATGGTCTGGGCTTAGCCGAAACCCAA  1 
-V:21138-21338            (   83) ATATTTATGGTCTGGGCTTAGCCGAAACCCAA  1 
-IV:26156-26356           (   83) ATATTTATGGTCTGGGCTTAGCCGAAACCCAA  1 
-I:8860782-8860982        (   83) GTTTTTGGGGTTTGGGCCCGGCCAAAGCCCAA  1 
-I:27084-27284            (   88) TTTTTTTAGGTTTGGGCTCGGCCGCAGCCAAA  1 
-V:10783352-10783552      (   83) TTTTTTTAGGTTTGGGCTTAGGCCGTAGCCAA  1 
-I:20873-21073            (   88) TTATTTGTGGCTTAGGCCAAGCCGGAGCCCAA  1 
-II:9006092-9006292       (   88) TTTAATTAGGTTTGGGCTCGGCCTCTGCCTAA  1 
-V:30568-30768            (   88) ATTTTTGAGGTTTGGGCTTAGGCCGAAGCCCA  1 
-III:9596225-9596425      (   83) TTTTTTGAGGCTTGGGCTTAGGCCAAAGCCCA  1 
-IV:32938-33138           (   83) TTTAATTAGGTTTGGGCTCGGCCTTAGCCTAA  1 
-II:8999662-8999862       (   88) AGTTATTTGGTTTGGGCTCGGCCTCGGCCTAA  1 
-IV:11179745-11179945     (   88) TTTGTTTGGGCTTTGGCTAGGCCCGCACCCAA  1 
-IV:39682-39882           (   88) ATATATAAGGGTTGGGCTAAGCCTATACCTAA  1 
-II:25080-25280           (   83) AATATTTTGGTTTCGGCTTAGCCCAAGCCGAA  1 
-III:16198-16398          (   88) TTTGTTGTGGTATTGGCTGAGCCGCAGCCTAA  1 
-X:11175586-11175786      (   88) TTGGACTTGGATTTGGCTCAGCCTGAACCTAA  1 
-X:51743-51943            (   88) GTTATTTGTGGCTTAGCCAAGCCGGAGCCCAA  1 
+BL   MOTIF TTTDGGYTTDGGCTDAGSCCRARCCCAAA width=29 seqs=13
+GRS_I_20955_20975_+_scor (   69) TTGTGGCTTAGGCCAAGCCGGAGCCCAAA  1 
+Type:S2G;breakpoint_wind (  131) TTGAGGTTTGGGCTTAGGCCGAAGCCCAA  1 
+Type:S2G;breakpoint_wind (  138) TTTGGGCTTTGGCCGGGCCCAAACCCCAA  1 
+Type:S2G;breakpoint_wind (  142) TTTTGATTTTGGCTGCGGCCGAGCCCAAA  1 
+Type:S2G;breakpoint_wind (  136) TTTTGGTTTCGGCTTAGCCCAAGCCGAAA  1 
+Type:S2G;breakpoint_wind (  132) TTTAGGTTTGGGCTTAGGCCGTAGCCAAA  1 
+Type:S2G;breakpoint_wind (  132) TTGAGGCTTGGGCTTAGGCCAAAGCCCAA  1 
+Type:S2G;breakpoint_wind (  134) TTTGGGCTTTGGCTAGGCCCGCACCCAAT  1 
+Type:S2G;breakpoint_wind (  136) TTGTGGTATTGGCTGAGCCGCAGCCTAAT  1 
+Type:S2G;breakpoint_wind (  136) TTTAGGTATAGGCTTAGCCCAACCCTTAT  1 
+Type:S2G;breakpoint_wind (  138) TTTGTGGCTTAGCCAAGCCGGAGCCCAAA  1 
+Type:S2G;breakpoint_wind (  132) GATAAAGTTAGGCCGAGGCCGAGCCCAAA  1 
+Type:S2G;breakpoint_wind (  137) ACTTGGATTTGGCTCAGCCTGAACCTAAG  1 
 //
 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 position-specific scoring matrix
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 position-specific scoring matrix
 --------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 32 n= 4250 bayes= 7.40088 E= 2.4e-155 
-   101  -1129   -147     37 
-  -279  -1129     33    129 
-   -47  -1129   -247    145 
-   -79  -1129    -89    137 
-   -47  -1129  -1129    153 
- -1129   -247  -1129    179 
-   -79  -1129     11    111 
-   101  -1129    -89     21 
- -1129  -1129    211   -279 
- -1129  -1129    217  -1129 
-  -279     69   -147     91 
-  -279    -47  -1129    153 
- -1129  -1129     11    145 
-  -279   -247    122     53 
-  -279  -1129    211  -1129 
- -1129  -1129    217  -1129 
- -1129    217  -1129  -1129 
- -1129     69  -1129    120 
-   -79     33   -247     91 
-   137  -1129     33  -1129 
- -1129  -1129    217  -1129 
- -1129    198    -89  -1129 
- -1129    217  -1129  -1129 
-     1    -15     52    -47 
-   101    -47     11   -279 
-   111   -247   -247     21 
-    37  -1129    152  -1129 
- -1129    198    -89  -1129 
- -1129    217  -1129  -1129 
-  -279    161   -247    -21 
-   129   -147  -1129    -21 
-   185  -1129  -1129  -1129 
+log-odds matrix: alength= 4 w= 29 n= 3386 bayes= 8.5516 E= 8.9e-045 
+  -189  -1035   -147    156 
+  -189   -147  -1035    156 
+ -1035  -1035     53    127 
+    42  -1035     11     42 
+  -189  -1035    199   -189 
+   -90  -1035    199  -1035 
+  -189     53    -47     69 
+   -90   -147  -1035    142 
+ -1035  -1035  -1035    180 
+   -31   -147     11     69 
+  -189  -1035    211  -1035 
+ -1035  -1035    223  -1035 
+ -1035    223  -1035  -1035 
+ -1035     53  -1035    127 
+   -31   -147     53     42 
+   142   -147    -47  -1035 
+ -1035  -1035    223  -1035 
+ -1035    153     85  -1035 
+ -1035    223  -1035  -1035 
+ -1035    170     11   -189 
+    10   -147    153  -1035 
+   156   -147  -1035   -189 
+    69   -147    111  -1035 
+ -1035    185     11  -1035 
+ -1035    223  -1035  -1035 
+ -1035    170   -147    -31 
+   127     11  -1035   -189 
+   180  -1035  -1035  -1035 
+   127  -1035   -147    -31 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 position-specific probability matrix
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 position-specific probability matrix
 --------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 32 nsites= 25 E= 2.4e-155 
- 0.560000  0.000000  0.080000  0.360000 
- 0.040000  0.000000  0.280000  0.680000 
- 0.200000  0.000000  0.040000  0.760000 
- 0.160000  0.000000  0.120000  0.720000 
- 0.200000  0.000000  0.000000  0.800000 
- 0.000000  0.040000  0.000000  0.960000 
- 0.160000  0.000000  0.240000  0.600000 
- 0.560000  0.000000  0.120000  0.320000 
- 0.000000  0.000000  0.960000  0.040000 
- 0.000000  0.000000  1.000000  0.000000 
- 0.040000  0.360000  0.080000  0.520000 
- 0.040000  0.160000  0.000000  0.800000 
- 0.000000  0.000000  0.240000  0.760000 
- 0.040000  0.040000  0.520000  0.400000 
- 0.040000  0.000000  0.960000  0.000000 
+letter-probability matrix: alength= 4 w= 29 nsites= 13 E= 8.9e-045 
+ 0.076923  0.000000  0.076923  0.846154 
+ 0.076923  0.076923  0.000000  0.846154 
+ 0.000000  0.000000  0.307692  0.692308 
+ 0.384615  0.000000  0.230769  0.384615 
+ 0.076923  0.000000  0.846154  0.076923 
+ 0.153846  0.000000  0.846154  0.000000 
+ 0.076923  0.307692  0.153846  0.461538 
+ 0.153846  0.076923  0.000000  0.769231 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.230769  0.076923  0.230769  0.461538 
+ 0.076923  0.000000  0.923077  0.000000 
  0.000000  0.000000  1.000000  0.000000 
  0.000000  1.000000  0.000000  0.000000 
- 0.000000  0.360000  0.000000  0.640000 
- 0.160000  0.280000  0.040000  0.520000 
- 0.720000  0.000000  0.280000  0.000000 
+ 0.000000  0.307692  0.000000  0.692308 
+ 0.230769  0.076923  0.307692  0.384615 
+ 0.769231  0.076923  0.153846  0.000000 
  0.000000  0.000000  1.000000  0.000000 
- 0.000000  0.880000  0.120000  0.000000 
+ 0.000000  0.615385  0.384615  0.000000 
  0.000000  1.000000  0.000000  0.000000 
- 0.280000  0.200000  0.320000  0.200000 
- 0.560000  0.160000  0.240000  0.040000 
- 0.600000  0.040000  0.040000  0.320000 
- 0.360000  0.000000  0.640000  0.000000 
- 0.000000  0.880000  0.120000  0.000000 
+ 0.000000  0.692308  0.230769  0.076923 
+ 0.307692  0.076923  0.615385  0.000000 
+ 0.846154  0.076923  0.000000  0.076923 
+ 0.461538  0.076923  0.461538  0.000000 
+ 0.000000  0.769231  0.230769  0.000000 
  0.000000  1.000000  0.000000  0.000000 
- 0.040000  0.680000  0.040000  0.240000 
- 0.680000  0.080000  0.000000  0.240000 
+ 0.000000  0.692308  0.076923  0.230769 
+ 0.692308  0.230769  0.000000  0.076923 
  1.000000  0.000000  0.000000  0.000000 
+ 0.692308  0.000000  0.076923  0.230769 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif WTTTTTTWGGYTTKGGCYYAGCCNAWRCCCAA MEME-1 regular expression
+	Motif TTTDGGYTTDGGCTDAGSCCRARCCCAAA MEME-1 regular expression
 --------------------------------------------------------------------------------
-[AT][TG][TA]T[TA]T[TG][AT]GG[TC]T[TG][GT]GGC[TC][TC][AG]GCC[GACT][AG][AT][GA]CC[CT][AT]A
+TT[TG][ATG]GG[TC]TT[TAG]GGC[TC][TGA]AG[CG]C[CG][GA]A[AG][CG]C[CT][AC]A[AT]
 --------------------------------------------------------------------------------
 
 
 
 
-Time  0.94 secs.
+Time  1.91 secs.
 
 ********************************************************************************
 
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+Type:S2G;breakpoint_wind         1.05e-10  141_[-1(1.94e-13)]_130
+Type:S2G;breakpoint_wind         8.30e-11  137_[-1(1.53e-13)]_134
+Type:S2G;breakpoint_wind         1.33e-10  135_[-1(2.44e-13)]_136
+Type:S2G;breakpoint_wind         9.26e-08  131_[+1(1.70e-10)]_140
+Type:S2G;breakpoint_wind         4.33e-09  135_[+1(7.97e-12)]_136
+Type:S2G;breakpoint_wind         1.67e-10  131_[+1(3.06e-13)]_140
+Type:S2G;breakpoint_wind         2.23e-08  135_[-1(4.11e-11)]_136
+Type:S2G;breakpoint_wind         4.86e-10  133_[-1(8.93e-13)]_138
+Type:S2G;breakpoint_wind         3.47e-11  130_[+1(6.37e-14)]_29_\
+    [-1(8.56e-05)]_83
+Type:S2G;breakpoint_wind         1.67e-10  131_[+1(3.06e-13)]_140
+Type:S2G;breakpoint_wind         4.85e-08  137_[+1(8.92e-11)]_134
+Type:S2G;breakpoint_wind         3.04e-07  136_[-1(5.58e-10)]_135
+GRS_I_20955_20975_+_scor         1.36e-11  68_[-1(5.58e-14)]_53
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because requested number of motifs (1) found.
+********************************************************************************
+
+CPU: node-14-19
 
 ********************************************************************************

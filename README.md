@@ -30,7 +30,7 @@ The following scripts in `scripts/manuscript/` generate the primary figures and 
 | `scripts/manuscript/generate_table_s3.py` | `report/supplementary tables/Table_S3_TR_families_span.md` | **Table S3**: TR family span analysis |
 | `scripts/manuscript/generate_table_s4.py` | `report/supplementary tables/Table_S4_ncRNA_eliminated.md` | **Table S4**: ncRNA in eliminated DNA |
 | `scripts/manuscript/generate_table_s5.py` | `report/supplementary tables/Table_S5_genes_in_eliminated_DNA.md` | **Table S5**: Genes in eliminated DNA |
-| `scripts/manuscript/generate_table_s6.py` | `report/supplementary tables/Table_S6_SFE_coordinates.md` | **Table S6**: SFE motif coordinates |
+| `scripts/manuscript/generate_table_s6.py` | `report/supplementary tables/Table_S6_SFE_coordinates.tsv` | **Table S6**: SFE motif coordinates |
  
 ## Utility & Analysis Scripts
  

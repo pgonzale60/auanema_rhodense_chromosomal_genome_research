@@ -1,128 +1,136 @@
+#!/usr/bin/env python3
 import csv
 import gzip
+import sys
+from pathlib import Path
 
 def generate_table_s6():
     """
-    Generates Table S6: Coordinates and classification of Sequences for Elimination (SFEs) in Auanema rhodense.
-    Filters motif occurrences by score >= lowest canonical break site score (21.74 bits),
-    annotates canonical break sites vs internal eliminated copies, and sorts by chromosome then coordinate.
+    Generates Table S6: Coordinates of Sequences for Elimination (SFEs) at the 28 main breakage sites
+    and their accompanying redundant SFE motifs in eliminated DNA (GRS).
+    Uses the FIMO callset (analyses/diminution/fimo_out/fimo.tsv.gz)
+    for Motif-1 (TTTTGYTYAGGCTAAGCCTRWRCWAAAATW, 30 bp) filtered programmatically at the minimum canonical
+    break-site score threshold.
     """
-    # 1. Load canonical break sites
-    break_sites_path = "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
+    project_root = Path(__file__).resolve().parent.parent.parent
+    break_sites_path = project_root / "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
+    fimo_path = project_root / "analyses/diminution/fimo_out/fimo.tsv.gz"
+    out_tsv_path = project_root / "report/supplementary tables/Table_S6_SFE_coordinates.tsv"
+
+    target_motif = "TTTTGYTYAGGCTAAGCCTRWRCWAAAATW"
+    canonical_chrs = {f"SUPER_{i}" for i in range(1, 7)} | {"SUPER_X"}
+
+    # 1. Load 28 canonical break sites in chromosomal order
     break_sites = []
-    try:
-        with open(break_sites_path, 'r') as f:
-            reader = csv.DictReader(f, delimiter='\t')
-            for row in reader:
-                break_sites.append({
-                    'chrom': row['chrom'],
-                    'coordinate': int(row['coordinate'])
-                })
-    except FileNotFoundError:
-        print(f"Error: {break_sites_path} not found.")
-        return
-
-    # Chromosome ordering
-    chrom_order = {f"SUPER_{i}": i for i in range(1, 7)}
-    chrom_order["SUPER_X"] = 7
-
-    # 2. First pass: find canonical break site scores from expanded 33-bp palindromic FIMO scan
-    fimo_path = "analyses/diminution/fimo_out/nxAuaRhod1_1_expanded_33bp_pal_fimo.tsv.gz"
-    bs_best_scores = {}
-
-    with gzip.open(fimo_path, 'rt') as f:
+    with open(break_sites_path, 'r') as f:
         reader = csv.DictReader(f, delimiter='\t')
         for row in reader:
-            if not row or not row.get('motif_id') or row['motif_id'].startswith("#"):
-                continue
-            
-            f_chrom = row['sequence_name']
-            f_start = int(row['start'])
-            f_stop = int(row['stop'])
-            f_score = float(row['score'])
+            break_sites.append((row['chrom'], int(row['coordinate'])))
 
-            for bs in break_sites:
-                if f_chrom == bs['chrom']:
-                    b_coord = bs['coordinate']
-                    if abs(f_start - b_coord) <= 25 or abs(f_stop - b_coord) <= 25:
-                        key = (bs['chrom'], bs['coordinate'])
-                        if key not in bs_best_scores or f_score > bs_best_scores[key]:
-                            bs_best_scores[key] = f_score
-
-    min_canonical_score = min(bs_best_scores.values())
-
-    # 3. Second pass: collect all distinct 33-bp loci with score >= min_canonical_score across the 7 chromosomes
-    loci = {}
+    # 2. Load positive-scoring FIMO hits for Motif-1 on canonical chromosomes
+    m1_raw = []
     with gzip.open(fimo_path, 'rt') as f:
         reader = csv.DictReader(f, delimiter='\t')
-        for row in reader:
-            if not row or not row.get('motif_id') or row['motif_id'].startswith("#"):
+        for r in reader:
+            if not r or not r.get('start') or r['motif_id'] != target_motif:
                 continue
-            
-            f_chrom = row['sequence_name']
-            if f_chrom not in chrom_order:
+            chrom = r['sequence_name']
+            if chrom not in canonical_chrs:
                 continue
-
-            f_score = float(row['score'])
-            if f_score < min_canonical_score:
+            score = float(r['score'])
+            if score < 0:
                 continue
+            m1_raw.append({
+                'chrom': chrom,
+                'start': int(r['start']),
+                'end': int(r['stop']),
+                'strand': r['strand'],
+                'score': score,
+                'p_value': float(r['p-value']),
+                'sequence': r['matched_sequence']
+            })
 
-            f_start = int(row['start'])
-            f_stop = int(row['stop'])
-            key = (f_chrom, f_start, f_stop)
+    # 3. Deduplicate overlapping +/- strand hits at the same palindromic locus (keep highest score)
+    m1_raw.sort(key=lambda x: -x['score'])
+    m1_dedup = []
+    for h in m1_raw:
+        if not any(
+            h['chrom'] == d['chrom'] and not (h['end'] < d['start'] or h['start'] > d['end'])
+            for d in m1_dedup
+        ):
+            m1_dedup.append(h)
 
-            if key not in loci or f_score > loci[key]['score']:
-                loci[key] = {
-                    'chrom': f_chrom,
-                    'start': f_start,
-                    'stop': f_stop,
-                    'strand': '+/-',
-                    'score': f_score,
-                    'p_value': float(row['p-value']),
-                    'sequence': row['matched_sequence']
-                }
+    # 4. Identify the main breakage site SFE at each of the 28 break sites
+    bs_hits = {}
+    for bc, bpos in break_sites:
+        candidates = [
+            h for h in m1_dedup
+            if h['chrom'] == bc and (abs(h['start'] - bpos) <= 25 or abs(h['end'] - bpos) <= 25 or (h['start'] <= bpos <= h['end']))
+        ]
+        candidates.sort(key=lambda x: -x['score'])
+        bs_hits[(bc, bpos)] = candidates[0]
 
-    # 4. Annotate canonical vs internal eliminated SFE and distance
-    results = []
-    for loc in loci.values():
-        f_chrom = loc['chrom']
-        f_start = loc['start']
-        f_stop = loc['stop']
+    # Programmatically obtain the minimum break-site score threshold
+    min_bs_score = min(h['score'] for h in bs_hits.values())
+    print(f"Programmatic break-site threshold: {min_bs_score:.4f} bits", file=sys.stderr)
 
-        # Find closest canonical break site on this chromosome
-        bs_on_chr = [bs['coordinate'] for bs in break_sites if bs['chrom'] == f_chrom]
-        closest_bs = min(bs_on_chr, key=lambda b: min(abs(f_start - b), abs(f_stop - b)))
-        distance = min(abs(f_start - closest_bs), abs(f_stop - closest_bs))
+    # 5. Identify redundant motifs with score >= min_bs_score outside the 28 main break sites
+    bs_hit_coords = {(h['chrom'], h['start'], h['end']) for h in bs_hits.values()}
+    redundant_hits = [
+        h for h in m1_dedup
+        if h['score'] >= min_bs_score and (h['chrom'], h['start'], h['end']) not in bs_hit_coords
+    ]
+    redundant_hits.sort(key=lambda x: (x['chrom'], x['start']))
 
-        is_canonical = distance <= 25
-        classification = "Canonical Break Site" if is_canonical else "Eliminated Region (Internal SFE)"
-        break_site_label = f"{closest_bs:,}" if is_canonical else f"Near {closest_bs:,}"
+    # 6. Pair each redundant motif with its nearest main break site on the same chromosome
+    paired_redundant = {k: [] for k in break_sites}
+    for rh in redundant_hits:
+        c = rh['chrom']
+        chr_bs = [(bc, bpos) for bc, bpos in break_sites if bc == c]
+        nearest_bs = min(chr_bs, key=lambda b: min(abs(rh['start'] - b[1]), abs(rh['end'] - b[1])))
+        paired_redundant[nearest_bs].append(rh)
 
-        results.append({
-            'chrom_num': chrom_order[f_chrom],
-            'Chromosome': f_chrom.replace("SUPER_", "Chr "),
-            'Classification': classification,
-            'Associated Break Site': break_site_label,
-            'SFE Start': f"{f_start:,}",
-            'SFE Stop': f"{f_stop:,}",
-            'Strand': loc['strand'],
-            'Distance (bp)': distance,
-            'Score': loc['score'],
-            'P-value': loc['p_value'],
-            'Sequence': loc['sequence'],
-            'raw_start': f_start
-        })
+    # 7. Write TSV in the original side-by-side border & redundant motif format
+    out_tsv_path.parent.mkdir(parents=True, exist_ok=True)
+    row_count = 0
+    with open(out_tsv_path, 'w', newline='') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerow([
+            "scaffold",
+            "motif at main breakage site", "", "",
+            "redundant motif", "", "",
+            "distance between redundant motif and SFE at break site"
+        ])
+        writer.writerow([
+            "",
+            "start", "end", "score",
+            "start", "end", "score",
+            ""
+        ])
 
-    # 5. Sort by chromosome, then start coordinate
-    results.sort(key=lambda x: (x['chrom_num'], x['raw_start']))
+        for bs_key in break_sites:
+            bh = bs_hits[bs_key]
+            reds = paired_redundant[bs_key]
+            if not reds:
+                writer.writerow([
+                    bh['chrom'],
+                    bh['start'], bh['end'], f"{bh['score']:.4f}",
+                    "", "", "",
+                    ""
+                ])
+                row_count += 1
+            else:
+                for rh in reds:
+                    dist = rh['start'] - bh['end'] if rh['start'] > bh['end'] else bh['start'] - rh['end']
+                    writer.writerow([
+                        bh['chrom'],
+                        bh['start'], bh['end'], f"{bh['score']:.4f}",
+                        rh['start'], rh['end'], f"{rh['score']:.4f}",
+                        dist
+                    ])
+                    row_count += 1
 
-    # 6. Print Markdown Table
-    print("# Table S6. Coordinates and classification of Sequences for Elimination (SFEs)")
-    print(f"\nThis table lists all genomic occurrences of the 33-bp palindromic SFE motif with scores greater than or equal to the lowest canonical break site score ({min_canonical_score:.2f} bits). Hits are classified as either canonical chromosome break sites (overlapping the 28 validated cleavage junctions) or internal eliminated copies (located within eliminated germline-restricted regions), and ordered by chromosome and genomic coordinate.\n")
-    print("| Chromosome | Classification | Associated Break Site | SFE Start | SFE Stop | Strand | Distance to Junction (bp) | Score | P-value | Sequence |")
-    print("| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
-    for r in results:
-        print(f"| {r['Chromosome']} | {r['Classification']} | {r['Associated Break Site']} | {r['SFE Start']} | {r['SFE Stop']} | {r['Strand']} | {r['Distance (bp)']} | {r['Score']:.2f} | {r['P-value']:.2e} | {r['Sequence']} |")
+    print(f"Generated Table S6 at {out_tsv_path} ({row_count} rows across 28 break sites).", file=sys.stderr)
 
 if __name__ == "__main__":
     generate_table_s6()

@@ -125,12 +125,12 @@ print("\n--- Sequence Summary ---")
 for sp in sorted(seqs_18S.keys()):
     print(f"{sp:30s} | 18S: {len(seqs_18S[sp])} bp | 28S: {len(seqs_28S[sp])} bp")
 
-with open("phylogenetic_analysis/data/all_18S_13taxa.fasta", "w") as f:
+with open("phylogenetic_analysis/data/all_18S.fasta", "w") as f:
     for sp, s in seqs_18S.items():
         f.write(f">{sp}\n{s}\n")
 
-with open("phylogenetic_analysis/data/all_28S_13taxa.fasta", "w") as f:
+with open("phylogenetic_analysis/data/all_28S.fasta", "w") as f:
     for sp, s in seqs_28S.items():
         f.write(f">{sp}\n{s}\n")
 
-print("\nSaved all_18S_13taxa.fasta and all_28S_13taxa.fasta successfully!")
+print("\nSaved all_18S.fasta and all_28S.fasta successfully!")
