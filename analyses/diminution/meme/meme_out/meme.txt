@@ -25,25 +25,25 @@ for Molecular Biology, pp. 28-36, AAAI Press, Menlo Park, California, 1994.
 ********************************************************************************
 TRAINING SET
 ********************************************************************************
-PRIMARY SEQUENCES= nxAuaRhod1_1.pde_border_flanks_150bp.fasta
+PRIMARY SEQUENCES= /lustre/scratch122/tol/teams/blaxter/users/pg17/pde_workbench/experiments/meme_parameter_grid/nxAuaRhod1_1.pde_border_flanks_25bp.fasta
 CONTROL SEQUENCES= --none--
 ALPHABET= ACGT
 Sequence name            Weight Length  Sequence name            Weight Length  
 -------------            ------ ------  -------------            ------ ------  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
-Type:S2G;breakpoint_wind 1.0000    300  Type:S2G;breakpoint_wind 1.0000    300  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
+Type:S2G;breakpoint_wind 1.0000     50  Type:S2G;breakpoint_wind 1.0000     50  
 ********************************************************************************
 
 ********************************************************************************
@@ -52,604 +52,244 @@ COMMAND LINE SUMMARY
 This information can also be useful in the event you wish to report a
 problem with the MEME software.
 
-command: meme nxAuaRhod1_1.pde_border_flanks_150bp.fasta -oc nxAuaRhod1_1_meme_out -dna -revcomp -mod anr -minw 15 -maxw 50 -nmotifs 3 -p 8 
+command: meme /lustre/scratch122/tol/teams/blaxter/users/pg17/pde_workbench/experiments/meme_parameter_grid/nxAuaRhod1_1.pde_border_flanks_25bp.fasta -dna -mod anr -nmotifs 1 -oc /lustre/scratch122/tol/teams/blaxter/users/pg17/pde_workbench/experiments/meme_parameter_grid/C01_baseline_anr_wide_win50bp_revcomp/meme_out -minw 20 -maxw 32 -revcomp 
 
-model:  mod=           anr    nmotifs=         3    evt=           inf
+model:  mod=           anr    nmotifs=         1    evt=           inf
 objective function:           em=       E-value of product of p-values
                               starts=   E-value of product of p-values
 strands: + -
-width:  minw=           15    maxw=           50
+width:  minw=           20    maxw=           32
 nsites: minsites=        2    maxsites=      140    wnsites=       0.8
 theta:  spmap=         uni    spfuzz=        0.5
 em:     prior=   dirichlet    b=            0.01    maxiter=        50
         distance=    1e-05
 trim:   wg=             11    ws=              1    endgaps=       yes
-data:   n=            8400    N=              28
+data:   n=            1400    N=              28
 sample: seed=            0    hsfrac=          0
-        searchsize=   8400    norand=         no    csites=       1000
+        searchsize=   1400    norand=         no    csites=       1000
 Letter frequencies in dataset:
-A 0.361 C 0.139 G 0.139 T 0.361 
+A 0.339 C 0.161 G 0.161 T 0.339 
 Background letter frequencies (from file dataset with add-one prior applied):
-A 0.361 C 0.139 G 0.139 T 0.361 
+A 0.339 C 0.161 G 0.161 T 0.339 
 Background model order: 0
 ********************************************************************************
 
 
 ********************************************************************************
-MOTIF TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1	width =  30  sites =  30  llr = 688  E-value = 1.4e-138
+MOTIF WTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1	width =  29  sites =  28  llr = 618  E-value = 1.9e-155
 ********************************************************************************
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 Description
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 Description
 --------------------------------------------------------------------------------
-Simplified        A  22:1::128::::59:::155534888613
-pos.-specific     C  1:2::3:4:::a:2::9a1:1171::121:
-probability       G  :::1a::11aa::21a1:1313:12::111
-matrix            T  7888:6932:::a1::::713::4121176
+Simplified        A  7312:5::339::::29:::3687177887
+pos.-specific     C  ::1:1::4:51::a::::9a111:91:::2
+probability       G  111::181:::aa::31a1::3:3::2::1
+matrix            T  1588852573::::a5::::6:1111131:
 
-         bits    2.8          ***   * *            
-                 2.6     *    ***   ***            
-                 2.3     *    ***   ***            
-                 2.0     *    ***   ***            
-Relative         1.7     *    ***   ***            
-Entropy          1.4     *    ****  ***    *       
-(33.1 bits)      1.1     *    **** ****    *       
-                 0.9   * ***  **** ****    * **    
-                 0.6  ****** ***** ****   ** ***   
-                 0.3 ******************** ** ******
+         bits    2.6            ***   * *          
+                 2.4            ***   ***          
+                 2.1            ***   ***          
+                 1.8            ***   ***    *     
+Relative         1.6       *    ***   ***    *     
+Entropy          1.3       *    **** ****    *     
+(33.0 bits)      1.1       *   ***** ****    *     
+                 0.8    ** **  ***** ****   ** **  
+                 0.5 * *** ********* **** *********
+                 0.3 ******************************
                  0.0 ------------------------------
 
-Multilevel           TTTTGTTCAGGCTAAGCCTAAACTAAAATT
-consensus            AA   C T     C     GTGAA T C A
-sequence                                           
+Multilevel           ATTTTAGTTCAGGCTTAGCCTAAACAAAAA
+consensus             A   TTCAA     G    AG G  GT  
+sequence                      T                    
                                                    
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 sites sorted by position p-value
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 sites sorted by position p-value
 --------------------------------------------------------------------------------
 Sequence name            Strand  Start   P-value                         Site           
 -------------            ------  ----- ---------            ------------------------------
-Type:S2G;breakpoint_wind     +    137  1.05e-13 TCTATTAAAT TTTTGTTCAGGCTAAGCCTATCATAAAATT GTTGCCGCAA
-Type:S2G;breakpoint_wind     +    137  1.22e-13 GCTACAATTT TTTTGCTTAGGCTCAGCCTATGCAAAAACG AAAACACTGT
-Type:S2G;breakpoint_wind     +    138  1.66e-13 GGATAGTTTG TTTTGTTGAGGCTAAGCCTGGCCTGAAATT TTGAACAGAA
-Type:S2G;breakpoint_wind     -    135  1.93e-13 ACATATTTTT TTTTGCTTTGGCTCAGCCTTAGCAAAACTT ATATTATACT
-Type:S2G;breakpoint_wind     +    138  2.23e-13 ACTAACAGTG TTTTGTACAGGCTCAGCCCGAGCTAAACTA CAGTTCTGCT
-Type:S2G;breakpoint_wind     +    138  4.55e-13 CAGTTTCATA TTTTGTTCAGGCTAAGCCTAAAACAAAAGA AATCGTATAC
-Type:S2G;breakpoint_wind     -    134  5.99e-13 TATTATTTAA TTTAGCTCAGGCTTAGCCTAAGCCAAACCA TTACTTAGTG
-Type:S2G;breakpoint_wind     -    135  7.82e-13 TTCATAAGAT TTCTGTTTTGGCTGAGCCTGAACTAAACGT TGGTGCAAGG
-Type:S2G;breakpoint_wind     +    137  1.02e-12 TGCATTTTAC TTCTGTTCAGGCTAAGCCTTCGAAAAAATT GAAAAAAAAT
-Type:S2G;breakpoint_wind     +    137  1.49e-12 GAAGTTTTAT TACTGCTAAGGCTGAGCCTGCACGAAAATT GTATTACTTT
-Type:S2G;breakpoint_wind     +    137  1.90e-12 TATATAATAT TATTGTTTTGGCTCAGCCTAAACTATAATT ACCATAGTAT
-Type:S2G;breakpoint_wind     +    137  3.07e-12 CTATATAGAT TATTGCTTAGGCTAAGCCAAAGCAATAATA AAAATGCCGA
-Type:S2G;breakpoint_wind     +    138  5.42e-12 ACGAAATTCC TTTGGTTCAGGCTCAGCCTTTGATAACATT GAATTTTTCA
-Type:S2G;breakpoint_wind     -    232  1.15e-11 TATTATAAGA TTTTGTTCAGGCTGAGCCTATCATAATTTT TTTTTTAAAA
-Type:S2G;breakpoint_wind     +    137  1.27e-11 ATATATTTAT TTTTGTTTAGGCTAGGCCTGTGATATAGTT TTATGGTTCA
-Type:S2G;breakpoint_wind     +    135  1.27e-11 ATGATATATT GTTTGCTCAGGCTTAGCCAAGGCAGAAATA TTAGAAAACT
-Type:S2G;breakpoint_wind     +    131  1.56e-11 TATTTAATAA ATTTGTTCAGGCTAAGGCTAAACAGAAAAA GTTGAAGAAA
-Type:S2G;breakpoint_wind     -    131  2.31e-11 CTTCTTTTCT AATGGCTTGGGCTAAGCCTGTACTAAAACT GCTCTATTTT
-Type:S2G;breakpoint_wind     -    228  2.31e-11 TATGTATAAC ATTTGCTCAGGCTGAGCCAATACGATAGTA TTTATAAATT
-Type:S2G;breakpoint_wind     -    134  2.31e-11 AGTTAAAATT ATTTGTTATGGCTCAGCCTGAACCAATATG ATTCTGTAGA
-Type:S2G;breakpoint_wind     +    138  3.38e-11 TTAGAATAAA TTTAGCTGGGGCTAAGCCTGAAATGAATTT TTCGCATTGC
-Type:S2G;breakpoint_wind     +    137  3.71e-11 TTGTTTTTAT ATCTGTTTAGGCTCAGCCGATAATAAAAAT GTTGTTCATC
-Type:S2G;breakpoint_wind     -    131  4.45e-11 ACTTGTAGAA TACTGCAAAGGCTAAGCCTAAACAATAATA GTTAAAAGTT
-Type:S2G;breakpoint_wind     +    138  5.81e-11 ATATTCTAGG TTTTGTTCAGGCTAGGCCGGAACATTCATA ATATCATAAT
-Type:S2G;breakpoint_wind     -    135  6.92e-11 CATATTTAAT CTTTGTTAAGGCTGAGCCAATTCAAAACTT CTTCTAATAA
-Type:S2G;breakpoint_wind     -    132  2.70e-10 TAGGACTAAT TAATGATTAGGCTAAGCCTAAACCAAATTT TTTTTCACCA
-Type:S2G;breakpoint_wind     +    138  8.22e-10 ATTTTTTACT TTTTATTTAGGCTAAGCCGTAGCATAAAAT TATTTCATAA
-Type:S2G;breakpoint_wind     +    135  8.77e-10 TATTTTAAAA ATTAGTTCAGGCTTAGCCCGTATTAATCTT ATAAATTCTA
-Type:S2G;breakpoint_wind     +    131  2.88e-09 CATAGCTTAA TTTAGTTAAGGCTTAGGCTCAAATGAAAAA ATGTTAAGAT
-Type:S2G;breakpoint_wind     -    134  3.05e-09 AAAATATATT CATTGTGGTGGCCAAGCCTAAACAAAGTTT ATTTTGCAAA
+Type:S2G;breakpoint_wind     -     11  5.78e-15 GTTATTATTT AATTTAGCTCAGGCTTAGCCTAAGCCAAAC CATTACTTAG
+Type:S2G;breakpoint_wind     +     11  7.01e-15 GTATAATATA AGTTTTGCTAAGGCTGAGCCAAAGCAAAAA AAAATATGTT
+Type:S2G;breakpoint_wind     -     11  5.55e-14 CAGTGTTTTC GTTTTTGCATAGGCTGAGCCTAAGCAAAAA AATTGTAGCG
+Type:S2G;breakpoint_wind     -     11  4.85e-13 TACTATGGTA ATTATAGTTTAGGCTGAGCCAAAACAATAA TATTATATAT
+Type:S2G;breakpoint_wind     -     12  9.26e-13  CAGAACTGT AGTTTAGCTCGGGCTGAGCCTGTACAAAAC ACTGTTAGTA
+Type:S2G;breakpoint_wind     +     10  1.52e-12  ACTATATAG ATTATTGCTTAGGCTAAGCCAAAGCAATAA TAAAAATGCC
+Type:S2G;breakpoint_wind     -     12  2.73e-12  CTGTTCAAA ATTTCAGGCCAGGCTTAGCCTCAACAAAAC AAACTATCCG
+Type:S2G;breakpoint_wind     -     11  2.73e-12 TGCGGCAACA ATTTTATGATAGGCTTAGCCTGAACAAAAA TTTAATAGAA
+Type:S2G;breakpoint_wind     +     11  3.07e-12 CTTGCACCAA CGTTTAGTTCAGGCTCAGCCAAAACAGAAA TCTTATGAAA
+Type:S2G;breakpoint_wind     +      4  5.35e-12        AAT AAATTTGTTCAGGCTAAGGCTAAACAGAAA AAGTTGAAGA
+Type:S2G;breakpoint_wind     +      8  5.96e-12    TGATATA TTGTTTGCTCAGGCTTAGCCAAGGCAGAAA TATTAGAAAA
+Type:S2G;breakpoint_wind     -      8  6.64e-12 GAACTTGTAG AATACTGCAAAGGCTAAGCCTAAACAATAA TAGTTAA   
+Type:S2G;breakpoint_wind     +     10  9.12e-12  AGAAGTTTT ATTACTGCTAAGGCTGAGCCTGCACGAAAA TTGTATTACT
+Type:S2G;breakpoint_wind     -     11  1.12e-11 TTTTTTTTCA ATTTTTTCGAAGGCTTAGCCTGAACAGAAG TAAAATGCAG
+Type:S2G;breakpoint_wind     +      7  1.24e-11     AGAGCA GTTTTAGTACAGGCTTAGCCCAAGCCATTA GAAAAGAAGA
+Type:S2G;breakpoint_wind     +     11  1.37e-11 ATCAGTTTCA TATTTTGTTCAGGCTAAGCCTAAAACAAAA GAAATCGTAT
+Type:S2G;breakpoint_wind     -     12  1.85e-11  AAAAATTCA ATGTTATCAAAGGCTGAGCCTGAACCAAAG GAATTTCGTG
+Type:S2G;breakpoint_wind     -     12  3.28e-11  TCATATTTA ATCTTTGTTAAGGCTGAGCCAATTCAAAAC TTCTTCTAAT
+Type:S2G;breakpoint_wind     +     10  3.28e-11  TACAGAATC ATATTGGTTCAGGCTGAGCCATAACAAATA ATTTTAACTT
+Type:S2G;breakpoint_wind     -     11  4.33e-11 GAACCATAAA ACTATATCACAGGCCTAGCCTAAACAAAAA TAAATATATA
+Type:S2G;breakpoint_wind     +      8  5.66e-11    GAAAAAA AATTTGGTTTAGGCTTAGCCTAATCATTAA TTAGTCCTAT
+Type:S2G;breakpoint_wind     -     11  1.56e-10 ATGAACAACA TTTTTATTATCGGCTGAGCCTAAACAGATA TAAAAACAAA
+Type:S2G;breakpoint_wind     -     12  2.15e-10  AATGCGAAA AATTCATTTCAGGCTTAGCCCCAGCTAAAT TTATTCTAAT
+Type:S2G;breakpoint_wind     -     12  2.51e-10  ATGAAATAA TTTTATGCTACGGCTTAGCCTAAATAAAAA GTAAAAAATA
+Type:S2G;breakpoint_wind     +      4  2.51e-10        CTT AATTTAGTTAAGGCTTAGGCTCAAATGAAA AAATGTTAAG
+Type:S2G;breakpoint_wind     +     10  6.48e-10  TGCAAAATA AACTTTGTTTAGGCTTGGCCACCACAATGA ATATATTTTT
+Type:S2G;breakpoint_wind     +     11  1.11e-09 TAATATTCTA GGTTTTGTTCAGGCTAGGCCGGAACATTCA TAATATCATA
+Type:S2G;breakpoint_wind     +      8  1.44e-09    ATTTTAA AAATTAGTTCAGGCTTAGCCCGTATTAATC TTATAAATTC
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 block diagrams
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 block diagrams
 --------------------------------------------------------------------------------
 SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-Type:S2G;breakpoint_wind          1.1e-11  136_[+1]_65_[-1]_39
-Type:S2G;breakpoint_wind          1.2e-13  136_[+1]_134
-Type:S2G;breakpoint_wind          1.7e-13  137_[+1]_133
-Type:S2G;breakpoint_wind          1.9e-13  134_[-1]_136
-Type:S2G;breakpoint_wind          2.2e-13  137_[+1]_133
-Type:S2G;breakpoint_wind          4.6e-13  137_[+1]_133
-Type:S2G;breakpoint_wind            6e-13  133_[-1]_137
-Type:S2G;breakpoint_wind          7.8e-13  134_[-1]_136
-Type:S2G;breakpoint_wind            1e-12  136_[+1]_134
-Type:S2G;breakpoint_wind          1.5e-12  136_[+1]_134
-Type:S2G;breakpoint_wind          1.9e-12  136_[+1]_134
-Type:S2G;breakpoint_wind          3.1e-12  136_[+1]_134
-Type:S2G;breakpoint_wind          5.4e-12  137_[+1]_133
-Type:S2G;breakpoint_wind          1.3e-11  136_[+1]_134
-Type:S2G;breakpoint_wind          1.3e-11  134_[+1]_63_[-1]_43
-Type:S2G;breakpoint_wind          1.6e-11  130_[+1]_140
-Type:S2G;breakpoint_wind          2.3e-11  130_[-1]_140
-Type:S2G;breakpoint_wind          2.3e-11  133_[-1]_137
-Type:S2G;breakpoint_wind          3.4e-11  137_[+1]_133
-Type:S2G;breakpoint_wind          3.7e-11  136_[+1]_134
-Type:S2G;breakpoint_wind          4.4e-11  130_[-1]_140
-Type:S2G;breakpoint_wind          5.8e-11  137_[+1]_133
-Type:S2G;breakpoint_wind          6.9e-11  134_[-1]_136
-Type:S2G;breakpoint_wind          2.7e-10  131_[-1]_139
-Type:S2G;breakpoint_wind          8.2e-10  137_[+1]_133
-Type:S2G;breakpoint_wind          8.8e-10  134_[+1]_136
-Type:S2G;breakpoint_wind          2.9e-09  130_[+1]_140
-Type:S2G;breakpoint_wind            3e-09  133_[-1]_137
+Type:S2G;breakpoint_wind          5.8e-15  10_[-1]_10
+Type:S2G;breakpoint_wind            7e-15  10_[+1]_10
+Type:S2G;breakpoint_wind          5.5e-14  10_[-1]_10
+Type:S2G;breakpoint_wind          4.9e-13  10_[-1]_10
+Type:S2G;breakpoint_wind          9.3e-13  11_[-1]_9
+Type:S2G;breakpoint_wind          1.5e-12  9_[+1]_11
+Type:S2G;breakpoint_wind          2.7e-12  11_[-1]_9
+Type:S2G;breakpoint_wind          2.7e-12  10_[-1]_10
+Type:S2G;breakpoint_wind          3.1e-12  10_[+1]_10
+Type:S2G;breakpoint_wind          5.4e-12  3_[+1]_17
+Type:S2G;breakpoint_wind            6e-12  7_[+1]_13
+Type:S2G;breakpoint_wind          6.6e-12  7_[-1]_13
+Type:S2G;breakpoint_wind          9.1e-12  9_[+1]_11
+Type:S2G;breakpoint_wind          1.1e-11  10_[-1]_10
+Type:S2G;breakpoint_wind          1.2e-11  6_[+1]_14
+Type:S2G;breakpoint_wind          1.4e-11  10_[+1]_10
+Type:S2G;breakpoint_wind          1.8e-11  11_[-1]_9
+Type:S2G;breakpoint_wind          3.3e-11  11_[-1]_9
+Type:S2G;breakpoint_wind          3.3e-11  9_[+1]_11
+Type:S2G;breakpoint_wind          4.3e-11  10_[-1]_10
+Type:S2G;breakpoint_wind          5.7e-11  7_[+1]_13
+Type:S2G;breakpoint_wind          1.6e-10  10_[-1]_10
+Type:S2G;breakpoint_wind          2.1e-10  11_[-1]_9
+Type:S2G;breakpoint_wind          2.5e-10  11_[-1]_9
+Type:S2G;breakpoint_wind          2.5e-10  3_[+1]_17
+Type:S2G;breakpoint_wind          6.5e-10  9_[+1]_11
+Type:S2G;breakpoint_wind          1.1e-09  10_[+1]_10
+Type:S2G;breakpoint_wind          1.4e-09  7_[+1]_13
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 in BLOCKS format
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 in BLOCKS format
 --------------------------------------------------------------------------------
-BL   MOTIF TTTTGYTYAGGCTAAGCCTRWRCWAAAATW width=30 seqs=30
-Type:S2G;breakpoint_wind (  137) TTTTGTTCAGGCTAAGCCTATCATAAAATT  1 
-Type:S2G;breakpoint_wind (  137) TTTTGCTTAGGCTCAGCCTATGCAAAAACG  1 
-Type:S2G;breakpoint_wind (  138) TTTTGTTGAGGCTAAGCCTGGCCTGAAATT  1 
-Type:S2G;breakpoint_wind (  135) TTTTGCTTTGGCTCAGCCTTAGCAAAACTT  1 
-Type:S2G;breakpoint_wind (  138) TTTTGTACAGGCTCAGCCCGAGCTAAACTA  1 
-Type:S2G;breakpoint_wind (  138) TTTTGTTCAGGCTAAGCCTAAAACAAAAGA  1 
-Type:S2G;breakpoint_wind (  134) TTTAGCTCAGGCTTAGCCTAAGCCAAACCA  1 
-Type:S2G;breakpoint_wind (  135) TTCTGTTTTGGCTGAGCCTGAACTAAACGT  1 
-Type:S2G;breakpoint_wind (  137) TTCTGTTCAGGCTAAGCCTTCGAAAAAATT  1 
-Type:S2G;breakpoint_wind (  137) TACTGCTAAGGCTGAGCCTGCACGAAAATT  1 
-Type:S2G;breakpoint_wind (  137) TATTGTTTTGGCTCAGCCTAAACTATAATT  1 
-Type:S2G;breakpoint_wind (  137) TATTGCTTAGGCTAAGCCAAAGCAATAATA  1 
-Type:S2G;breakpoint_wind (  138) TTTGGTTCAGGCTCAGCCTTTGATAACATT  1 
-Type:S2G;breakpoint_wind (  232) TTTTGTTCAGGCTGAGCCTATCATAATTTT  1 
-Type:S2G;breakpoint_wind (  137) TTTTGTTTAGGCTAGGCCTGTGATATAGTT  1 
-Type:S2G;breakpoint_wind (  135) GTTTGCTCAGGCTTAGCCAAGGCAGAAATA  1 
-Type:S2G;breakpoint_wind (  131) ATTTGTTCAGGCTAAGGCTAAACAGAAAAA  1 
-Type:S2G;breakpoint_wind (  131) AATGGCTTGGGCTAAGCCTGTACTAAAACT  1 
-Type:S2G;breakpoint_wind (  228) ATTTGCTCAGGCTGAGCCAATACGATAGTA  1 
-Type:S2G;breakpoint_wind (  134) ATTTGTTATGGCTCAGCCTGAACCAATATG  1 
-Type:S2G;breakpoint_wind (  138) TTTAGCTGGGGCTAAGCCTGAAATGAATTT  1 
-Type:S2G;breakpoint_wind (  137) ATCTGTTTAGGCTCAGCCGATAATAAAAAT  1 
-Type:S2G;breakpoint_wind (  131) TACTGCAAAGGCTAAGCCTAAACAATAATA  1 
-Type:S2G;breakpoint_wind (  138) TTTTGTTCAGGCTAGGCCGGAACATTCATA  1 
-Type:S2G;breakpoint_wind (  135) CTTTGTTAAGGCTGAGCCAATTCAAAACTT  1 
-Type:S2G;breakpoint_wind (  132) TAATGATTAGGCTAAGCCTAAACCAAATTT  1 
-Type:S2G;breakpoint_wind (  138) TTTTATTTAGGCTAAGCCGTAGCATAAAAT  1 
-Type:S2G;breakpoint_wind (  135) ATTAGTTCAGGCTTAGCCCGTATTAATCTT  1 
-Type:S2G;breakpoint_wind (  131) TTTAGTTAAGGCTTAGGCTCAAATGAAAAA  1 
-Type:S2G;breakpoint_wind (  134) CATTGTGGTGGCCAAGCCTAAACAAAGTTT  1 
+BL   MOTIF WTTTWGYTHAGGCTKAGCCWAAACAAAAA width=29 seqs=28
+Type:S2G;breakpoint_wind (   11) AATTTAGCTCAGGCTTAGCCTAAGCCAAAC  1 
+Type:S2G;breakpoint_wind (   11) AGTTTTGCTAAGGCTGAGCCAAAGCAAAAA  1 
+Type:S2G;breakpoint_wind (   11) GTTTTTGCATAGGCTGAGCCTAAGCAAAAA  1 
+Type:S2G;breakpoint_wind (   11) ATTATAGTTTAGGCTGAGCCAAAACAATAA  1 
+Type:S2G;breakpoint_wind (   12) AGTTTAGCTCGGGCTGAGCCTGTACAAAAC  1 
+Type:S2G;breakpoint_wind (   10) ATTATTGCTTAGGCTAAGCCAAAGCAATAA  1 
+Type:S2G;breakpoint_wind (   12) ATTTCAGGCCAGGCTTAGCCTCAACAAAAC  1 
+Type:S2G;breakpoint_wind (   11) ATTTTATGATAGGCTTAGCCTGAACAAAAA  1 
+Type:S2G;breakpoint_wind (   11) CGTTTAGTTCAGGCTCAGCCAAAACAGAAA  1 
+Type:S2G;breakpoint_wind (    4) AAATTTGTTCAGGCTAAGGCTAAACAGAAA  1 
+Type:S2G;breakpoint_wind (    8) TTGTTTGCTCAGGCTTAGCCAAGGCAGAAA  1 
+Type:S2G;breakpoint_wind (    8) AATACTGCAAAGGCTAAGCCTAAACAATAA  1 
+Type:S2G;breakpoint_wind (   10) ATTACTGCTAAGGCTGAGCCTGCACGAAAA  1 
+Type:S2G;breakpoint_wind (   11) ATTTTTTCGAAGGCTTAGCCTGAACAGAAG  1 
+Type:S2G;breakpoint_wind (    7) GTTTTAGTACAGGCTTAGCCCAAGCCATTA  1 
+Type:S2G;breakpoint_wind (   11) TATTTTGTTCAGGCTAAGCCTAAAACAAAA  1 
+Type:S2G;breakpoint_wind (   12) ATGTTATCAAAGGCTGAGCCTGAACCAAAG  1 
+Type:S2G;breakpoint_wind (   12) ATCTTTGTTAAGGCTGAGCCAATTCAAAAC  1 
+Type:S2G;breakpoint_wind (   10) ATATTGGTTCAGGCTGAGCCATAACAAATA  1 
+Type:S2G;breakpoint_wind (   11) ACTATATCACAGGCCTAGCCTAAACAAAAA  1 
+Type:S2G;breakpoint_wind (    8) AATTTGGTTTAGGCTTAGCCTAATCATTAA  1 
+Type:S2G;breakpoint_wind (   11) TTTTTATTATCGGCTGAGCCTAAACAGATA  1 
+Type:S2G;breakpoint_wind (   12) AATTCATTTCAGGCTTAGCCCCAGCTAAAT  1 
+Type:S2G;breakpoint_wind (   12) TTTTATGCTACGGCTTAGCCTAAATAAAAA  1 
+Type:S2G;breakpoint_wind (    4) AATTTAGTTAAGGCTTAGGCTCAAATGAAA  1 
+Type:S2G;breakpoint_wind (   10) AACTTTGTTTAGGCTTGGCCACCACAATGA  1 
+Type:S2G;breakpoint_wind (   11) GGTTTTGTTCAGGCTAGGCCGGAACATTCA  1 
+Type:S2G;breakpoint_wind (    8) AAATTAGTTCAGGCTTAGCCCGTATTAATC  1 
 //
 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 position-specific scoring matrix
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 position-specific scoring matrix
 --------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 30 n= 7588 bayes= 7.90163 E= 1.4e-138 
-   -85   -106   -206     96 
-   -63  -1155  -1155    109 
-  -343     26  -1155    115 
-  -144  -1155   -106    115 
-  -343  -1155    279  -1155 
-  -343    126  -1155     81 
-  -243  -1155   -206    132 
-  -111    152    -48    -11 
-   109  -1155   -106   -111 
- -1155  -1155    284  -1155 
- -1155  -1155    284  -1155 
- -1155    284  -1155  -1155 
- -1155   -206  -1155    142 
-    37     74     26   -144 
-   137  -1155   -106  -1155 
- -1155  -1155    284  -1155 
- -1155    274   -106  -1155 
- -1155    284  -1155  -1155 
-  -144   -106    -48     96 
-    47   -206    126   -144 
-    56   -106   -106    -11 
-    56    -48    126   -343 
-   -27    226  -1155   -343 
-     2     -6   -106     26 
-   109  -1155     26   -243 
-   115  -1155  -1155    -85 
-   115   -106   -206   -185 
-    73     52   -106   -144 
-  -144    -48   -106     96 
-   -11  -1155   -106     73 
+log-odds matrix: alength= 4 w= 29 n= 588 bayes= 6.3339 E= 1.9e-155
+    -8   -217    -17     56 
+  -166   -117   -117    115 
+   -92  -1145  -1145    128 
+  -324    -17  -1145    128 
+    45  -1145   -117     45 
+ -1145  -1145    229    -66 
+ -1145    141   -117     56 
+   -44   -217   -217    100 
+   -25    153  -1145    -44 
+   140   -117   -217  -1145 
+ -1145  -1145    263  -1145 
+ -1145  -1145    263  -1145 
+ -1145    263  -1145  -1145 
+ -1145   -217  -1145    151 
+   -92   -217    100     45 
+   145  -1145   -117  -1145 
+ -1145  -1145    263  -1145 
+ -1145    253   -117  -1145 
+ -1145    263  -1145  -1145 
+   -25    -59   -217     75 
+    75    -17     63   -324 
+   121   -117   -217   -166 
+   100  -1145     63   -224 
+  -224    241  -1145   -224 
+   107    -17   -217   -166 
+   107  -1145     41   -224 
+   115  -1145  -1145    -44 
+   121   -217   -217   -125 
+   107     15   -117   -324 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 position-specific probability matrix
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 position-specific probability matrix
 --------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 30 nsites= 30 E= 1.4e-138 
- 0.200000  0.066667  0.033333  0.700000 
- 0.233333  0.000000  0.000000  0.766667 
- 0.033333  0.166667  0.000000  0.800000 
- 0.133333  0.000000  0.066667  0.800000 
- 0.033333  0.000000  0.966667  0.000000 
- 0.033333  0.333333  0.000000  0.633333 
- 0.066667  0.000000  0.033333  0.900000 
- 0.166667  0.400000  0.100000  0.333333 
- 0.766667  0.000000  0.066667  0.166667 
+letter-probability matrix: alength= 4 w= 29 nsites= 28 E= 1.9e-155
+ 0.321429  0.035714  0.142857  0.500000 
+ 0.107143  0.071429  0.071429  0.750000 
+ 0.178571  0.000000  0.000000  0.821429 
+ 0.035714  0.142857  0.000000  0.821429 
+ 0.464286  0.000000  0.071429  0.464286 
+ 0.000000  0.000000  0.785714  0.214286 
+ 0.000000  0.428571  0.071429  0.500000 
+ 0.250000  0.035714  0.035714  0.678571 
+ 0.285714  0.464286  0.000000  0.250000 
+ 0.892857  0.071429  0.035714  0.000000 
  0.000000  0.000000  1.000000  0.000000 
  0.000000  0.000000  1.000000  0.000000 
  0.000000  1.000000  0.000000  0.000000 
- 0.000000  0.033333  0.000000  0.966667 
- 0.466667  0.233333  0.166667  0.133333 
- 0.933333  0.000000  0.066667  0.000000 
+ 0.000000  0.035714  0.000000  0.964286 
+ 0.178571  0.035714  0.321429  0.464286 
+ 0.928571  0.000000  0.071429  0.000000 
  0.000000  0.000000  1.000000  0.000000 
- 0.000000  0.933333  0.066667  0.000000 
+ 0.000000  0.928571  0.071429  0.000000 
  0.000000  1.000000  0.000000  0.000000 
- 0.133333  0.066667  0.100000  0.700000 
- 0.500000  0.033333  0.333333  0.133333 
- 0.533333  0.066667  0.066667  0.333333 
- 0.533333  0.100000  0.333333  0.033333 
- 0.300000  0.666667  0.000000  0.033333 
- 0.366667  0.133333  0.066667  0.433333 
- 0.766667  0.000000  0.166667  0.066667 
- 0.800000  0.000000  0.000000  0.200000 
- 0.800000  0.066667  0.033333  0.100000 
- 0.600000  0.200000  0.066667  0.133333 
- 0.133333  0.100000  0.066667  0.700000 
- 0.333333  0.000000  0.066667  0.600000 
+ 0.285714  0.107143  0.035714  0.571429 
+ 0.571429  0.142857  0.250000  0.035714 
+ 0.785714  0.071429  0.035714  0.107143 
+ 0.678571  0.000000  0.250000  0.071429 
+ 0.071429  0.857143  0.000000  0.071429 
+ 0.714286  0.142857  0.035714  0.107143 
+ 0.714286  0.000000  0.214286  0.071429 
+ 0.750000  0.000000  0.000000  0.250000 
+ 0.785714  0.035714  0.035714  0.142857 
+ 0.714286  0.178571  0.071429  0.035714 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-	Motif TTTTGYTYAGGCTAAGCCTRWRCWAAAATW MEME-1 regular expression
+	Motif AWTTTWGYTHAGGCTKAGCCWAAACAAAAA MEME-1 regular expression
 --------------------------------------------------------------------------------
-[TA][TA]TTG[TC]T[CT]AGGCT[AC]AGCCT[AG][AT][AG][CA][TA]A[AT]A[AC]T[TA]
+A[TA]TTT[AT][GT][TC][TA][CAT]AGGCT[TG]AGCC[TA][AG]A[AG]CA[AG][AT]AA
 --------------------------------------------------------------------------------
 
 
 
 
-Time  5.15 secs.
-
-********************************************************************************
-
-
-********************************************************************************
-MOTIF WDRWGTTCATWAHWW MEME-2	width =  15  sites =  45  llr = 417  E-value = 1.1e-014
-********************************************************************************
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 Description
---------------------------------------------------------------------------------
-Simplified        A  4344::::a:66233
-pos.-specific     C  112::::a:2:2312
-probability       G  133:a::::::1:::
-matrix            T  3316:aa::841565
-
-         bits    2.8        *       
-                 2.6     *  *       
-                 2.3     *  *       
-                 2.0     *  *       
-Relative         1.7     *  *       
-Entropy          1.4     *****      
-(13.4 bits)      1.1     ******     
-                 0.9     ******     
-                 0.6    ********    
-                 0.3  ************* 
-                 0.0 ---------------
-
-Multilevel           AGATGTTCATAATTT
-consensus            TAGA      T CAA
-sequence              T          A  
-                                    
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 sites sorted by position p-value
---------------------------------------------------------------------------------
-Sequence name            Strand  Start   P-value                 Site    
--------------            ------  ----- ---------            ---------------
-Type:S2G;breakpoint_wind     +    104  7.94e-08 GACTCCAATG TGATGTTCATAACTT TGGAAATAGA
-Type:S2G;breakpoint_wind     +    112  7.94e-08 TATATCTCAA AGGTGTTCATTATTT TACTAACAGT
-Type:S2G;breakpoint_wind     -    175  4.45e-07 ATGTGAGATT TGATGTTCATACCTT TTCATAAGAT
-Type:S2G;breakpoint_wind     +    198  2.26e-06 AAGAAAAAGA GAGTGTTCATAACTA TTGAGTGGAA
-Type:S2G;breakpoint_wind     -    235  2.85e-06 TAAGAAAATA GGGTGTTCATACATT TAGTATTATC
-Type:S2G;breakpoint_wind     -    185  3.54e-06 TTCGCACATA AGAAGTTCATAAATT ATTCTTACCG
-Type:S2G;breakpoint_wind     -    177  3.54e-06 ATATTATTTG ATGAGTTCATTACTT ACAGTGTTTT
-Type:S2G;breakpoint_wind     +     66  4.39e-06 TATAGTAATG TAATGTTCATAACTA CTTTTTACTC
-Type:S2G;breakpoint_wind     -    199  4.39e-06 AGAATAGAAA ATAAGTTCATAACTC TATTAAAACA
-Type:S2G;breakpoint_wind     +    102  5.36e-06 AGCAATACAA TAGTGTTCATAACCA AACAGACAAA
-Type:S2G;breakpoint_wind     -    198  6.54e-06 AAAATTTCAA GTATGTTCATAACTA GACGTAATAC
-Type:S2G;breakpoint_wind     -     53  6.54e-06 TAATTTTTAT TGAAGTTCATAAATT GCCGGGCGAC
-Type:S2G;breakpoint_wind     +    107  6.54e-06 TAAAAAATCA AGCAGTTCATTATTA TTTCTACAGA
-Type:S2G;breakpoint_wind     +    194  7.87e-06 TCAGAAATAC AGATGTTCATATTTC GACGTATATA
-Type:S2G;breakpoint_wind     -    284  7.87e-06         AC TACAGTTCATAACTC CTCTCCACAA
-Type:S2G;breakpoint_wind     +    100  1.10e-05 GCCTAAAAAA TGCAGTTCATTATCT AACGAAAACT
-Type:S2G;breakpoint_wind     -    176  1.29e-05 TAAGTCAGGA TAGTGTTCATAATAA TTTTTTTTCA
-Type:S2G;breakpoint_wind     +    181  1.51e-05 TATGACCTGA AAATGTTCATTATAC CGTGTAAATA
-Type:S2G;breakpoint_wind     -    112  1.51e-05 ACAATATATC ATATGTTCATTATAT GTTCGAGTTA
-Type:S2G;breakpoint_wind     -    246  1.74e-05 TAATATATAA AACAGTTCATACTTC TCATAAATAT
-Type:S2G;breakpoint_wind     -     94  2.57e-05 TATAGCTCAT TTGTGTTCATTATAA ATATATACAT
-Type:S2G;breakpoint_wind     +    175  2.57e-05 ACAAGTTCCA CTGAGTTCACAATCT GAACTTTTTT
-Type:S2G;breakpoint_wind     +    114  2.90e-05 AGATCATGAG CAGTGTTCATAATCG GATAGTTTGT
-Type:S2G;breakpoint_wind     +     99  2.90e-05 AAATATCATC ATTTGTTCATTATTT TTACTATATA
-Type:S2G;breakpoint_wind     -    265  3.61e-05 TTCTGATTCA ACAAGTTCATAATAT ATAAAACAGT
-Type:S2G;breakpoint_wind     -    170  3.61e-05 ACATCAAATC AAATGTTCACAGTTT TCTAATATTT
-Type:S2G;breakpoint_wind     -    211  3.61e-05 AGAATAAGTT TGCAGTTCACACATT TTCGTGCAAG
-Type:S2G;breakpoint_wind     -     53  3.99e-05 CTAATATTCT GATTGTTCATTATTT TGGTGTTTCC
-Type:S2G;breakpoint_wind     +     96  3.99e-05 TAAATATGTG CAAAGTTCATAAATA TTTAAATTCA
-Type:S2G;breakpoint_wind     -    174  3.99e-05 TTGAATATTT CCGTGTTCATTATAA CATAGGACTA
-Type:S2G;breakpoint_wind     +    177  4.40e-05 TTTCGCATTG CAGTGTTCACAAACA CGTTGCCGTT
-Type:S2G;breakpoint_wind     -    192  4.40e-05 TAGCGCTCTT TGATGTTCACTTTTC ACTCCTCTGT
-Type:S2G;breakpoint_wind     +    106  5.28e-05 AAAAAACAAA AAAAGTTCATTGTTT TATTTAATAA
-Type:S2G;breakpoint_wind     +    113  5.75e-05 TCGAAGTCAT ACATGTTCATATCCT GCATTTTACT
-Type:S2G;breakpoint_wind     -    256  6.22e-05 ACATATTAAT AAGTGTTCACATTAT TCAGGTTGCA
-Type:S2G;breakpoint_wind     -     39  6.22e-05 TTCATTGAAT AGATCTTCATAACAT ACGACATCAA
-Type:S2G;breakpoint_wind     -     60  6.22e-05 CTTTTATTGG TGAAGTTCATTTCAC AAATAGCTAA
-Type:S2G;breakpoint_wind     +     99  6.71e-05 TAAAAAAAAG ATATGTTCACACAAT TTTTATTGAT
-Type:S2G;breakpoint_wind     +     78  8.29e-05 TGAACGGATT TTATGTTCATTTTTA GGCTTTTAGT
-Type:S2G;breakpoint_wind     +     95  8.82e-05 GACACCGACG ATCTGTTCATAAAAG AAAACAACAA
-Type:S2G;breakpoint_wind     +    172  9.37e-05 AAAAAAAATA TGTTGTTCATAGATA TATAACCCTA
-Type:S2G;breakpoint_wind     +    118  9.93e-05 TTGCCTGAAC CTTTGTTCACTATAT AGATTATTGC
-Type:S2G;breakpoint_wind     +     77  9.93e-05 ACATCTGTTT TGTAGTTCATACAAC ACCGTTAAAA
-Type:S2G;breakpoint_wind     -     70  1.33e-04 CATATAACAG GTTTGTTCATTCATA TTATAAGTAG
-Type:S2G;breakpoint_wind     +     62  1.56e-04 TAGTTTTCAT ATCACTTCATTATTT ATTTTTAGTA
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 block diagrams
---------------------------------------------------------------------------------
-SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
--------------            ----------------  -------------
-Type:S2G;breakpoint_wind          0.00013  69_[-2]_19_[+2]_79_[-2]_88
-Type:S2G;breakpoint_wind          0.00016  61_[+2]_35_[+2]_174
-Type:S2G;breakpoint_wind          4.4e-07  174_[-2]_111
-Type:S2G;breakpoint_wind          5.3e-05  105_[+2]_77_[+2]_33_[-2]_4_[-2]_21
-Type:S2G;breakpoint_wind          2.8e-06  234_[-2]_51
-Type:S2G;breakpoint_wind          3.5e-06  184_[-2]_101
-Type:S2G;breakpoint_wind          6.2e-05  38_[-2]_42_[+2]_66_[-2]_109
-Type:S2G;breakpoint_wind          6.2e-05  65_[+2]_21_[+2]_139_[-2]_30
-Type:S2G;breakpoint_wind          6.2e-05  59_[-2]_124_[-2]_87
-Type:S2G;breakpoint_wind          6.5e-06  52_[-2]_126_[+2]_92
-Type:S2G;breakpoint_wind          9.9e-05  76_[+2]_15_[+2]_89_[-2]_75
-Type:S2G;breakpoint_wind          2.6e-05  93_[-2]_175_[-2]_2
-Type:S2G;breakpoint_wind          1.1e-05  99_[+2]_186
-Type:S2G;breakpoint_wind          5.7e-05  112_[+2]_48_[-2]_110
-Type:S2G;breakpoint_wind          1.5e-05  180_[+2]_105
-Type:S2G;breakpoint_wind          3.6e-05  111_[-2]_43_[-2]_116
-Type:S2G;breakpoint_wind          2.6e-05  174_[+2]_111
-Type:S2G;breakpoint_wind          2.9e-05  113_[+2]_172
-Type:S2G;breakpoint_wind          2.9e-05  98_[+2]_78_[-2]_94
-Type:S2G;breakpoint_wind            4e-05  52_[-2]_109_[+2]_109
-Type:S2G;breakpoint_wind            4e-05  173_[-2]_112
-Type:S2G;breakpoint_wind          6.7e-05  98_[+2]_187
-Type:S2G;breakpoint_wind          8.3e-05  77_[+2]_208
-Type:S2G;breakpoint_wind          8.8e-05  94_[+2]_191
-Type:S2G;breakpoint_wind          9.4e-05  171_[+2]_114
-Type:S2G;breakpoint_wind          9.9e-05  117_[+2]_168
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 in BLOCKS format
---------------------------------------------------------------------------------
-BL   MOTIF WDRWGTTCATWAHWW width=15 seqs=45
-Type:S2G;breakpoint_wind (  104) TGATGTTCATAACTT  1 
-Type:S2G;breakpoint_wind (  112) AGGTGTTCATTATTT  1 
-Type:S2G;breakpoint_wind (  175) TGATGTTCATACCTT  1 
-Type:S2G;breakpoint_wind (  198) GAGTGTTCATAACTA  1 
-Type:S2G;breakpoint_wind (  235) GGGTGTTCATACATT  1 
-Type:S2G;breakpoint_wind (  185) AGAAGTTCATAAATT  1 
-Type:S2G;breakpoint_wind (  177) ATGAGTTCATTACTT  1 
-Type:S2G;breakpoint_wind (   66) TAATGTTCATAACTA  1 
-Type:S2G;breakpoint_wind (  199) ATAAGTTCATAACTC  1 
-Type:S2G;breakpoint_wind (  102) TAGTGTTCATAACCA  1 
-Type:S2G;breakpoint_wind (  198) GTATGTTCATAACTA  1 
-Type:S2G;breakpoint_wind (   53) TGAAGTTCATAAATT  1 
-Type:S2G;breakpoint_wind (  107) AGCAGTTCATTATTA  1 
-Type:S2G;breakpoint_wind (  194) AGATGTTCATATTTC  1 
-Type:S2G;breakpoint_wind (  284) TACAGTTCATAACTC  1 
-Type:S2G;breakpoint_wind (  100) TGCAGTTCATTATCT  1 
-Type:S2G;breakpoint_wind (  176) TAGTGTTCATAATAA  1 
-Type:S2G;breakpoint_wind (  181) AAATGTTCATTATAC  1 
-Type:S2G;breakpoint_wind (  112) ATATGTTCATTATAT  1 
-Type:S2G;breakpoint_wind (  246) AACAGTTCATACTTC  1 
-Type:S2G;breakpoint_wind (   94) TTGTGTTCATTATAA  1 
-Type:S2G;breakpoint_wind (  175) CTGAGTTCACAATCT  1 
-Type:S2G;breakpoint_wind (  114) CAGTGTTCATAATCG  1 
-Type:S2G;breakpoint_wind (   99) ATTTGTTCATTATTT  1 
-Type:S2G;breakpoint_wind (  265) ACAAGTTCATAATAT  1 
-Type:S2G;breakpoint_wind (  170) AAATGTTCACAGTTT  1 
-Type:S2G;breakpoint_wind (  211) TGCAGTTCACACATT  1 
-Type:S2G;breakpoint_wind (   53) GATTGTTCATTATTT  1 
-Type:S2G;breakpoint_wind (   96) CAAAGTTCATAAATA  1 
-Type:S2G;breakpoint_wind (  174) CCGTGTTCATTATAA  1 
-Type:S2G;breakpoint_wind (  177) CAGTGTTCACAAACA  1 
-Type:S2G;breakpoint_wind (  192) TGATGTTCACTTTTC  1 
-Type:S2G;breakpoint_wind (  106) AAAAGTTCATTGTTT  1 
-Type:S2G;breakpoint_wind (  113) ACATGTTCATATCCT  1 
-Type:S2G;breakpoint_wind (  256) AAGTGTTCACATTAT  1 
-Type:S2G;breakpoint_wind (   39) AGATCTTCATAACAT  1 
-Type:S2G;breakpoint_wind (   60) TGAAGTTCATTTCAC  1 
-Type:S2G;breakpoint_wind (   99) ATATGTTCACACAAT  1 
-Type:S2G;breakpoint_wind (   78) TTATGTTCATTTTTA  1 
-Type:S2G;breakpoint_wind (   95) ATCTGTTCATAAAAG  1 
-Type:S2G;breakpoint_wind (  172) TGTTGTTCATAGATA  1 
-Type:S2G;breakpoint_wind (  118) CTTTGTTCACTATAT  1 
-Type:S2G;breakpoint_wind (   77) TGTAGTTCATACAAC  1 
-Type:S2G;breakpoint_wind (   70) GTTTGTTCATTCATA  1 
-Type:S2G;breakpoint_wind (   62) ATCACTTCATTATTT  1 
-//
-
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 position-specific scoring matrix
---------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 15 n= 8008 bayes= 9.01959 E= 1.1e-014 
-    23     -6    -33    -11 
-   -21   -106    126    -32 
-    30     16     94   -144 
-    -2  -1214  -1214     84 
- -1214   -165    278  -1214 
- -1214  -1214  -1214    147 
- -1214  -1214  -1214    147 
- -1214    284  -1214  -1214 
-   147  -1214  -1214  -1214 
- -1214     35  -1214    119 
-    79  -1214  -1214      7 
-    84     16   -106   -144 
-   -56     94  -1214     44 
-   -32     -6  -1214     68 
-   -32     35   -165     44 
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 position-specific probability matrix
---------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 15 nsites= 45 E= 1.1e-014 
- 0.422222  0.133333  0.111111  0.333333 
- 0.311111  0.066667  0.333333  0.288889 
- 0.444444  0.155556  0.266667  0.133333 
- 0.355556  0.000000  0.000000  0.644444 
- 0.000000  0.044444  0.955556  0.000000 
- 0.000000  0.000000  0.000000  1.000000 
- 0.000000  0.000000  0.000000  1.000000 
- 0.000000  1.000000  0.000000  0.000000 
- 1.000000  0.000000  0.000000  0.000000 
- 0.000000  0.177778  0.000000  0.822222 
- 0.622222  0.000000  0.000000  0.377778 
- 0.644444  0.155556  0.066667  0.133333 
- 0.244444  0.266667  0.000000  0.488889 
- 0.288889  0.133333  0.000000  0.577778 
- 0.288889  0.177778  0.044444  0.488889 
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif WDRWGTTCATWAHWW MEME-2 regular expression
---------------------------------------------------------------------------------
-[AT][GAT][AG][TA]GTTCAT[AT]A[TCA][TA][TA]
---------------------------------------------------------------------------------
-
-
-
-
-Time 11.37 secs.
-
-********************************************************************************
-
-
-********************************************************************************
-MOTIF YWCGCAVCTGAARCV MEME-3	width =  15  sites =   8  llr = 112  E-value = 6.6e+003
-********************************************************************************
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 Description
---------------------------------------------------------------------------------
-Simplified        A  :3:3163:::985:4
-pos.-specific     C  438:9:59:::::a3
-probability       G  ::36:33119:35:4
-matrix            T  65:1:1::911::::
-
-         bits    2.8              * 
-                 2.6              * 
-                 2.3        *     * 
-                 2.0   * *  * *   * 
-Relative         1.7   * *  * *   * 
-Entropy          1.4   * *  * *   * 
-(20.3 bits)      1.1 * *** **** *** 
-                 0.9 * *** *********
-                 0.6 * *************
-                 0.3 ***************
-                 0.0 ---------------
-
-Multilevel           TTCGCACCTGAAACA
-consensus            CAGA GA    GG G
-sequence              C    G       C
-                                    
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 sites sorted by position p-value
---------------------------------------------------------------------------------
-Sequence name            Strand  Start   P-value                 Site    
--------------            ------  ----- ---------            ---------------
-Type:S2G;breakpoint_wind     +    209  6.97e-09 GTTTATACCA TCCGCGACTGAAGCC CCGCCCCTTT
-Type:S2G;breakpoint_wind     -    256  2.65e-08 AAATATGTTT TTGGCAACTGAAGCG TCTAAAGGAT
-Type:S2G;breakpoint_wind     -    258  7.36e-08 AACAAGAAAC TACGCACCGGAAACA CGCCAATCTT
-Type:S2G;breakpoint_wind     +     59  9.29e-08 CATTTTAAAT TTCGCGCGTGAAACA TAAAAAGGTT
-Type:S2G;breakpoint_wind     -    197  1.67e-07 CGCTATGATT CTGACAGCTGAGGCA TAAAAGTATT
-Type:S2G;breakpoint_wind     +    202  3.18e-07 CCTGACTTAA CCCGCACCTTTAACG ACTTTGCAAA
-Type:S2G;breakpoint_wind     -    286  3.57e-07          . CTCTAACCTGAGGCG TTCTATCCTT
-Type:S2G;breakpoint_wind     -     21  8.79e-07 TGATTCACAT TACACTGCTGAAACC TTAATCTAAA
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 block diagrams
---------------------------------------------------------------------------------
-SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
--------------            ----------------  -------------
-Type:S2G;breakpoint_wind            7e-09  208_[+3]_77
-Type:S2G;breakpoint_wind          2.7e-08  255_[-3]_30
-Type:S2G;breakpoint_wind          7.4e-08  257_[-3]_28
-Type:S2G;breakpoint_wind          9.3e-08  58_[+3]_227
-Type:S2G;breakpoint_wind          1.7e-07  196_[-3]_89
-Type:S2G;breakpoint_wind          3.2e-07  201_[+3]_84
-Type:S2G;breakpoint_wind          3.6e-07  285_[-3]
-Type:S2G;breakpoint_wind          8.8e-07  20_[-3]_265
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 in BLOCKS format
---------------------------------------------------------------------------------
-BL   MOTIF YWCGCAVCTGAARCV width=15 seqs=8
-Type:S2G;breakpoint_wind (  209) TCCGCGACTGAAGCC  1 
-Type:S2G;breakpoint_wind (  256) TTGGCAACTGAAGCG  1 
-Type:S2G;breakpoint_wind (  258) TACGCACCGGAAACA  1 
-Type:S2G;breakpoint_wind (   59) TTCGCGCGTGAAACA  1 
-Type:S2G;breakpoint_wind (  197) CTGACAGCTGAGGCA  1 
-Type:S2G;breakpoint_wind (  202) CCCGCACCTTTAACG  1 
-Type:S2G;breakpoint_wind (  286) CTCTAACCTGAGGCG  1 
-Type:S2G;breakpoint_wind (   21) TACACTGCTGAAACC  1 
-//
-
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 position-specific scoring matrix
---------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 15 n= 8008 bayes= 9.96578 E= 6.6e+003 
-  -965    143   -965     79 
-   -53     84   -965     47 
-  -965    243     84   -965 
-   -53   -965    216   -153 
-  -153    265   -965   -965 
-    79   -965     84   -153 
-   -53    184     84   -965 
-  -965    265    -16   -965 
-  -965   -965    -16    128 
-  -965   -965    265   -153 
-   128   -965   -965   -153 
-   106   -965     84   -965 
-    47   -965    184   -965 
-  -965    284   -965   -965 
-     6     84    143   -965 
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 position-specific probability matrix
---------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 15 nsites= 8 E= 6.6e+003 
- 0.000000  0.375000  0.000000  0.625000 
- 0.250000  0.250000  0.000000  0.500000 
- 0.000000  0.750000  0.250000  0.000000 
- 0.250000  0.000000  0.625000  0.125000 
- 0.125000  0.875000  0.000000  0.000000 
- 0.625000  0.000000  0.250000  0.125000 
- 0.250000  0.500000  0.250000  0.000000 
- 0.000000  0.875000  0.125000  0.000000 
- 0.000000  0.000000  0.125000  0.875000 
- 0.000000  0.000000  0.875000  0.125000 
- 0.875000  0.000000  0.000000  0.125000 
- 0.750000  0.000000  0.250000  0.000000 
- 0.500000  0.000000  0.500000  0.000000 
- 0.000000  1.000000  0.000000  0.000000 
- 0.375000  0.250000  0.375000  0.000000 
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-	Motif YWCGCAVCTGAARCV MEME-3 regular expression
---------------------------------------------------------------------------------
-[TC][TAC][CG][GA]C[AG][CAG]CTGA[AG][AG]C[AGC]
---------------------------------------------------------------------------------
-
-
-
-
-Time 15.64 secs.
+Time  0.27 secs.
 
 ********************************************************************************
 
@@ -663,70 +303,43 @@ SUMMARY OF MOTIFS
 --------------------------------------------------------------------------------
 SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-Type:S2G;breakpoint_wind         3.46e-13  59_[-2(6.22e-05)]_62_[+1(1.90e-12)]_\
-    32_[-2(4.39e-06)]_72_[-3(3.57e-07)]
-Type:S2G;breakpoint_wind         1.09e-10  98_[+2(2.90e-05)]_24_[+1(4.55e-13)]_\
-    24_[-2(4.40e-05)]_94
-Type:S2G;breakpoint_wind         1.61e-09  76_[+2(9.93e-05)]_15_[+2(6.54e-06)]_\
-    12_[-1(2.31e-11)]_47_[-2(3.61e-05)]_75
-Type:S2G;breakpoint_wind         2.01e-07  131_[-1(2.70e-10)]_12_\
-    [-2(3.99e-05)]_112
-Type:S2G;breakpoint_wind         4.13e-11  38_[-2(6.22e-05)]_42_[+2(3.99e-05)]_\
-    26_[+1(1.22e-13)]_10_[-2(3.54e-06)]_109
-Type:S2G;breakpoint_wind         8.98e-08  52_[-2(3.99e-05)]_70_[+1(3.38e-11)]_\
-    9_[+2(4.40e-05)]_109
-Type:S2G;breakpoint_wind         1.52e-09  58_[+3(9.29e-08)]_21_[+2(8.82e-05)]_\
-    21_[+1(2.88e-09)]_140
-Type:S2G;breakpoint_wind         4.46e-09  111_[-2(1.51e-05)]_8_[+1(1.27e-11)]_\
-    5_[-2(3.61e-05)]_43_[-1(2.31e-11)]_43
-Type:S2G;breakpoint_wind         6.23e-08  130_[-1(4.45e-11)]_14_\
-    [+2(2.57e-05)]_111
-Type:S2G;breakpoint_wind         1.15e-10  98_[+2(6.71e-05)]_24_[+1(8.22e-10)]_\
-    88_[-3(2.65e-08)]_30
-Type:S2G;breakpoint_wind         1.57e-09  130_[-1(2.31e-11)]_24_\
-    [-2(3.54e-06)]_101
-Type:S2G;breakpoint_wind         3.68e-13  93_[-2(2.57e-05)]_29_[+1(5.81e-11)]_\
-    41_[+3(6.97e-09)]_60_[-2(7.87e-06)]_2
-Type:S2G;breakpoint_wind         4.75e-13  112_[+2(5.75e-05)]_9_[+1(1.02e-12)]_\
-    9_[-2(1.29e-05)]_11_[+3(3.18e-07)]_84
-Type:S2G;breakpoint_wind         1.78e-07  134_[+1(8.77e-10)]_70_\
-    [-2(2.85e-06)]_51
-Type:S2G;breakpoint_wind         4.29e-09  136_[+1(2.23e-13)]_134
-Type:S2G;breakpoint_wind         6.36e-10  134_[-1(1.93e-13)]_7_[+2(9.37e-05)]_\
-    114
-Type:S2G;breakpoint_wind         3.88e-11  52_[-2(6.54e-06)]_69_[+1(1.05e-13)]_\
-    27_[+2(7.87e-06)]_23_[-1(1.15e-11)]_39
-Type:S2G;breakpoint_wind         3.14e-12  111_[+2(7.94e-08)]_11_\
-    [+1(2.23e-13)]_133
-Type:S2G;breakpoint_wind         1.35e-08  117_[+2(9.93e-05)]_4_[+1(3.07e-12)]_\
-    134
-Type:S2G;breakpoint_wind         2.62e-11  134_[-1(7.82e-13)]_10_\
-    [-2(4.45e-07)]_111
-Type:S2G;breakpoint_wind         1.93e-07  77_[+2(8.29e-05)]_44_[+1(3.71e-11)]_\
-    134
-Type:S2G;breakpoint_wind         4.07e-10  99_[+2(1.10e-05)]_19_[-1(3.05e-09)]_\
-    33_[-3(1.67e-07)]_89
-Type:S2G;breakpoint_wind         1.68e-11  136_[+1(1.27e-11)]_91_\
-    [-3(7.36e-08)]_28
-Type:S2G;breakpoint_wind         1.19e-08  134_[-1(6.92e-11)]_16_\
-    [+2(1.51e-05)]_105
-Type:S2G;breakpoint_wind         1.22e-11  103_[+2(7.94e-08)]_18_\
-    [+1(1.49e-12)]_31_[-2(6.54e-06)]_88
-Type:S2G;breakpoint_wind         1.34e-09  65_[+2(4.39e-06)]_21_[+2(5.36e-06)]_\
-    21_[+1(5.42e-12)]_88_[-2(6.22e-05)]_30
-Type:S2G;breakpoint_wind         3.60e-09  105_[+2(5.28e-05)]_10_\
-    [+1(1.56e-11)]_37_[+2(2.26e-06)]_33_[-2(1.74e-05)]_4_[-2(3.61e-05)]_21
-Type:S2G;breakpoint_wind         4.79e-13  20_[-3(8.79e-07)]_78_[+2(2.90e-05)]_\
-    9_[+1(1.66e-13)]_133
+Type:S2G;breakpoint_wind         2.04e-11  10_[-1(4.85e-13)]_10
+Type:S2G;breakpoint_wind         5.77e-10  10_[+1(1.37e-11)]_10
+Type:S2G;breakpoint_wind         1.38e-09  9_[+1(3.28e-11)]_11
+Type:S2G;breakpoint_wind         2.38e-09  7_[+1(5.66e-11)]_13
+Type:S2G;breakpoint_wind         2.33e-12  10_[-1(5.55e-14)]_10
+Type:S2G;breakpoint_wind         9.02e-09  11_[-1(2.15e-10)]_9
+Type:S2G;breakpoint_wind         1.05e-08  3_[+1(2.51e-10)]_17
+Type:S2G;breakpoint_wind         2.50e-10  7_[+1(5.96e-12)]_13
+Type:S2G;breakpoint_wind         2.79e-10  7_[-1(6.64e-12)]_13
+Type:S2G;breakpoint_wind         1.05e-08  11_[-1(2.51e-10)]_9
+Type:S2G;breakpoint_wind         5.21e-10  6_[+1(1.24e-11)]_14
+Type:S2G;breakpoint_wind         2.05e-08  11_[-1(4.89e-10)]_9
+Type:S2G;breakpoint_wind         4.71e-10  10_[-1(1.12e-11)]_10
+Type:S2G;breakpoint_wind         6.03e-08  7_[+1(1.44e-09)]_13
+Type:S2G;breakpoint_wind         2.43e-13  10_[-1(5.78e-15)]_10
+Type:S2G;breakpoint_wind         2.94e-13  10_[+1(7.01e-15)]_10
+Type:S2G;breakpoint_wind         1.15e-10  10_[-1(2.73e-12)]_10
+Type:S2G;breakpoint_wind         3.89e-11  11_[-1(9.26e-13)]_9
+Type:S2G;breakpoint_wind         6.36e-11  9_[+1(1.52e-12)]_11
+Type:S2G;breakpoint_wind         1.29e-10  10_[+1(3.07e-12)]_10
+Type:S2G;breakpoint_wind         6.56e-09  10_[-1(1.56e-10)]_10
+Type:S2G;breakpoint_wind         2.72e-08  9_[+1(6.48e-10)]_11
+Type:S2G;breakpoint_wind         1.82e-09  10_[-1(4.33e-11)]_10
+Type:S2G;breakpoint_wind         1.38e-09  11_[-1(3.28e-11)]_9
+Type:S2G;breakpoint_wind         3.83e-10  9_[+1(9.12e-12)]_11
+Type:S2G;breakpoint_wind         7.77e-10  11_[-1(1.85e-11)]_9
+Type:S2G;breakpoint_wind         2.25e-10  3_[+1(5.35e-12)]_17
+Type:S2G;breakpoint_wind         1.15e-10  11_[-1(2.73e-12)]_9
 --------------------------------------------------------------------------------
 
 ********************************************************************************
 
 
 ********************************************************************************
-Stopped because requested number of motifs (3) found.
+Stopped because requested number of motifs (1) found.
 ********************************************************************************
 
-CPU: node-13-14
+CPU: farm22-head1
 
 ********************************************************************************

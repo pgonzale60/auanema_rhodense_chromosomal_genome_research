@@ -306,7 +306,7 @@ theme_panel <- theme_bw() + theme(
   axis.title.x = element_blank(),
   axis.text.x = element_blank(),
   axis.ticks.x = element_blank(),
-  plot.margin = margin(b = 8, t = 4, l = 5, r = 5)
+  plot.margin = margin(b = 4, t = 2, l = 5, r = 5)
 )
 
 # Sub-track parameters for Panel A
@@ -399,9 +399,13 @@ pA <- ggplot() +
   theme_panel +
   theme(
     legend.position = "top",
+    legend.justification = "right",
     legend.title = element_text(size = 7),
     legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "cm"),
+    plot.tag.position = c(0.005, 0.968),
+    plot.tag.location = "plot",
+    plot.tag = element_text(face = "bold", size = 11, hjust = 0, vjust = 0.5),
     axis.title.x = element_text(),
     axis.text.x = element_text(),
     axis.ticks.x = element_line(),
@@ -421,7 +425,12 @@ pB <- ggplot() +
   coord_cartesian(clip = "off") +
   labs(y = "Protein-coding genes", x = "Position (Mb)") +
   theme_panel +
-  theme(axis.title.x = element_text(), axis.text.x = element_text(), axis.ticks.x = element_line())
+  theme(
+    plot.margin = margin(b = 4, t = 4, l = 5, r = 5),
+    axis.title.x = element_text(),
+    axis.text.x = element_text(),
+    axis.ticks.x = element_line()
+  )
 
 # Panel C: RNA fractions (per 10 Kb window, stacked histogram, with high-contrast GRS background shading)
 pC <- ggplot() +
@@ -436,15 +445,16 @@ pC <- ggplot() +
   coord_cartesian(clip = "off") +
   scale_fill_brewer(palette = "Set1", drop = FALSE) +
   labs(y = "RNA Fraction", x = "Position (Mb)", fill = "RNA Type") +
-  guides(fill = guide_legend(nrow = 1, title.position = "top")) +
+  guides(fill = guide_legend(nrow = 1, title.position = "left")) +
   theme_panel +
   theme(
-    legend.position = "top",
+    legend.position = "bottom",
+    legend.justification = "center",
     legend.title = element_text(size = 7),
     legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "cm"),
     legend.spacing.x = unit(0.2, "cm"),
-    plot.margin = margin(b = 8, t = 4, l = 5, r = 5),
+    plot.margin = margin(b = 4, t = 4, l = 5, r = 5),
     axis.title.x = element_text(),
     axis.text.x = element_text(),
     axis.ticks.x = element_line()
@@ -452,11 +462,14 @@ pC <- ggplot() +
 
 # Combine
 message("Combining panels...")
-bottom_row <- (pB | pC) + plot_layout(widths = c(1, 1.5))
-combined <- (pA) / bottom_row +
-  plot_layout(heights = c(1.3, 1)) +
+layout_design <- "
+AAAAA
+BBCCC
+"
+combined <- pA + pB + pC +
+  plot_layout(design = layout_design, heights = c(1.3, 1)) +
   plot_annotation(tag_levels = "A") &
-  theme(plot.tag = element_text(face = "bold", size = 10))
+  theme(plot.tag = element_text(face = "bold", size = 11))
 
 ggsave(OUTPUT_PDF, combined, width = 175, height = 250, units = "mm", dpi = 300, device = "pdf")
 

@@ -108,3 +108,6 @@ ENV/
 # OS generated files
 Thumbs.db
 Desktop.ini
+
+# Auxiliary motif analysis (exploratory, not in manuscript)
+auxiliary_motif_analysis/

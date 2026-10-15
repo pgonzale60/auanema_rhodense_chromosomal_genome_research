@@ -13,26 +13,24 @@ MEME_AR <- "analyses/diminution/meme/meme_out/meme.txt"
 COV_BED <- "analyses/diminution/grs_visualization/SUPER_5_GRS_left_border.bed"
 TELO_TSV <- "analyses/genome_features/elim_coords/nxAuaRhod1.pb.miltel.telomeric.tsv.gz"
 FIMO_TSV <- "analyses/diminution/fimo_out/fimo.tsv.gz"
-GENOME_GRS <- "analyses/diminution/nxAuaRhod1_1.GRS.bed"
+GENOME_SEGMENTS <- "analyses/diminution/nxAuaRhod1_1.pde_segments.bed"
 GENOME_FA <- "nxAuaRhod1_1.primary.fa.gz"
 BREAK_SITES <- "analyses/genome_features/elim_coords/nxAuaRhod1_1.break_sites.tsv"
 
 #### DATA PREPARATION (PANELS B, C, D) ####
 
-# Load Regions
-grs <- read.table(GENOME_GRS, col.names = c("chr", "start", "end"))
-grs_gr <- GRanges(seqnames = grs$chr, ranges = IRanges(start = grs$start, end = grs$end))
-# Left breaks (1bp at start)
-breaks_left_gr <- GRanges(seqnames = grs$chr, ranges = IRanges(start = grs$start, end = grs$start + 1))
-breaks_right_gr <- GRanges(seqnames = grs$chr, ranges = IRanges(start = grs$end - 1, end = grs$end))
-breaks_all_gr <- c(breaks_left_gr, breaks_right_gr)
+# Load Segments (covering both assembled chromosomes and unplaced scaffolds)
+segments_df <- read.table(GENOME_SEGMENTS, col.names = c("chr", "start", "end", "type"))
+grs_segments <- segments_df %>% filter(type == "putative_GRS")
+grs_gr <- GRanges(seqnames = grs_segments$chr, ranges = IRanges(start = grs_segments$start, end = grs_segments$end))
 
-# Load FIMO hits
-chroms <- paste0("SUPER_", c(1:6, "X"))
+core_segments <- segments_df %>% filter(type == "putative_core")
+core_gr <- GRanges(seqnames = core_segments$chr, ranges = IRanges(start = core_segments$start, end = core_segments$end))
+
+# Load FIMO hits across all genomic sequences
 fimo_raw <- read_tsv(FIMO_TSV, comment = "#", show_col_types = FALSE) %>%
     filter(!is.na(score)) %>%
-    filter(motif_id == "TTTTGYTYAGGCTAAGCCTRWRCWAAAATW") %>%
-    filter(sequence_name %in% chroms) %>%
+    filter(motif_id == "WTTTWGYTHAGGCTKAGCCWAAACAAAAA") %>%
     arrange(desc(score))
 
 fimo_gr_all <- GRanges(
@@ -118,21 +116,21 @@ for (p in (n_tips + 1):(n_tips + n_nodes)) {
 }
 
 label_map <- c(
-    "Trichinella_spiralis" = "T. spiralis",
-    "Brugia_malayi" = "B. malayi",
-    "Parascaris_univalens" = "P. univalens",
-    "Toxocara_canis" = "T. canis",
-    "Ascaris_lumbricoides" = "A. lumbricoides",
-    "Ascaris_suum" = "A. suum",
-    "Pristionchus_pacificus" = "P. pacificus",
-    "Mesorhabditis_belari" = "M. belari",
+    "Trichinella_spiralis" = "Trichinella spiralis",
+    "Brugia_malayi" = "Brugia malayi",
+    "Parascaris_univalens" = "Parascaris univalens",
+    "Toxocara_canis" = "Toxocara canis",
+    "Ascaris_lumbricoides" = "Ascaris lumbricoides",
+    "Ascaris_suum" = "Ascaris suum",
+    "Pristionchus_pacificus" = "Pristionchus pacificus",
+    "Mesorhabditis_belari" = "Mesorhabditis belari",
     "Auanema_rhodense" = "Auanema rhodense",
-    "Oscheius_tipulae" = "O. tipulae",
-    "Caenorhabditis_auriculariae" = "C. auriculariae",
-    "Caenorhabditis_monodelphis" = "C. monodelphis",
-    "Caenorhabditis_parvicauda" = "C. parvicauda",
-    "Caenorhabditis_briggsae" = "C. briggsae",
-    "Caenorhabditis_elegans" = "C. elegans"
+    "Oscheius_tipulae" = "Oscheius tipulae",
+    "Caenorhabditis_auriculariae" = "Caenorhabditis auriculariae",
+    "Caenorhabditis_monodelphis" = "Caenorhabditis monodelphis",
+    "Caenorhabditis_parvicauda" = "Caenorhabditis parvicauda",
+    "Caenorhabditis_briggsae" = "Caenorhabditis briggsae",
+    "Caenorhabditis_elegans" = "Caenorhabditis elegans"
 )
 
 tips_df <- data.frame(
@@ -148,7 +146,7 @@ tips_df <- data.frame(
 half_step <- step_y / 2
 shade_df <- data.frame(
     xmin = tip_x + 0.1,
-    xmax = tip_x + 7.2,
+    xmax = tip_x + 11.2,
     ymin = c(y_vals[5] - half_step, y_vals[7] - half_step, y_vals[8] - half_step, y_vals[9] - half_step, y_vals[13] - half_step, y_vals[14] - half_step),
     ymax = c(y_vals[1] + half_step, y_vals[6] + half_step, y_vals[8] + half_step, y_vals[9] + half_step, y_vals[10] + half_step, y_vals[14] + half_step),
     category = c("Precise PDE", "No PDE", "Precise PDE", "No PDE", "Imprecise PDE", "No PDE"),
@@ -171,7 +169,7 @@ panel_cladogram <- ggplot() +
                  color = "#2b2b2b", linewidth = 0.6) +
     geom_text(data = tips_df,
               aes(x = x + 0.25, y = y, label = label),
-              fontface = "italic", hjust = 0, size = 3.05, color = "#222222") +
+              fontface = "italic", hjust = 0, size = 2.9, color = "#222222") +
     scale_fill_manual(name = NULL, values = bg_colors,
                       breaks = c("Precise PDE", "Imprecise PDE", "No PDE"),
                       guide = guide_legend(
@@ -179,7 +177,7 @@ panel_cladogram <- ggplot() +
                           byrow = TRUE,
                           override.aes = list(fill = c("#c7e9c0", "#fdd0a2", "#dadaeb"))
                       )) +
-    scale_x_continuous(limits = c(-0.5, tip_x + 7.2), expand = c(0, 0)) +
+    scale_x_continuous(limits = c(-0.5, tip_x + 11.2), expand = c(0, 0)) +
     scale_y_continuous(limits = c(-0.3, y_vals[1] + step_y * 0.95), expand = c(0, 0)) +
     theme_void() +
     theme(
@@ -199,8 +197,8 @@ panel_cladogram <- ggplot() +
 
 target_chrom <- "SUPER_5"
 target_boundary <- 16502174
-motif_hit_start <- 16502159
-motif_hit_end <- 16502188
+motif_hit_start <- 16502161
+motif_hit_end <- 16502189
 x_start <- 16502150
 x_end <- 16502198
 
@@ -277,11 +275,11 @@ panel_b <- ggplot() +
 motif_ot_stack <- motifStack::importMatrix(MEME_OT, format = "meme")
 motif_ar_stack <- motifStack::importMatrix(MEME_AR, format = "meme")
 
-spnames <- c("A. rhodense", "O. tipulae")
+spnames <- c("Auanema rhodense", "Oscheius tipulae")
 
-# Motif 1 of A. rhodense (30 bp) and O. tipulae motif (21 bp)
-p_ar <- new("pfm", mat = motif_ar_stack[[1]]@mat, name = "A. rhodense")
-p_ot <- new("pfm", mat = motif_ot_stack[[1]]@mat, name = "O. tipulae")
+# Motif 1 of A. rhodense (29 bp) and O. tipulae motif (29 bp)
+p_ar <- new("pfm", mat = motif_ar_stack[[1]]@mat, name = "Auanema rhodense")
+p_ot <- new("pfm", mat = motif_ot_stack[[1]]@mat, name = "Oscheius tipulae")
 
 ord_motifs <- list(p_ar, p_ot)
 
@@ -293,9 +291,9 @@ for (i in 1:length(pfmsAligned)) {
 }
 motifs_aligned <- motifs_aligned[spnames]
 
-ar_aligned_mat <- motifs_aligned[["A. rhodense"]]
+ar_aligned_mat <- motifs_aligned[["Auanema rhodense"]]
 align_pad_ar <- (which(sapply(
-    seq_len(ncol(ar_aligned_mat) - 30 + 1),
+    seq_len(ncol(ar_aligned_mat) - 29 + 1),
     function(ci) all(abs(ar_aligned_mat[, ci] - p_ar@mat[, 1]) < 0.001)
 ))[1]) - 1
 if (is.na(align_pad_ar)) align_pad_ar <- 0
@@ -353,15 +351,15 @@ fimo_gr_final <- GRanges(
 bps <- read.table(BREAK_SITES, header = TRUE)
 bps_gr <- GRanges(seqnames = bps$chrom, ranges = IRanges(start = bps$coordinate - 25, end = bps$coordinate + 25))
 
-fimo_gr_final$location <- "Retained Genome"
-fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated Region"
-fimo_gr_final$location[fimo_gr_final %over% bps_gr] <- "Break Site"
+fimo_gr_final$location <- "Retained core"
+fimo_gr_final$location[fimo_gr_final %over% grs_gr] <- "Eliminated regions"
+fimo_gr_final$location[fimo_gr_final %over% bps_gr] <- "Break sites"
 
 df_spec <- as.data.frame(fimo_gr_final) %>%
-    mutate(location = factor(location, levels = c("Break Site", "Eliminated Region", "Retained Genome")))
+    mutate(location = factor(location, levels = c("Break sites", "Eliminated regions", "Retained core")))
 
 # Programmatically obtain threshold from minimum score at authentic Break Sites
-min_bp_single <- min(df_spec$score[df_spec$location == "Break Site"], na.rm = TRUE)
+min_bp_single <- min(df_spec$score[df_spec$location == "Break sites"], na.rm = TRUE)
 
 # Keep positive/non-negative scores for plotting
 df_spec_plot <- df_spec %>% filter(score >= 0)
@@ -371,9 +369,9 @@ loc_counts <- df_spec_plot %>%
     summarise(n = n(), .groups = "drop")
 
 compartment_colors <- c(
-    "Break Site" = "#D9381E",
-    "Eliminated Region" = "#2171B5",
-    "Retained Genome" = "#238B45"
+    "Break sites" = "#D9381E",
+    "Eliminated regions" = "#2171B5",
+    "Retained core" = "#238B45"
 )
 
 max_score <- max(df_spec_plot$score, na.rm = TRUE)
@@ -384,19 +382,14 @@ panel_c <- ggplot(df_spec_plot, aes(x = location, y = score)) +
     geom_hline(yintercept = min_bp_single, linetype = "dotted", color = "black", linewidth = 0.6) +
     geom_text(data = loc_counts, aes(x = location, y = y_max_limit - 3, label = paste0("n=", n)), size = 2.6) +
     scale_color_manual(values = compartment_colors) +
-    scale_x_discrete(labels = c(
-        "Break Site" = "Break site",
-        "Eliminated Region" = "Eliminated region",
-        "Retained Genome" = "Retained genome"
-    )) +
     scale_y_continuous(breaks = seq(0, y_max_limit - 5, by = 10)) +
     coord_cartesian(ylim = c(-1, y_max_limit)) +
-    labs(x = "Genomic location", y = "Motif score (bits)", color = "") +
+    labs(x = NULL, y = "Motif score (bits)", color = "") +
     theme_bw() +
     theme(
         legend.position = "none",
         panel.grid = element_blank(),
-        axis.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 8.5),
         axis.text.y = element_text(size = 8),
         axis.title = element_text(size = 9, face = "plain")
     )

@@ -6,5 +6,5 @@
  
 **(C)** The Sequence for Elimination (SFE) associated with telomere addition sites in *A. rhodense* compared to the *O. tipulae* SFE. The SFEs have been aligned to highlight their similarity.
  
-**(D)** Single-strand motif match scores across genomic compartments. The horizontal black dotted line marks the minimum score observed at an authentic break site; the score threshold clearly separates authentic chromosome break sites from the retained somatic genome.
+**(D)** Single-strand motif match scores across genomic compartments (*Break sites*, *Eliminated regions*, and *Retained core*). The horizontal black dotted line marks the minimum score observed at an authentic break site ($23.87\text{ bits}$); authentic chromosome break sites and high-scoring eliminated sequences are cleanly separated from incidental background matches in the retained core genome.
 

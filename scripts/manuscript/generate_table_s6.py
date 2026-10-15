@@ -17,7 +17,7 @@ def generate_table_s6():
     fimo_path = project_root / "analyses/diminution/fimo_out/fimo.tsv.gz"
     out_tsv_path = project_root / "report/supplementary tables/Table_S6_SFE_coordinates.tsv"
 
-    target_motif = "TTTTGYTYAGGCTAAGCCTRWRCWAAAATW"
+    target_motif = "WTTTWGYTHAGGCTKAGCCWAAACAAAAA"
     canonical_chrs = {f"SUPER_{i}" for i in range(1, 7)} | {"SUPER_X"}
 
     # 1. Load 28 canonical break sites in chromosomal order
